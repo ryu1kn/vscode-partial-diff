@@ -19,6 +19,14 @@
       {
         "command": "extension.takeDiff",
         "title": "Take partial diff"
+      },
+      {
+        "command": "extension.markSection1",
+        "title": "Mark the selected text as 1st section to compare"
+      },
+      {
+        "command": "extension.markSection2AndTakeDiff",
+        "title": "Mark the selected text as 2nd section to compare and take diff"
       }
     ]
   },
