@@ -1,13 +1,13 @@
 
-const TakdDiffCommand = require('../../lib/take-diff-command');
+const DiffPresenter = require('../../lib/diff-presenter');
 
-suite('TakdDiffCommand', () => {
+suite('DiffPresenter', () => {
 
     test('it compares two texts', () => {
         const vscode = fakeVSCode();
         const logger = getLogger();
-        const promise = new TakdDiffCommand({vscode, logger}).execute();
-        return promise.then(() => {
+        const diffPresenter = new DiffPresenter({vscode, logger});
+        return diffPresenter.compare('TEXT_1', 'TEXT_2').then(() => {
             expect(vscode.workspace.openTextDocument.args).to.eql([
                 ['URI_INSTANCE_1'], ['URI_INSTANCE_2']
             ]);
