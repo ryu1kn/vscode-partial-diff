@@ -7,11 +7,10 @@ suite('App', () => {
 
         test('it saves selected text', () => {
             const vscode = fakeVSCode();
-            const logger = getLogger();
-            const textRegistry = {register: sinon.spy()};
-            const app = new App({vscode, logger, textRegistry});
+            const tempFileWriter = {write: sinon.spy()};
+            const app = new App({vscode, tempFileWriter});
             app.handleMarkSection1Command();
-            expect(textRegistry.register.args).to.eql([[0, 'SELECTED_TEXT']]);
+            expect(tempFileWriter.write).to.have.been.calledWith('SELECTED_TEXT');
         });
 
         test('it prints callstack if error occurred', () => {
@@ -29,12 +28,12 @@ suite('App', () => {
 
         test('it saves selected text', () => {
             const vscode = fakeVSCode();
-            const logger = getLogger();
-            const textRegistry = {read: sinon.stub().returns('SELECTED_TEXT_0')};
-            const diffPresenter = {compare: sinon.spy()};
-            const app = new App({vscode, logger, diffPresenter, textRegistry});
+            const logger = console;
+            const tempFileWriter = {write: sinon.stub().returns(Promise.resolve('FILE_PATH'))};
+            const diffPresenter = {takeDiff: sinon.spy()};
+            const app = new App({vscode, logger, diffPresenter, tempFileWriter});
             return app.handleMarkSection2AndTakeDiffCommand().then(() => {
-                expect(diffPresenter.compare.args).to.eql([['SELECTED_TEXT_0', 'SELECTED_TEXT']]);
+                expect(diffPresenter.takeDiff).to.have.been.calledWith(null, 'FILE_PATH');
             });
         });
 
@@ -58,9 +57,5 @@ suite('App', () => {
             }
         };
         return {window};
-    }
-
-    function getLogger() {
-        return {error: () => {}};
     }
 });
