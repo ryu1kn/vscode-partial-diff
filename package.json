@@ -11,7 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.markSection1"
+    "onCommand:extension.markSection1",
+    "onCommand:extension.markSection2AndTakeDiff"
   ],
   "main": "./extension",
   "contributes": {
