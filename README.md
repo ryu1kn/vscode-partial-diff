@@ -26,6 +26,6 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
 
 ## Release Notes
 
-### 0.1.0
+### 0.0.1
 
 Initial release of partial-diff
