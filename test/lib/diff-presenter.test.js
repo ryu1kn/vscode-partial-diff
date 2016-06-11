@@ -8,7 +8,7 @@ suite('DiffPresenter', () => {
         const diffPresenter = new DiffPresenter({vscode});
         return diffPresenter.takeDiff('/PATH/TO/FILE1', '/PATH/TO/FILE2').then(() => {
             expect(vscode.commands.executeCommand).to.have.been.calledWith(
-                'vscode.diff', 'URI_INSTANCE_1', 'URI_INSTANCE_2'
+                'vscode.diff', 'URI_INSTANCE_1', 'URI_INSTANCE_2', 'partial-diff'
             );
             expect(vscode.Uri.parse.args).to.eql([
                 ['file://%2FPATH%2FTO%2FFILE1'],
