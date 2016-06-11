@@ -4,6 +4,15 @@
   "description": "Take a diff of 2 parts of text(s)",
   "version": "0.0.1",
   "publisher": "ryu1kn",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/ryu1kn/vscode-partial-diff/issues"
+  },
+  "homepage": "https://github.com/ryu1kn/vscode-partial-diff/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ryu1kn/vscode-partial-diff.git"
+  },
   "engines": {
     "vscode": "^1.0.0"
   },
