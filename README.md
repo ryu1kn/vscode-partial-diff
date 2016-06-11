@@ -26,6 +26,10 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
 
 ## Release Notes
 
+### 0.0.2
+
+* Fix the problem that the gif animation is not shown
+
 ### 0.0.1
 
-Initial release of partial-diff
+* Initial release of partial-diff
