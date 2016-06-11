@@ -4,7 +4,7 @@
 
 Take a diff of 2 parts of text(s).
 
-![Select 2 texts and take diff](./images/select-2-texts-and-take-diff.gif)
+![Select 2 texts and take diff](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
 
 ## Commands
 
