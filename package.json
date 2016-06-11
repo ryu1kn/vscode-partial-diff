@@ -11,18 +11,18 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.markSection1",
-    "onCommand:extension.markSection2AndTakeDiff"
+    "onCommand:extension.partialDiff.markSection1",
+    "onCommand:extension.partialDiff.markSection2AndTakeDiff"
   ],
   "main": "./extension",
   "contributes": {
     "commands": [
       {
-        "command": "extension.markSection1",
+        "command": "extension.partialDiff.markSection1",
         "title": "Mark the selected text as 1st section to compare"
       },
       {
-        "command": "extension.markSection2AndTakeDiff",
+        "command": "extension.partialDiff.markSection2AndTakeDiff",
         "title": "Mark the selected text as 2nd section to compare and take diff"
       }
     ]
