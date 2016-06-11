@@ -19,6 +19,9 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "vscode", "diff"
+  ],
   "activationEvents": [
     "onCommand:extension.partialDiff.markSection1",
     "onCommand:extension.partialDiff.markSection2AndTakeDiff"
