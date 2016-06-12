@@ -2,7 +2,7 @@
 
 ## Features
 
-Take a diff of 2 parts of text(s).
+You can take a diff of 2 parts within one file, as well as 2 parts from 2 different files.
 
 ![Select 2 texts and take diff](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
 
@@ -25,6 +25,10 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
 ```
 
 ## Release Notes
+
+### 0.0.3
+
+* Added the extension icon (thanks to @tauri_34 !)
 
 ### 0.0.2
 

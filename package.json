@@ -2,9 +2,10 @@
   "name": "partial-diff",
   "displayName": "Partial Diff",
   "description": "Take a diff of 2 parts of text(s)",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
+  "icon": "images/partial-diff_128x128.png",
   "bugs": {
     "url": "https://github.com/ryu1kn/vscode-partial-diff/issues"
   },
