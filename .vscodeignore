@@ -2,5 +2,6 @@
 typings/**
 test/**
 .gitignore
+.editorconfig
 jsconfig.json
 vsc-extension-quickstart.md
