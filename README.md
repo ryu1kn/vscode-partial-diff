@@ -26,6 +26,10 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
 
 ## Release Notes
 
+### 0.0.4
+
+* Fixed the problem that it was not working on windows
+
 ### 0.0.3
 
 * Added the extension icon (thanks to @tauri_34 !)
