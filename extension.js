@@ -8,8 +8,9 @@ const Bootstrapper = require('./lib/bootstrapper');
 
 exports.activate = context => {
     const logger = console;
+    const vscCommands = vscode.commands;
     const appFactory = new AppFactory({vscode, logger, fs, temp});
-    new Bootstrapper({appFactory, vscode}).initiate(context);
+    new Bootstrapper({appFactory, vscCommands}).initiate(context);
 };
 
 exports.deactivate = () => {};
