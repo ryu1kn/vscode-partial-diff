@@ -43,10 +43,14 @@
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test-mode": "mocha test --recursive --ui tdd --watch"
+    "test": "mocha test --recursive --ui tdd",
+    "test-mode": "mocha test --recursive --ui tdd --watch",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^2.12.0",
+    "eslint-config-xo": "^0.15.0",
     "mocha": "^2.5.3",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",

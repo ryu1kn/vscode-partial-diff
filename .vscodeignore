@@ -3,5 +3,6 @@ typings/**
 test/**
 .gitignore
 .editorconfig
+.eslintrc.yaml
 jsconfig.json
 vsc-extension-quickstart.md

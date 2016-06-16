@@ -1,0 +1,8 @@
+globals:
+  expect: true
+  sinon: true
+  suite: true
+  test: true
+rules:
+  no-unused-expressions: off
+  padded-blocks: off
