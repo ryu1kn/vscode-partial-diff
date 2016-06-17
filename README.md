@@ -26,6 +26,10 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
 
 ## Release Notes
 
+### 0.1.0
+
+* Marking a text without selecting a part of text will mark the entire text
+
 ### 0.0.4
 
 * Fixed the problem that it was not working on windows

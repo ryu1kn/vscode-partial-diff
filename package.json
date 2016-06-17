@@ -2,7 +2,7 @@
   "name": "partial-diff",
   "displayName": "Partial Diff",
   "description": "Take a diff of 2 parts of text(s)",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
   "icon": "images/partial-diff_128x128.png",
@@ -55,6 +55,5 @@
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
     "vscode": "^0.11.0"
-  },
-  "dependencies": {}
+  }
 }
