@@ -42,15 +42,17 @@
     ]
   },
   "scripts": {
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- test --recursive --ui tdd",
+    "lint": "eslint .",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "mocha test --recursive --ui tdd",
-    "test-mode": "mocha test --recursive --ui tdd --watch",
-    "lint": "eslint ."
+    "test-mode": "mocha test --recursive --ui tdd --watch"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^2.12.0",
     "eslint-config-xo": "^0.15.0",
+    "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",

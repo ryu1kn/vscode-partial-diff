@@ -1,8 +1,11 @@
 .vscode/**
 typings/**
 test/**
+coverage/**
+__*
 .gitignore
 .editorconfig
+.eslintignore
 .eslintrc.yaml
 jsconfig.json
 vsc-extension-quickstart.md
