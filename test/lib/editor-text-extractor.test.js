@@ -9,6 +9,12 @@ suite('EditorTextExtractor', () => {
         expect(extractor.extract(editor)).to.eql('SELECTED_TEXT');
     });
 
+    test('it extracts a whole text if no text is currently selected', () => {
+        const extractor = new EditorTextExtractor();
+        const editor = fakeEditor('');
+        expect(extractor.extract(editor)).to.eql('ENTIRE TEXT ');
+    });
+
     function fakeEditor(selectedText) {
         return {
             selection: {
