@@ -7,5 +7,7 @@ __*
 .editorconfig
 .eslintignore
 .eslintrc.yaml
+.travis.yml
+.codeclimate.yml
 jsconfig.json
 vsc-extension-quickstart.md

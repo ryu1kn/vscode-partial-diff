@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "codeclimate-test-reporter": "^0.4.0",
     "eslint": "^2.12.0",
     "eslint-config-xo": "^0.15.0",
     "istanbul": "^0.4.4",
