@@ -24,24 +24,10 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
                         "when": "editorTextFocus" }
 ```
 
-## Release Notes
+## Request Features or Report Bugs
 
-### 0.1.0
+* https://github.com/ryu1kn/vscode-partial-diff/issues
 
-* Marking a text without selecting a part of text will mark the entire text
+## Changelog
 
-### 0.0.4
-
-* Fixed the problem that it was not working on windows
-
-### 0.0.3
-
-* Added the extension icon (thanks to @tauri_34 !)
-
-### 0.0.2
-
-* Fix the problem that the gif animation is not shown
-
-### 0.0.1
-
-* Initial release of partial-diff
+* https://github.com/ryu1kn/vscode-partial-diff/blob/master/CHANGELOG.md
