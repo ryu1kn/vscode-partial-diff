@@ -9,5 +9,6 @@ __*
 .eslintrc.yaml
 .travis.yml
 .codeclimate.yml
+.nvmrc
 jsconfig.json
 vsc-extension-quickstart.md
