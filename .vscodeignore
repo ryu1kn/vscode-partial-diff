@@ -10,5 +10,6 @@ __*
 .travis.yml
 .codeclimate.yml
 .nvmrc
+cli-test-mocha.opts
 jsconfig.json
 vsc-extension-quickstart.md
