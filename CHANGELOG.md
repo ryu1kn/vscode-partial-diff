@@ -1,4 +1,8 @@
 
+### 0.2.0: 3 Dec 2016
+
+* Make commands available in the right click menu (editor context menu)
+
 ### 0.1.0: 17 June 2016
 
 * Marking a text without selecting a part of text will mark the entire text

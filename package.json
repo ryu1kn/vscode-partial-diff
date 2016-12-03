@@ -39,7 +39,21 @@
         "command": "extension.partialDiff.markSection2AndTakeDiff",
         "title": "PartialDiff: Mark 2nd text and Take diff"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus",
+          "command": "extension.partialDiff.markSection1",
+          "group": "2_partialdiff"
+        },
+        {
+          "when": "editorTextFocus",
+          "command": "extension.partialDiff.markSection2AndTakeDiff",
+          "group": "2_partialdiff"
+        }
+      ]
+    }
   },
   "scripts": {
     "coverage": "istanbul cover ./node_modules/.bin/_mocha -- test --recursive --ui tdd",
