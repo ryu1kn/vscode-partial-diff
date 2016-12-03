@@ -2,7 +2,7 @@
   "name": "partial-diff",
   "displayName": "Partial Diff",
   "description": "Take a diff of 2 parts of text(s)",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
   "icon": "images/partial-diff_128x128.png",
