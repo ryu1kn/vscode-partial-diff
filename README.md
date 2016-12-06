@@ -13,7 +13,10 @@ You can take a diff of 2 parts within one file, as well as 2 parts from 2 differ
 * `PartialDiff: Mark 1st text`: Mark the selected text as the 1st text to compare.
 * `PartialDiff: Mark 2nd text and Take diff`: Mark the selected text as the 2nd text and compare it with the 1st.
 
-Diff will be taken only after selecting the 2nd text.
+**NOTE:**
+
+* Diff will be taken only after selecting the 2nd text
+* Executing "mark text" command without selecting any text will select the entire text of the current file
 
 ## Keyboard Shortcuts
 
