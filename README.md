@@ -29,6 +29,12 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
                         "when": "editorTextFocus" }
 ```
 
+## Known problems
+
+* If you want to compare texts in Output channels, you need to execute the mark text commands through
+  keyboard shortcuts or context menu (i.e. right-click menu). Executing the commands through the command palette
+  doesn't work. See [Cannot compare texts in Outputs channel if the mark text commands are executed from the command palette](https://github.com/ryu1kn/vscode-partial-diff/issues/3).
+
 ## Request Features or Report Bugs
 
 * https://github.com/ryu1kn/vscode-partial-diff/issues
