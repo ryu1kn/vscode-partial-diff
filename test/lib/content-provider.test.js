@@ -5,9 +5,7 @@ suite('ContentProvider', () => {
 
     test('it extracts text key from the given uri and uses it to retrieve text', () => {
         const textRegistry = {
-            get: key => {
-                return { text: `TEXT_${key}` };
-            }
+            get: key => {return {text: `TEXT_${key}`};}
         };
         const textResourceUtil = {getTextKey: uri => uri.replace('URI_', '')};
         const contentProvider = new ContentProvider({textRegistry, textResourceUtil});

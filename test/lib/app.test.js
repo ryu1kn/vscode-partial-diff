@@ -51,15 +51,23 @@ suite('App', () => {
         test('it saves selected text and takes a diff of 2 texts', () => {
             const editorTextExtractor = {extract: () => {}};
             const textRegistry = {
-                get: () => {return {text: '', fileName: 'FILENAME_1'}},
-                set: () => {return {text: '', fileName: 'FILENAME_2'}}
+                get: () => {return {text: '', fileName: 'FILENAME_1'};},
+                set: () => {return {text: '', fileName: 'FILENAME_2'};}
             };
             const textResourceUtil = {getUri: textKey => `__${textKey}__`};
             const diffPresenter = {takeDiff: sinon.spy()};
-            const app = new App({diffPresenter, editorTextExtractor, textRegistry, textResourceUtil, vscode, path});
+            const app = new App({
+                diffPresenter,
+                editorTextExtractor,
+                textRegistry,
+                textResourceUtil,
+                vscode,
+                path
+            });
 
             return app.saveSelectionAsText2AndTakeDiff(editor).then(() => {
-                expect(diffPresenter.takeDiff).to.have.been.calledWith('FILENAME_1 \u2194 FILENAME_2', '__1__', '__2__');
+                expect(diffPresenter.takeDiff).to.have.been.calledWith('FILENAME_1 \u2194 FILENAME_2',
+                    '__1__', '__2__');
             });
         });
 
