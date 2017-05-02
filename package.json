@@ -33,11 +33,13 @@
     "commands": [
       {
         "command": "extension.partialDiff.markSection1",
-        "title": "PartialDiff: Mark 1st text"
+        "title": "Select Text for Compare",
+        "category": "PartialDiff"
       },
       {
         "command": "extension.partialDiff.markSection2AndTakeDiff",
-        "title": "PartialDiff: Mark 2nd text and Take diff"
+        "title": "Compare Text with Previous Selection",
+        "category": "PartialDiff"
       }
     ],
     "menus": {
