@@ -6,7 +6,8 @@ suite('Bootstrapper', () => {
     test('it registers commands', () => {
         const app = {
             saveSelectionAsText1: () => 'saveSelectionAsText1 called',
-            saveSelectionAsText2AndTakeDiff: () => 'saveSelectionAsText2AndTakeDiff called'
+            saveSelectionAsText2AndTakeDiff: () => 'saveSelectionAsText2AndTakeDiff called',
+            diffSelectionWithClipboard: () => 'diffSelectionWithClipboard called'
         };
         const commands = fakeVSCodeCommands();
         const extensionScheme = 'EXTENSION_SCHEME';
@@ -26,7 +27,8 @@ suite('Bootstrapper', () => {
         expect(context.subscriptions).to.eql([
             'DISPOSABLE_scheme',
             'DISPOSABLE_extension.partialDiff.markSection1',
-            'DISPOSABLE_extension.partialDiff.markSection2AndTakeDiff'
+            'DISPOSABLE_extension.partialDiff.markSection2AndTakeDiff',
+            'DISPOSABLE_extension.partialDiff.diffSelectionWithClipboard'
         ]);
     });
 
