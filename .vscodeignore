@@ -3,6 +3,7 @@ typings/**
 test/**
 coverage/**
 __*
+.gitattributes
 .gitignore
 .editorconfig
 .eslintignore
