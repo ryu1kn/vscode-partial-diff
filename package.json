@@ -45,24 +45,23 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "extension.partialDiff.markSection1",
-          "when": "editorHasSelection"
+          "command": "extension.partialDiff.markSection1"
         },
         {
           "command": "extension.partialDiff.markSection2AndTakeDiff",
-          "when": "editorHasSelection && partialDiff:hasSelectedText"
+          "when": "partialDiff:hasSelectedText"
         }
       ],
       "editor/context": [
         {
           "command": "extension.partialDiff.markSection1",
           "group": "2_partialdiff",
-          "when": "editorTextFocus && editorHasSelection"
+          "when": "editorTextFocus"
         },
         {
           "command": "extension.partialDiff.markSection2AndTakeDiff",
           "group": "2_partialdiff",
-          "when": "editorTextFocus && editorHasSelection && partialDiff:hasSelectedText"
+          "when": "editorTextFocus && partialDiff:hasSelectedText"
         }
       ]
     }
