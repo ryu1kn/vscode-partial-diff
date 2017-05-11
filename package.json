@@ -43,15 +43,6 @@
       }
     ],
     "menus": {
-      "commandPalette": [
-        {
-          "command": "extension.partialDiff.markSection1"
-        },
-        {
-          "command": "extension.partialDiff.markSection2AndTakeDiff",
-          "when": "partialDiff:hasSelectedText"
-        }
-      ],
       "editor/context": [
         {
           "command": "extension.partialDiff.markSection1",
@@ -61,7 +52,7 @@
         {
           "command": "extension.partialDiff.markSection2AndTakeDiff",
           "group": "2_partialdiff",
-          "when": "editorTextFocus && partialDiff:hasSelectedText"
+          "when": "editorTextFocus"
         }
       ]
     }
