@@ -4,23 +4,23 @@
 
 ## Features
 
-You can take a diff of 2 parts within one file, as well as 2 parts from 2 different files.
+You can compare (diff) two text selections within a file or across different files.
 
-![Select 2 texts and take diff](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
+![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
 
 ## Commands
 
-* `PartialDiff: Mark 1st text`: Mark the selected text as the 1st text to compare.
-* `PartialDiff: Mark 2nd text and Take diff`: Mark the selected text as the 2nd text and compare it with the 1st.
+* `Select Text for Compare`: Marks the selected text as the text to compare the next selection with.
+* `Compare Text with Previous Selection`: Compares the selected text to the first selection.
 
 **NOTE:**
 
-* Diff will be taken only after selecting the 2nd text
-* Executing "mark text" command without selecting any text will select the entire text of the current file
+* A diff will be shown only after selecting comparison text first (using `Select Text for Compare`)
+* Executing the `Select Text for Compare` or `Compare Text with Previous Selection` command without selecting any text will use the entire text of the current file
 
 ## Keyboard Shortcuts
 
-You can quickly mark a selected text by registering the `partial-diff` commands to your keyboard shortcut settings. For example:
+You can quickly mark the selected text by adding the `partial-diff` commands to your keyboard shortcut settings. For example:
 
 ```json
   { "key": "ctrl+1", "command": "extension.partialDiff.markSection1",
@@ -31,9 +31,7 @@ You can quickly mark a selected text by registering the `partial-diff` commands 
 
 ## Known problems
 
-* If you want to compare texts in Output channels, you need to execute the mark text commands through
-  keyboard shortcuts or context menu (i.e. right-click menu). Executing the commands through the command palette
-  doesn't work. See [Cannot compare texts in Outputs channel if the mark text commands are executed from the command palette](https://github.com/ryu1kn/vscode-partial-diff/issues/3).
+* If you want to compare text in Output channels, you'll need to execute the commands via keyboard shortcuts or the context menu (i.e. right-click menu). Executing the commands through the command palette doesn't work. See [Cannot compare texts in Outputs channel if the mark text commands are executed from the command palette](https://github.com/ryu1kn/vscode-partial-diff/issues/3).
 
 ## Request Features or Report Bugs
 

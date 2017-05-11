@@ -1,7 +1,7 @@
 {
   "name": "partial-diff",
   "displayName": "Partial Diff",
-  "description": "Take a diff of 2 parts of text(s)",
+  "description": "Compare (diff) two text selections within a file or across files",
   "version": "0.2.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
@@ -33,24 +33,35 @@
     "commands": [
       {
         "command": "extension.partialDiff.markSection1",
-        "title": "PartialDiff: Mark 1st text"
+        "title": "Select Text for Compare",
+        "category": "PartialDiff"
       },
       {
         "command": "extension.partialDiff.markSection2AndTakeDiff",
-        "title": "PartialDiff: Mark 2nd text and Take diff"
+        "title": "Compare Text with Previous Selection",
+        "category": "PartialDiff"
       }
     ],
     "menus": {
-      "editor/context": [
+      "commandPalette": [
         {
-          "when": "editorTextFocus",
-          "command": "extension.partialDiff.markSection1",
-          "group": "2_partialdiff"
+          "command": "extension.partialDiff.markSection1"
         },
         {
-          "when": "editorTextFocus",
           "command": "extension.partialDiff.markSection2AndTakeDiff",
-          "group": "2_partialdiff"
+          "when": "partialDiff:hasSelectedText"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "extension.partialDiff.markSection1",
+          "group": "2_partialdiff",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "extension.partialDiff.markSection2AndTakeDiff",
+          "group": "2_partialdiff",
+          "when": "editorTextFocus && partialDiff:hasSelectedText"
         }
       ]
     }
