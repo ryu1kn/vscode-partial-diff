@@ -49,18 +49,6 @@
       }
     ],
     "menus": {
-      "commandPalette": [
-        {
-          "command": "extension.partialDiff.markSection1"
-        },
-        {
-          "command": "extension.partialDiff.markSection2AndTakeDiff",
-          "when": "partialDiff:hasSelectedText"
-        },
-        {
-          "command": "extension.partialDiff.diffSelectionWithClipboard"
-        }
-      ],
       "editor/context": [
         {
           "command": "extension.partialDiff.markSection2AndTakeDiff",

@@ -11,12 +11,6 @@ const editor = {
     }
 };
 
-const vscode = {
-    commands: {
-        executeCommand: () => {}
-    }
-};
-
 suite('App', () => {
 
     suite('#saveSelectionAsText1', () => {
@@ -24,7 +18,7 @@ suite('App', () => {
         test('it saves selected text', () => {
             const editorTextExtractor = {extract: stubWithArgs([editor], 'SELECTED_TEXT')};
             const textRegistry = {set: sinon.spy()};
-            const app = new App({editorTextExtractor, textRegistry, vscode, path});
+            const app = new App({editorTextExtractor, textRegistry, path});
             app.saveSelectionAsText1(editor);
             expect(textRegistry.set).to.have.been.calledWith('1', 'SELECTED_TEXT', 'FILENAME', null);
         });
@@ -40,7 +34,7 @@ suite('App', () => {
             const logger = {error: sinon.spy()};
             const editorTextExtractor = {extract: sinon.stub().returns('SELECTED_TEXT')};
             const textRegistry = {set: sinon.stub().throws(new Error('WRITE_ERROR'))};
-            const app = new App({logger, editorTextExtractor, textRegistry, vscode, path});
+            const app = new App({logger, editorTextExtractor, textRegistry, path});
             app.saveSelectionAsText1(editor);
             expect(logger.error.args[0][0].slice(0, 18)).to.eql('Error: WRITE_ERROR');
         });
@@ -61,7 +55,6 @@ suite('App', () => {
                 editorTextExtractor,
                 textRegistry,
                 textResourceUtil,
-                vscode,
                 path
             });
 
