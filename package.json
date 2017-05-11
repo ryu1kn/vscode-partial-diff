@@ -2,7 +2,7 @@
   "name": "partial-diff",
   "displayName": "Partial Diff",
   "description": "Compare (diff) two text selections within a file or across files",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
   "icon": "images/partial-diff_128x128.png",

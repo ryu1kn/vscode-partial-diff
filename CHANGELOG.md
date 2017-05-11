@@ -1,4 +1,9 @@
 
+### 0.3.0: XX XXX 2017
+
+* Show file names and line numbers of the compared text as the title of the diff view (thanks to @eamodio ! PR #5)
+* Revised command labels (thanks to @eamodio ! PR #5)
+
 ### 0.2.0: 3 Dec 2016
 
 * Make commands available in the right click menu (editor context menu)
