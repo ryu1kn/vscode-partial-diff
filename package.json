@@ -1,7 +1,7 @@
 {
   "name": "partial-diff",
   "displayName": "Partial Diff",
-  "description": "Take a diff of 2 parts of text(s)",
+  "description": "Compare (diff) two text selections within a file or across files",
   "version": "0.2.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",

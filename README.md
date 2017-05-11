@@ -4,9 +4,9 @@
 
 ## Features
 
-You can compare (diff) two text selections within a file, as well as across different files.
+You can compare (diff) two text selections within a file or across different files.
 
-![Select 2 texts and take diff](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
+![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
 
 ## Commands
 
@@ -15,7 +15,7 @@ You can compare (diff) two text selections within a file, as well as across diff
 
 **NOTE:**
 
-* A diff will be shown only after selecting comparision text first (using `Select Text for Compare`)
+* A diff will be shown only after selecting comparison text first (using `Select Text for Compare`)
 * Executing the `Select Text for Compare` or `Compare Text with Previous Selection` command without selecting any text will use the entire text of the current file
 
 ## Keyboard Shortcuts
