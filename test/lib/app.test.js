@@ -20,7 +20,14 @@ suite('App', () => {
             const textRegistry = {set: sinon.spy()};
             const app = new App({editorTextExtractor, textRegistry, path});
             app.saveSelectionAsText1(editor);
-            expect(textRegistry.set).to.have.been.calledWith('1', 'SELECTED_TEXT', 'FILENAME', null);
+            expect(textRegistry.set).to.have.been.calledWith(
+                '1',
+                {
+                    text: 'SELECTED_TEXT',
+                    fileName: 'FILENAME',
+                    lineRange: null
+                }
+            );
         });
 
         test('it prints callstack if error occurred', () => {
@@ -43,24 +50,20 @@ suite('App', () => {
     suite('#saveSelectionAsText2AndTakeDiff', () => {
 
         test('it saves selected text and takes a diff of 2 texts', () => {
-            const editorTextExtractor = {extract: () => {}};
-            const textRegistry = {
-                get: () => {return {text: '', fileName: 'FILENAME_1'};},
-                set: () => {return {text: '', fileName: 'FILENAME_2'};}
-            };
-            const textResourceUtil = {getUri: textKey => `__${textKey}__`};
+            const editorTextExtractor = {extract: stubWithArgs([editor], 'SELECTED_TEXT')};
+            const textRegistry = {set: sinon.spy()};
             const diffPresenter = {takeDiff: sinon.spy()};
-            const app = new App({
-                diffPresenter,
-                editorTextExtractor,
-                textRegistry,
-                textResourceUtil,
-                path
-            });
-
+            const app = new App({diffPresenter, editorTextExtractor, textRegistry});
             return app.saveSelectionAsText2AndTakeDiff(editor).then(() => {
-                expect(diffPresenter.takeDiff).to.have.been.calledWith('FILENAME_1 \u2194 FILENAME_2',
-                    '__1__', '__2__');
+                expect(textRegistry.set).to.have.been.calledWith(
+                    '2',
+                    {
+                        text: 'SELECTED_TEXT',
+                        fileName: 'FILENAME',
+                        lineRange: null
+                    }
+                );
+                expect(diffPresenter.takeDiff).to.have.been.calledWith();
             });
         });
 
