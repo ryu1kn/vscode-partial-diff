@@ -1,9 +1,9 @@
 
 ### 0.3.0: XX XXX 2017
 
-* Added a feature to compare text against clipboard contents (thanks to @eamodio ! PR #6)
-* Show file names and line numbers of the compared text as the title of the diff view (thanks to @eamodio ! PR #5)
-* Revised command labels (thanks to @eamodio ! PR #5)
+* Added a feature to compare text against clipboard contents (thanks to @eamodio ! [PR #6](https://github.com/ryu1kn/vscode-partial-diff/pull/6))
+* Show file names and line numbers of the compared text as the title of the diff view (thanks to @eamodio ! [PR #5](https://github.com/ryu1kn/vscode-partial-diff/pull/5))
+* Revised command labels (thanks to @eamodio ! [PR #5](https://github.com/ryu1kn/vscode-partial-diff/pull/5))
 
 ### 0.2.0: 3 Dec 2016
 
