@@ -1,6 +1,5 @@
 
 const App = require('../../lib/app');
-const path = require('path');
 
 const editor = {
     document: {
@@ -18,7 +17,7 @@ suite('App', () => {
         test('it saves selected text', () => {
             const editorTextExtractor = {extract: stubWithArgs([editor], 'SELECTED_TEXT')};
             const textRegistry = {set: sinon.spy()};
-            const app = new App({editorTextExtractor, textRegistry, path});
+            const app = new App({editorTextExtractor, textRegistry});
             app.saveSelectionAsText1(editor);
             expect(textRegistry.set).to.have.been.calledWith(
                 'reg1',
@@ -41,9 +40,9 @@ suite('App', () => {
             const logger = {error: sinon.spy()};
             const editorTextExtractor = {extract: sinon.stub().returns('SELECTED_TEXT')};
             const textRegistry = {set: sinon.stub().throws(new Error('WRITE_ERROR'))};
-            const app = new App({logger, editorTextExtractor, textRegistry, path});
+            const app = new App({logger, editorTextExtractor, textRegistry});
             app.saveSelectionAsText1(editor);
-            expect(logger.error.args[0][0].slice(0, 18)).to.eql('Error: WRITE_ERROR');
+            expect(logger.error.args[0][0]).to.have.string('Error: WRITE_ERROR');
         });
     });
 
@@ -63,7 +62,7 @@ suite('App', () => {
                         lineRange: null
                     }
                 );
-                expect(diffPresenter.takeDiff).to.have.been.calledWith();
+                expect(diffPresenter.takeDiff).to.have.been.calledWith('reg1', 'reg2');
             });
         });
 
