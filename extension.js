@@ -1,4 +1,3 @@
-'use strict';
 
 const BootstrapperFactory = require('./lib/bootstrapper-factory');
 
