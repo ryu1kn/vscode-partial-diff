@@ -26,7 +26,7 @@ rules:
   # eslint doesn't have jscs's maximumLineLength allExcept:regex
   # see. https://github.com/eslint/eslint/issues/5805
   max-len:
-  - error
+  - warn
   - code: 110
     ignoreTrailingComments: true
     ignoreUrls: true

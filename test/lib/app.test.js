@@ -21,7 +21,7 @@ suite('App', () => {
             const app = new App({editorTextExtractor, textRegistry, path});
             app.saveSelectionAsText1(editor);
             expect(textRegistry.set).to.have.been.calledWith(
-                '1',
+                'reg1',
                 {
                     text: 'SELECTED_TEXT',
                     fileName: 'FILENAME',
@@ -56,7 +56,7 @@ suite('App', () => {
             const app = new App({diffPresenter, editorTextExtractor, textRegistry});
             return app.saveSelectionAsText2AndTakeDiff(editor).then(() => {
                 expect(textRegistry.set).to.have.been.calledWith(
-                    '2',
+                    'reg2',
                     {
                         text: 'SELECTED_TEXT',
                         fileName: 'FILENAME',
