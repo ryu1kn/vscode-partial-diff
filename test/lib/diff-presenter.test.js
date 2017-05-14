@@ -7,20 +7,21 @@ suite('DiffPresenter', () => {
         const commands = fakeCommands();
         const textRegistry = {
             get: stubWithArgs(
-                ['1'], {fileName: 'FILE_NAME_1'},
-                ['2'], {fileName: 'FILE_NAME_2'}
+                ['TEXT1'], 'TEXT_INFO_1',
+                ['TEXT2'], 'TEXT_INFO_2'
             )
         };
+        const textTitleBuilder = {build: textKey => `TITLE_${textKey}`};
         const textResourceUtil = {
             getUri: stubWithArgs(
-                ['1'], 'URI_INSTANCE_1',
-                ['2'], 'URI_INSTANCE_2'
+                ['TEXT1'], 'URI_INSTANCE_1',
+                ['TEXT2'], 'URI_INSTANCE_2'
             )
         };
-        const diffPresenter = new DiffPresenter({commands, textRegistry, textResourceUtil});
-        return diffPresenter.takeDiff('1', '2').then(() => {
+        const diffPresenter = new DiffPresenter({commands, textTitleBuilder, textRegistry, textResourceUtil});
+        return diffPresenter.takeDiff('TEXT1', 'TEXT2').then(() => {
             expect(commands.executeCommand).to.have.been.calledWith(
-                'vscode.diff', 'URI_INSTANCE_1', 'URI_INSTANCE_2', 'FILE_NAME_1 \u2194 FILE_NAME_2'
+                'vscode.diff', 'URI_INSTANCE_1', 'URI_INSTANCE_2', 'TITLE_TEXT_INFO_1 \u2194 TITLE_TEXT_INFO_2'
             );
         });
     });
