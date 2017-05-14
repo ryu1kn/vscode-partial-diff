@@ -3,26 +3,24 @@ const CompareSelectionWithClipboardCommand = require('../../../lib/commands/comp
 
 suite('CompareSelectionWithClipboardCommand', () => {
 
-    const editor = {
-        document: {
-            fileName: 'FILENAME'
-        }
-    };
-
     test('it compares selected text with clipboard text', () => {
         const clipboard = {read: () => Promise.resolve('CLIPBOARD_TEXT')};
-        const editorLineRangeExtractor = {extract: stubWithArgs([editor], 'SELECTED_RANGE')};
-        const editorTextExtractor = {extract: stubWithArgs([editor], 'SELECTED_TEXT')};
+        const selectionInfoBuilder = {
+            extract: stubWithArgs(['EDITOR'], {
+                text: 'SELECTED_TEXT',
+                fileName: 'FILENAME',
+                lineRange: 'SELECTED_RANGE'
+            })
+        };
         const textRegistry = {set: sinon.spy()};
         const diffPresenter = {takeDiff: sinon.spy()};
         const command = new CompareSelectionWithClipboardCommand({
             clipboard,
             diffPresenter,
-            editorLineRangeExtractor,
-            editorTextExtractor,
+            selectionInfoBuilder,
             textRegistry
         });
-        return command.execute(editor).then(() => {
+        return command.execute('EDITOR').then(() => {
             expect(textRegistry.set).to.have.been.calledWith(
                 'clipboard',
                 {
@@ -45,7 +43,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
     test('it prints callstack if error occurred', () => {
         const logger = {error: sinon.spy()};
         const command = new CompareSelectionWithClipboardCommand({logger});
-        return command.execute(editor).then(() => {
+        return command.execute('EDITOR').then(() => {
             expect(logger.error).to.have.been.called;
         });
     });

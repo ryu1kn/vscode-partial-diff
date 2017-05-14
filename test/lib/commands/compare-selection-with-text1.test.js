@@ -3,19 +3,18 @@ const CompareSelectionWithText1 = require('../../../lib/commands/compare-selecti
 
 suite('CompareSelectionWithText1', () => {
 
-    const editor = {
-        document: {
-            fileName: 'FILENAME'
-        }
-    };
-
     test('it saves selected text and takes a diff of 2 texts', () => {
-        const editorLineRangeExtractor = {extract: stubWithArgs([editor], 'SELECTED_RANGE')};
-        const editorTextExtractor = {extract: stubWithArgs([editor], 'SELECTED_TEXT')};
+        const selectionInfoBuilder = {
+            extract: stubWithArgs(['EDITOR'], {
+                text: 'SELECTED_TEXT',
+                fileName: 'FILENAME',
+                lineRange: 'SELECTED_RANGE'
+            })
+        };
         const textRegistry = {set: sinon.spy()};
         const diffPresenter = {takeDiff: sinon.spy()};
-        const command = new CompareSelectionWithText1({diffPresenter, editorLineRangeExtractor, editorTextExtractor, textRegistry});
-        return command.execute(editor).then(() => {
+        const command = new CompareSelectionWithText1({diffPresenter, selectionInfoBuilder, textRegistry});
+        return command.execute('EDITOR').then(() => {
             expect(textRegistry.set).to.have.been.calledWith(
                 'reg2',
                 {
@@ -31,7 +30,7 @@ suite('CompareSelectionWithText1', () => {
     test('it prints callstack if error occurred', () => {
         const logger = {error: sinon.spy()};
         const command = new CompareSelectionWithText1({logger});
-        return command.execute(editor).then(() => {
+        return command.execute('EDITOR').then(() => {
             expect(logger.error).to.have.been.called;
         });
     });
