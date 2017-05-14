@@ -10,15 +10,13 @@ suite('CompareSelectionWithClipboardCommand', () => {
     };
 
     test('it compares selected text with clipboard text', () => {
-        const copyPaste = {
-            paste: callback => { callback(null, 'CLIPBOARD_TEXT'); }
-        };
+        const clipboard = {read: () => Promise.resolve('CLIPBOARD_TEXT')};
         const editorLineRangeExtractor = {extract: stubWithArgs([editor], 'SELECTED_RANGE')};
         const editorTextExtractor = {extract: stubWithArgs([editor], 'SELECTED_TEXT')};
         const textRegistry = {set: sinon.spy()};
         const diffPresenter = {takeDiff: sinon.spy()};
         const command = new CompareSelectionWithClipboardCommand({
-            copyPaste,
+            clipboard,
             diffPresenter,
             editorLineRangeExtractor,
             editorTextExtractor,

@@ -76,7 +76,7 @@
     "test-mode": "mocha --opts cli-test-mocha.opts --watch"
   },
   "dependencies": {
-      "copy-paste": "1.3.0"
+    "clipboardy": "1.1.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
