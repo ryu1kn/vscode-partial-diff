@@ -4,10 +4,16 @@ const Bootstrapper = require('../../lib/bootstrapper');
 suite('Bootstrapper', () => {
 
     test('it registers commands', () => {
-        const app = {
-            saveSelectionAsText1: () => 'saveSelectionAsText1 called',
-            saveSelectionAsText2AndTakeDiff: () => 'saveSelectionAsText2AndTakeDiff called',
-            diffSelectionWithClipboard: () => 'diffSelectionWithClipboard called'
+        const commandFactory = {
+            crateSaveText1Command: () => ({
+                execute: () => 'saveSelectionAsText1 called'
+            }),
+            createCompareSelectionWithText1Command: () => ({
+                execute: () => 'saveSelectionAsText2AndTakeDiff called'
+            }),
+            createCompareSelectionWithClipboardCommand: () => ({
+                execute: () => 'diffSelectionWithClipboard called'
+            })
         };
         const commands = fakeVSCodeCommands();
         const extensionScheme = 'EXTENSION_SCHEME';
@@ -15,12 +21,14 @@ suite('Bootstrapper', () => {
         const vscode = {commands, workspace};
         const contentProvider = 'CONTENT_PROVIDER';
         const context = {subscriptions: []};
-        new Bootstrapper({app, contentProvider, extensionScheme, vscode}).initiate(context);
+        new Bootstrapper({commandFactory, contentProvider, extensionScheme, vscode}).initiate(context);
 
         expect(commands._invokeCommand('extension.partialDiff.markSection1'))
             .to.eql('saveSelectionAsText1 called');
         expect(commands._invokeCommand('extension.partialDiff.markSection2AndTakeDiff'))
             .to.eql('saveSelectionAsText2AndTakeDiff called');
+        expect(commands._invokeCommand('extension.partialDiff.diffSelectionWithClipboard'))
+            .to.eql('diffSelectionWithClipboard called');
         expect(workspace.registerTextDocumentContentProvider).to.have.been.calledWith(
             'EXTENSION_SCHEME', 'CONTENT_PROVIDER'
         );
