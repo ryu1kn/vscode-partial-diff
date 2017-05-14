@@ -9,7 +9,7 @@ suite('TextTitleBuilder', () => {
             lineRange: {start: 0, end: 1}
         };
         const textTitleBuilder = new TextTitleBuilder();
-        expect(textTitleBuilder.build(textInfo)).to.eql('FILE_NAME (0-1)');
+        expect(textTitleBuilder.build(textInfo)).to.eql('FILE_NAME (1-2)');
     });
 
     test('it uses only file name if line numbers are not available', () => {
