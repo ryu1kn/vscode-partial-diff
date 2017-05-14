@@ -1,4 +1,8 @@
 
+### 0.3.1: 14 May 2017
+
+* Fixed the problem that one library is used without being listed as dependencies
+
 ### 0.3.0: 14 May 2017
 
 * Added a feature to compare text against clipboard contents (thanks to @eamodio ! [PR #6](https://github.com/ryu1kn/vscode-partial-diff/pull/6))
