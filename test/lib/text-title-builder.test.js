@@ -9,7 +9,16 @@ suite('TextTitleBuilder', () => {
             lineRange: {start: 0, end: 1}
         };
         const textTitleBuilder = new TextTitleBuilder();
-        expect(textTitleBuilder.build(textInfo)).to.eql('FILE_NAME (1-2)');
+        expect(textTitleBuilder.build(textInfo)).to.eql('FILE_NAME (ll.1-2)');
+    });
+
+    test('it shows only one line number', () => {
+        const textInfo = {
+            fileName: 'FILE_NAME',
+            lineRange: {start: 10, end: 10}
+        };
+        const textTitleBuilder = new TextTitleBuilder();
+        expect(textTitleBuilder.build(textInfo)).to.eql('FILE_NAME (l.11)');
     });
 
     test('it uses only file name if line numbers are not available', () => {
