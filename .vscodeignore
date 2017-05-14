@@ -2,6 +2,7 @@
 typings/**
 test/**
 coverage/**
+images/select-2-texts-and-take-diff.gif
 __*
 .gitattributes
 .gitignore
