@@ -51,12 +51,12 @@
     "menus": {
       "editor/context": [
         {
-          "command": "extension.partialDiff.markSection2AndTakeDiff",
+          "command": "extension.partialDiff.markSection1",
           "group": "2_partialdiff@1",
           "when": "editorTextFocus"
         },
         {
-          "command": "extension.partialDiff.markSection1",
+          "command": "extension.partialDiff.markSection2AndTakeDiff",
           "group": "2_partialdiff@2",
           "when": "editorTextFocus"
         },

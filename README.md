@@ -18,7 +18,6 @@ You can compare (diff) text selections within a file, across different files, or
 
 * A diff will be shown only after selecting comparison text first (using `Select Text for Compare`)
 * Executing the `Select Text for Compare` or `Compare Text with Previous Selection` command without selecting any text will use the entire text of the current file
-* If the `Compare Text with Clipboard` command doesn't work on Linux -- `xclip` needs to be installed. You can install it via `sudo apt-get install xclip`
 
 ## Keyboard Shortcuts
 
