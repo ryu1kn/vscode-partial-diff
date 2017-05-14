@@ -11,10 +11,10 @@ suite('SelectText1Command', () => {
                 lineRange: 'SELECTED_RANGE'
             })
         };
-        const textRegistry = {set: sinon.spy()};
-        const command = new SelectText1Command({selectionInfoBuilder, textRegistry});
+        const selectionInfoRegistry = {set: sinon.spy()};
+        const command = new SelectText1Command({selectionInfoBuilder, selectionInfoRegistry});
         command.execute('EDITOR');
-        expect(textRegistry.set).to.have.been.calledWith(
+        expect(selectionInfoRegistry.set).to.have.been.calledWith(
             'reg1',
             {
                 text: 'SELECTED_TEXT',
@@ -40,8 +40,8 @@ suite('SelectText1Command', () => {
                 lineRange: 'SELECTED_RANGE'
             })
         };
-        const textRegistry = {set: sinon.stub().throws(new Error('UNEXPECTED_ERROR'))};
-        const command = new SelectText1Command({logger, selectionInfoBuilder, textRegistry});
+        const selectionInfoRegistry = {set: sinon.stub().throws(new Error('UNEXPECTED_ERROR'))};
+        const command = new SelectText1Command({logger, selectionInfoBuilder, selectionInfoRegistry});
         command.execute('EDITOR');
         expect(logger.error.args[0][0]).to.have.string('Error: UNEXPECTED_ERROR');
     });

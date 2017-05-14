@@ -11,11 +11,11 @@ suite('CompareSelectionWithText1', () => {
                 lineRange: 'SELECTED_RANGE'
             })
         };
-        const textRegistry = {set: sinon.spy()};
+        const selectionInfoRegistry = {set: sinon.spy()};
         const diffPresenter = {takeDiff: sinon.spy()};
-        const command = new CompareSelectionWithText1({diffPresenter, selectionInfoBuilder, textRegistry});
+        const command = new CompareSelectionWithText1({diffPresenter, selectionInfoBuilder, selectionInfoRegistry});
         return command.execute('EDITOR').then(() => {
-            expect(textRegistry.set).to.have.been.calledWith(
+            expect(selectionInfoRegistry.set).to.have.been.calledWith(
                 'reg2',
                 {
                     text: 'SELECTED_TEXT',

@@ -1,17 +1,17 @@
 
-const TextRegistry = require('../../lib/text-registry');
+const SelectionInfoRegistry = require('../../lib/selection-info-registry');
 
-suite('TextRegistry', () => {
+suite('SelectionInfoRegistry', () => {
 
     test('it saves a given text selection information with a given key', () => {
-        const textRegistry = new TextRegistry();
-        textRegistry.set('KEY', {
+        const selectionInfoRegistry = new SelectionInfoRegistry();
+        selectionInfoRegistry.set('KEY', {
             text: 'TEXT',
             fileName: 'FILE_NAME',
             lineRange: 'LINE_RANGE',
             '..': '..'
         });
-        expect(textRegistry.get('KEY')).to.eql({
+        expect(selectionInfoRegistry.get('KEY')).to.eql({
             text: 'TEXT',
             fileName: 'FILE_NAME',
             lineRange: 'LINE_RANGE'
