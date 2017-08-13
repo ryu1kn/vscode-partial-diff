@@ -2,7 +2,7 @@
 typings/**
 test/**
 coverage/**
-images/select-2-texts-and-take-diff.gif
+images/public.gif
 __*
 .gitattributes
 .gitignore

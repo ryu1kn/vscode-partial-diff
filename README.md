@@ -6,7 +6,7 @@
 
 You can compare (diff) text selections within a file, across different files, or to the clipboard.
 
-![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/select-2-texts-and-take-diff.gif)
+![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/public.gif)
 
 ## Commands
 
