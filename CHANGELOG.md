@@ -1,4 +1,8 @@
 
+### 0.3.2: 14 September 2017
+
+* Fixed the link to the gif animation
+
 ### 0.3.1: 14 May 2017
 
 * Fixed the problem that one library is used without being listed as dependencies
