@@ -1,4 +1,8 @@
 
+### 0.3.3: 1 October 2017
+
+* Fixed the issue that **Compare with Clipboard** command inserts extra new line characters on Windows. [#12](https://github.com/ryu1kn/vscode-partial-diff/issues/12)
+
 ### 0.3.2: 14 September 2017
 
 * Fixed the link to the gif animation
