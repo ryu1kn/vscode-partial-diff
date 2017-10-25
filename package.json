@@ -15,7 +15,7 @@
     "url": "https://github.com/ryu1kn/vscode-partial-diff.git"
   },
   "engines": {
-    "vscode": "^1.0.0"
+    "vscode": "^1.7.0"
   },
   "categories": [
     "Other"
