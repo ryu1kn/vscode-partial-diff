@@ -1,12 +1,12 @@
 root: true
 extends: xo
-installedESLint: true
 env:
   node: true
   es6: true
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 8
   sourceType: module
+  impliedStrict: true
 rules:
   brace-style:
   - error
@@ -18,6 +18,9 @@ rules:
   curly:
   - error
   - multi-line
+  - consistent
+  function-paren-newline:
+  - warn
   - consistent
   indent:
   - error
@@ -35,6 +38,9 @@ rules:
   no-implicit-coercion:
   - error
   - allow: ["!!"]
+  no-multi-spaces:
+  - error
+  - ignoreEOLComments: true
   no-negated-condition: off
   no-use-before-define:
   - error
@@ -43,6 +49,9 @@ rules:
   no-unused-vars:
   - error
   - argsIgnorePattern: "^_"
+  padded-blocks:
+  - warn
+  - classes: always
   object-property-newline:
   - error
   - allowMultiplePropertiesPerLine: true
