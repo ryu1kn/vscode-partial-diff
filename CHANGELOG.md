@@ -1,4 +1,8 @@
 
+### 0.4.0: 26 October 2017
+
+* Support text selection with multi cursors. [#16](https://github.com/ryu1kn/vscode-partial-diff/issues/16)
+
 ### 0.3.3: 1 October 2017
 
 * Fixed the issue that **Compare with Clipboard** command inserts extra new line characters on Windows. [#12](https://github.com/ryu1kn/vscode-partial-diff/issues/12)
