@@ -8,13 +8,13 @@ suite('SelectionInfoRegistry', () => {
         selectionInfoRegistry.set('KEY', {
             text: 'TEXT',
             fileName: 'FILE_NAME',
-            lineRange: 'LINE_RANGE',
+            lineRanges: 'LINE_RANGES',
             '..': '..'
         });
         expect(selectionInfoRegistry.get('KEY')).to.eql({
             text: 'TEXT',
             fileName: 'FILE_NAME',
-            lineRange: 'LINE_RANGE'
+            lineRanges: 'LINE_RANGES'
         });
     });
 

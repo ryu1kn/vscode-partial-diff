@@ -8,7 +8,7 @@ suite('CompareSelectionWithText1', () => {
             extract: stubWithArgs(['EDITOR'], {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             })
         };
         const selectionInfoRegistry = {set: sinon.spy()};
@@ -22,7 +22,7 @@ suite('CompareSelectionWithText1', () => {
             {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             }
         );
         expect(diffPresenter.takeDiff).to.have.been.calledWith('reg1', 'reg2');

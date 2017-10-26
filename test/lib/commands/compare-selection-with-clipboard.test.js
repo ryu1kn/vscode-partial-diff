@@ -9,7 +9,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
             extract: stubWithArgs(['EDITOR'], {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             })
         };
         const selectionInfoRegistry = {set: sinon.spy()};
@@ -35,7 +35,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
             {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             }
         );
         expect(diffPresenter.takeDiff).to.have.been.calledWith('clipboard', 'reg2');

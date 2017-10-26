@@ -8,7 +8,7 @@ suite('SelectText1Command', () => {
             extract: stubWithArgs(['EDITOR'], {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             })
         };
         const selectionInfoRegistry = {set: sinon.spy()};
@@ -19,7 +19,7 @@ suite('SelectText1Command', () => {
             {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             }
         );
     });
@@ -37,7 +37,7 @@ suite('SelectText1Command', () => {
             extract: stubWithArgs(['EDITOR'], {
                 text: 'SELECTED_TEXT',
                 fileName: 'FILENAME',
-                lineRange: 'SELECTED_RANGE'
+                lineRanges: 'SELECTED_RANGE'
             })
         };
         const selectionInfoRegistry = {set: sinon.stub().throws(new Error('UNEXPECTED_ERROR'))};
