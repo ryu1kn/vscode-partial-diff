@@ -1,7 +1,5 @@
 
 const SelectionInfoBuilder = require('../../lib/selection-info-builder');
-const EditorTextExtractor = require('../../lib/editor-text-extractor');
-const EditorLineRangeExtractor = require('../../lib/editor-line-range-extractor');
 
 suite('SelectionInfoBuilder', () => {
 
@@ -56,25 +54,39 @@ suite('SelectionInfoBuilder', () => {
         ]);
     });
 
+    test('it sorts the selections by ascending order of line number', () => {
+        const selections = [
+            {start: {line: 5}, end: {line: 6}},
+            {start: {line: 1}, end: {line: 2}}
+        ];
+        const textInfo = extractTextInfoFromSelections(selections);
+        expect(textInfo.lineRanges).to.eql([
+            {start: 1, end: 2},
+            {start: 5, end: 6}
+        ]);
+    });
+
     test('it extracts a file name from editor', () => {
         const textInfo = extractTextInfo(['SELECTED_TEXT']);
         expect(textInfo).to.include({fileName: 'FILENAME'});
     });
 
     function extractTextInfo(selectedTexts) {
-        const editorTextExtractor = new EditorTextExtractor();
-        const editorLineRangeExtractor = new EditorLineRangeExtractor();
-        const selectionInfoBuilder = new SelectionInfoBuilder({editorTextExtractor, editorLineRangeExtractor});
-        return selectionInfoBuilder.extract(fakeEditor(selectedTexts));
-    }
-
-    function fakeEditor(selectedTexts) {
         const selections = selectedTexts.map((text, i) => ({
             text,
             start: {line: `START_LINE_${i + 1}`},
             end: {line: `END_LINE_${i + 1}`},
             isEmpty: !text
         }));
+        return extractTextInfoFromSelections(selections);
+    }
+
+    function extractTextInfoFromSelections(selections) {
+        const selectionInfoBuilder = new SelectionInfoBuilder();
+        return selectionInfoBuilder.extract(fakeEditor(selections));
+    }
+
+    function fakeEditor(selections) {
         return {
             selections,
             selection: selections[0],
