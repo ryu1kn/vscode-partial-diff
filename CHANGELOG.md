@@ -1,4 +1,8 @@
 
+### 0.4.1: 28 October 2017
+
+* Sort text selections by the line/character position. [#16](https://github.com/ryu1kn/vscode-partial-diff/issues/16)
+
 ### 0.4.0: 26 October 2017
 
 * Support text selection with multi cursors. [#16](https://github.com/ryu1kn/vscode-partial-diff/issues/16)
