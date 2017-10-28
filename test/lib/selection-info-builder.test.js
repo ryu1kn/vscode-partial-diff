@@ -56,14 +56,21 @@ suite('SelectionInfoBuilder', () => {
 
     test('it sorts the selections by ascending order of line number', () => {
         const selections = [
-            {start: {line: 5}, end: {line: 6}},
-            {start: {line: 1}, end: {line: 2}}
+            {start: {line: 5}, end: {line: 6}, text: 'A'},
+            {start: {line: 1}, end: {line: 2}, text: 'B'}
         ];
         const textInfo = extractTextInfoFromSelections(selections);
-        expect(textInfo.lineRanges).to.eql([
-            {start: 1, end: 2},
-            {start: 5, end: 6}
-        ]);
+        expect(textInfo.text).to.eql('B\nA');
+    });
+
+    test('it sorts the selections by ascending order of column number if in the same line', () => {
+        const selections = [
+            {start: {line: 5, character: 7}, end: {line: 5, character: 8}, text: 'A'},
+            {start: {line: 5, character: 4}, end: {line: 5, character: 5}, text: 'B'},
+            {start: {line: 1, character: 1}, end: {line: 1, character: 2}, text: 'C'}
+        ];
+        const textInfo = extractTextInfoFromSelections(selections);
+        expect(textInfo.text).to.eql('C\nB\nA');
     });
 
     test('it extracts a file name from editor', () => {
@@ -75,15 +82,16 @@ suite('SelectionInfoBuilder', () => {
         const selections = selectedTexts.map((text, i) => ({
             text,
             start: {line: `START_LINE_${i + 1}`},
-            end: {line: `END_LINE_${i + 1}`},
-            isEmpty: !text
+            end: {line: `END_LINE_${i + 1}`}
         }));
         return extractTextInfoFromSelections(selections);
     }
 
     function extractTextInfoFromSelections(selections) {
         const selectionInfoBuilder = new SelectionInfoBuilder();
-        return selectionInfoBuilder.extract(fakeEditor(selections));
+        const selectionWithIsEmptyFlag = selections
+            .map(s => Object.assign({}, s, {isEmpty: !s.text}));
+        return selectionInfoBuilder.extract(fakeEditor(selectionWithIsEmptyFlag));
     }
 
     function fakeEditor(selections) {
