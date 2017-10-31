@@ -15,36 +15,18 @@ suite('ContentProvider', () => {
     });
 
     test('it uses a user defined rule to preprocess text to compare', () => {
-        const preComparisonTextProcessRules = [{rule: '({text}) => text.toLowerCase()'}];
+        const preComparisonTextProcessRules = [{match: '_', replaceWith: ':'}];
         const content = retrieveEditorContent({preComparisonTextProcessRules});
-        expect(content).to.eql('text_1');
+        expect(content).to.eql('TEXT:1');
     });
 
     test('it applies all given rules to preprocess text', () => {
         const preComparisonTextProcessRules = [
-            {rule: '({text}) => text.toLowerCase()'},
-            {rule: '({text}) => text.split("").join("-")'}
+            {match: '_', replaceWith: ':'},
+            {match: 'T', replaceWith: 't'}
         ];
         const content = retrieveEditorContent({preComparisonTextProcessRules});
-        expect(content).to.eql('t-e-x-t-_-1');
-    });
-
-    test('it throws an error if a preprocess rule is not a function', () => {
-        const preComparisonTextProcessRules = [
-            {rule: '"NOT A FUNCTION JUST A STRING"'}
-        ];
-        expect(() => {
-            retrieveEditorContent({preComparisonTextProcessRules});
-        }).to.throw('Rule must be evaluated to a function');
-    });
-
-    test('it treats preprocess result as a text', () => {
-        const preComparisonTextProcessRules = [
-            {rule: '() => 1'},
-            {rule: '({text}) => typeof text'}
-        ];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
-        expect(content).to.eql('string');
+        expect(content).to.eql('tEXt:1');
     });
 
     function retrieveEditorContent({selectionInfoRegistry, preComparisonTextProcessRules}) {
