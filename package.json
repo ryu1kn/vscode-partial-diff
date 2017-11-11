@@ -31,6 +31,43 @@
   ],
   "main": "./extension",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Partial Diff configurations",
+      "properties": {
+        "partialDiff.preComparisonTextProcessRules": {
+          "description": "Rules to normalise texts before taking a diff",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "match": {
+                "type": "string"
+              },
+              "replaceWith": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "letterCase": {
+                        "enum": ["upper", "lower"]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "default": []
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.partialDiff.markSection1",
