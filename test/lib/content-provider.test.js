@@ -32,40 +32,25 @@ suite('ContentProvider', () => {
         expect(content).to.eql('XTTE_1');
     });
 
-    test('it can change all characters to lower case', () => {
-        const preComparisonTextProcessRules = [{
-            match: '.*',
-            replaceWith: {
-                expression: '$&',
-                letterCase: 'lower'
-            }
-        }];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
-        expect(content).to.eql('text_1');
-    });
-
-    test('it can change all characters to upper case', () => {
-        const preComparisonTextProcessRules = [{
-            match: '.*',
-            replaceWith: {
-                expression: '$&',
-                letterCase: 'upper'
-            }
-        }];
-        const content = retrieveEditorContent({
-            preComparisonTextProcessRules,
-            registeredText: 'Registered Text'
-        });
-        expect(content).to.eql('REGISTERED TEXT');
-    });
-
-    test('it uses selected text as replace text if one is not specified', () => {
+    test('it can change matched text to lower case', () => {
         const preComparisonTextProcessRules = [{
             match: 'TE',
             replaceWith: {letterCase: 'lower'}
         }];
         const content = retrieveEditorContent({preComparisonTextProcessRules});
         expect(content).to.eql('teXT_1');
+    });
+
+    test('it can change all characters to upper case', () => {
+        const preComparisonTextProcessRules = [{
+            match: 'Register',
+            replaceWith: {letterCase: 'upper'}
+        }];
+        const content = retrieveEditorContent({
+            preComparisonTextProcessRules,
+            registeredText: 'Registered Text'
+        });
+        expect(content).to.eql('REGISTERed Text');
     });
 
     test('it applies all given rules to preprocess text', () => {
