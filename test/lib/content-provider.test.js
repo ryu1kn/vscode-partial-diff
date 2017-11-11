@@ -59,14 +59,14 @@ suite('ContentProvider', () => {
         expect(content).to.eql('REGISTERED TEXT');
     });
 
-    // test('it uses selected text as replace text if one is not specified', () => {
-    //     const preComparisonTextProcessRules = [{
-    //         match: 'TE',
-    //         replaceWith: {letterCase: 'lower'}
-    //     }];
-    //     const content = retrieveEditorContent({preComparisonTextProcessRules});
-    //     expect(content).to.eql('teXT_1');
-    // });
+    test('it uses selected text as replace text if one is not specified', () => {
+        const preComparisonTextProcessRules = [{
+            match: 'TE',
+            replaceWith: {letterCase: 'lower'}
+        }];
+        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        expect(content).to.eql('teXT_1');
+    });
 
     test('it applies all given rules to preprocess text', () => {
         const preComparisonTextProcessRules = [
