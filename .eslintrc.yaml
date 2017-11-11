@@ -15,6 +15,8 @@ rules:
   camelcase:
   - error
   - properties: never
+  capitalized-comments:
+  - warn
   curly:
   - error
   - multi-line
@@ -25,7 +27,7 @@ rules:
   indent:
   - error
   - 4
-  - SwitchCase: 0
+  - SwitchCase: 1
   # eslint doesn't have jscs's maximumLineLength allExcept:regex
   # see. https://github.com/eslint/eslint/issues/5805
   max-len:
