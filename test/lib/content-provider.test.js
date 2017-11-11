@@ -15,58 +15,58 @@ suite('ContentProvider', () => {
     });
 
     test('it uses a user defined rule to preprocess text to compare', () => {
-        const preComparisonTextProcessRules = [{match: '_', replaceWith: ':'}];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        const preComparisonTextNormalizationRules = [{match: '_', replaceWith: ':'}];
+        const content = retrieveEditorContent({preComparisonTextNormalizationRules});
         expect(content).to.eql('TEXT:1');
     });
 
     test('it replaces all occurence of specified pattern', () => {
-        const preComparisonTextProcessRules = [{match: 'T', replaceWith: 't'}];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        const preComparisonTextNormalizationRules = [{match: 'T', replaceWith: 't'}];
+        const content = retrieveEditorContent({preComparisonTextNormalizationRules});
         expect(content).to.eql('tEXt_1');
     });
 
     test('it can use part of matched text as replace text', () => {
-        const preComparisonTextProcessRules = [{match: '(TE)(XT)', replaceWith: '$2$1'}];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        const preComparisonTextNormalizationRules = [{match: '(TE)(XT)', replaceWith: '$2$1'}];
+        const content = retrieveEditorContent({preComparisonTextNormalizationRules});
         expect(content).to.eql('XTTE_1');
     });
 
     test('it can change matched text to lower case', () => {
-        const preComparisonTextProcessRules = [{
+        const preComparisonTextNormalizationRules = [{
             match: 'TE',
             replaceWith: {letterCase: 'lower'}
         }];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        const content = retrieveEditorContent({preComparisonTextNormalizationRules});
         expect(content).to.eql('teXT_1');
     });
 
     test('it can change all characters to upper case', () => {
-        const preComparisonTextProcessRules = [{
+        const preComparisonTextNormalizationRules = [{
             match: 'Register',
             replaceWith: {letterCase: 'upper'}
         }];
         const content = retrieveEditorContent({
-            preComparisonTextProcessRules,
+            preComparisonTextNormalizationRules,
             registeredText: 'Registered Text'
         });
         expect(content).to.eql('REGISTERed Text');
     });
 
     test('it applies all given rules to preprocess text', () => {
-        const preComparisonTextProcessRules = [
+        const preComparisonTextNormalizationRules = [
             {match: '_', replaceWith: ':'},
             {match: 'T', replaceWith: 't'}
         ];
-        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        const content = retrieveEditorContent({preComparisonTextNormalizationRules});
         expect(content).to.eql('tEXt:1');
     });
 
-    function retrieveEditorContent({selectionInfoRegistry, preComparisonTextProcessRules, registeredText}) {
+    function retrieveEditorContent({selectionInfoRegistry, preComparisonTextNormalizationRules, registeredText}) {
         const defaultSelectionInfoRegistry = {get: key => ({text: registeredText || `TEXT_${key}`})};
         const textResourceUtil = {getTextKey: uri => uri.replace('URI_', '')};
         const configStore = {
-            get: key => key === 'preComparisonTextProcessRules' && (preComparisonTextProcessRules || [])
+            get: key => key === 'preComparisonTextNormalizationRules' && (preComparisonTextNormalizationRules || [])
         };
         const contentProvider = new ContentProvider({
             selectionInfoRegistry: selectionInfoRegistry || defaultSelectionInfoRegistry,

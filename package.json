@@ -35,8 +35,8 @@
       "type": "object",
       "title": "Partial Diff configurations",
       "properties": {
-        "partialDiff.preComparisonTextProcessRules": {
-          "description": "Rules to normalise texts before taking a diff",
+        "partialDiff.preComparisonTextNormalizationRules": {
+          "description": "Rules to normalize texts before taking a diff",
           "type": "array",
           "items": {
             "type": "object",
@@ -62,7 +62,8 @@
                   }
                 ]
               }
-            }
+            },
+            "required": ["match", "replaceWith"]
           },
           "default": []
         }
