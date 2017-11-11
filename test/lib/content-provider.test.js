@@ -20,6 +20,45 @@ suite('ContentProvider', () => {
         expect(content).to.eql('TEXT:1');
     });
 
+    test('it replaces all occurence of specified pattern', () => {
+        const preComparisonTextProcessRules = [{match: 'T', replaceWith: 't'}];
+        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        expect(content).to.eql('tEXt_1');
+    });
+
+    test('it can use part of matched text as replace text', () => {
+        const preComparisonTextProcessRules = [{match: '(TE)(XT)', replaceWith: '$2$1'}];
+        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        expect(content).to.eql('XTTE_1');
+    });
+
+    test('it can change all characters to lower case', () => {
+        const preComparisonTextProcessRules = [{
+            match: '.*',
+            replaceWith: {
+                expression: '$&',
+                letterCase: 'lower'
+            }
+        }];
+        const content = retrieveEditorContent({preComparisonTextProcessRules});
+        expect(content).to.eql('text_1');
+    });
+
+    test('it can change all characters to upper case', () => {
+        const preComparisonTextProcessRules = [{
+            match: '.*',
+            replaceWith: {
+                expression: '$&',
+                letterCase: 'upper'
+            }
+        }];
+        const content = retrieveEditorContent({
+            preComparisonTextProcessRules,
+            registeredText: 'Registered Text'
+        });
+        expect(content).to.eql('REGISTERED TEXT');
+    });
+
     test('it applies all given rules to preprocess text', () => {
         const preComparisonTextProcessRules = [
             {match: '_', replaceWith: ':'},
@@ -29,8 +68,8 @@ suite('ContentProvider', () => {
         expect(content).to.eql('tEXt:1');
     });
 
-    function retrieveEditorContent({selectionInfoRegistry, preComparisonTextProcessRules}) {
-        const defaultSelectionInfoRegistry = {get: key => ({text: `TEXT_${key}`})};
+    function retrieveEditorContent({selectionInfoRegistry, preComparisonTextProcessRules, registeredText}) {
+        const defaultSelectionInfoRegistry = {get: key => ({text: registeredText || `TEXT_${key}`})};
         const textResourceUtil = {getTextKey: uri => uri.replace('URI_', '')};
         const configStore = {
             get: key => key === 'preComparisonTextProcessRules' && (preComparisonTextProcessRules || [])
