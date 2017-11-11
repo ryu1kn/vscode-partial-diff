@@ -16,12 +16,11 @@ suite('Bootstrapper', () => {
             })
         };
         const commands = fakeVSCodeCommands();
-        const extensionScheme = 'EXTENSION_SCHEME';
         const workspace = fakeVSCodeWorkspace();
         const vscode = {commands, workspace};
         const contentProvider = 'CONTENT_PROVIDER';
         const context = {subscriptions: []};
-        new Bootstrapper({commandFactory, contentProvider, extensionScheme, vscode}).initiate(context);
+        new Bootstrapper({commandFactory, contentProvider, vscode}).initiate(context);
 
         expect(commands._invokeCommand('extension.partialDiff.markSection1'))
             .to.eql('saveSelectionAsText1 called');
@@ -30,7 +29,7 @@ suite('Bootstrapper', () => {
         expect(commands._invokeCommand('extension.partialDiff.diffSelectionWithClipboard'))
             .to.eql('diffSelectionWithClipboard called');
         expect(workspace.registerTextDocumentContentProvider).to.have.been.calledWith(
-            'EXTENSION_SCHEME', 'CONTENT_PROVIDER'
+            'partialdiff', 'CONTENT_PROVIDER'
         );
         expect(context.subscriptions).to.eql([
             'DISPOSABLE_scheme',
