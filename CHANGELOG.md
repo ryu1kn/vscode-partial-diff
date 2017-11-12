@@ -1,4 +1,8 @@
 
+### X.X.X: X November 2017
+
+* Support user defined text normalisation rules to reduce the noise in the diff [#15](https://github.com/ryu1kn/vscode-partial-diff/issues/15)
+
 ### 0.4.1: 28 October 2017
 
 * Sort text selections by the line/character position. [#16](https://github.com/ryu1kn/vscode-partial-diff/issues/16)

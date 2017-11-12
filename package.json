@@ -58,7 +58,8 @@
                       "letterCase": {
                         "enum": ["upper", "lower"]
                       }
-                    }
+                    },
+                    "required": ["letterCase"]
                   }
                 ]
               }
