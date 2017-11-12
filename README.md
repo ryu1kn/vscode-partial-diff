@@ -23,7 +23,10 @@
 
 ## Configurations
 
-* `partialDiff.preComparisonTextNormalizationRules`: Rules to normalize texts for diff view. (It doesn't mutate texts in the editors. Only texts in diff views get normalised)
+* `partialDiff.preComparisonTextNormalizationRules`: Rules to normalize texts for diff view.
+
+    It doesn't mutate texts in the editors. Only texts in diff views get normalised.
+    If a diff is presetned with text normalised (or possibly normalised), `~` is used in the diff title instead of `↔`)
 
     Each rule has `match`, `replaceWith` and optionally `name`
 
