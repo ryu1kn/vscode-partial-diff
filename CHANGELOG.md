@@ -1,5 +1,5 @@
 
-### X.X.X: X November 2017
+### 0.5.0: 12 November 2017
 
 * Support user defined text normalisation rules to reduce the noise in the diff [#15](https://github.com/ryu1kn/vscode-partial-diff/issues/15)
 
