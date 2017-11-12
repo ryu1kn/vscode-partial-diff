@@ -65,9 +65,7 @@ suite('ContentProvider', () => {
     function retrieveEditorContent({selectionInfoRegistry, preComparisonTextNormalizationRules, registeredText}) {
         const defaultSelectionInfoRegistry = {get: key => ({text: registeredText || `TEXT_${key}`})};
         const textResourceUtil = {getTextKey: uri => uri.replace('URI_', '')};
-        const configStore = {
-            get: key => key === 'preComparisonTextNormalizationRules' && (preComparisonTextNormalizationRules || [])
-        };
+        const configStore = {preComparisonTextNormalizationRules: preComparisonTextNormalizationRules || []};
         const contentProvider = new ContentProvider({
             selectionInfoRegistry: selectionInfoRegistry || defaultSelectionInfoRegistry,
             textResourceUtil,

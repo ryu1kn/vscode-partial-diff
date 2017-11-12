@@ -5,15 +5,19 @@ suite('DiffPresenter', () => {
 
     test('it passes URI of 2 texts to compare', async () => {
         const commands = fakeCommands();
-        const selectionInfoRegistry = {get: () => {}};
-        const textTitleBuilder = {build: () => {}};
         const textResourceUtil = {
             getUri: stubWithArgs(
                 ['TEXT1'], 'URI_INSTANCE_1',
                 ['TEXT2'], 'URI_INSTANCE_2'
             )
         };
-        const diffPresenter = new DiffPresenter({commands, textTitleBuilder, selectionInfoRegistry, textResourceUtil});
+        const diffPresenter = new DiffPresenter({
+            commands,
+            configStore: {},
+            textTitleBuilder: {build: () => {}},
+            selectionInfoRegistry: {get: () => {}},
+            textResourceUtil
+        });
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
 
@@ -30,9 +34,13 @@ suite('DiffPresenter', () => {
                 ['TEXT2'], 'TEXT_INFO_2'
             )
         };
-        const textTitleBuilder = {build: textKey => `TITLE_${textKey}`};
-        const textResourceUtil = {getUri: () => {}};
-        const diffPresenter = new DiffPresenter({commands, textTitleBuilder, selectionInfoRegistry, textResourceUtil});
+        const diffPresenter = new DiffPresenter({
+            commands,
+            configStore: {},
+            textTitleBuilder: {build: textKey => `TITLE_${textKey}`},
+            selectionInfoRegistry,
+            textResourceUtil: {getUri: () => {}}
+        });
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
 
