@@ -18,20 +18,20 @@
 
 **NOTE:**
 
-* A diff will be shown only after selecting comparison text first (using `Select Text for Compare`)
-* Executing the `Select Text for Compare` or `Compare Text with Previous Selection` command without selecting any text will use the entire text of the current file
+* A diff will be shown only after selecting comparison text first (using `Select Text for Compare`).
+* Executing the `Select Text for Compare` or `Compare Text with Previous Selection` command without selecting any text will use the entire text of the current file.
 
 ## Configurations
 
 * `partialDiff.preComparisonTextNormalizationRules`: Rules to normalize texts for diff view.
 
     It doesn't mutate texts in the editors. Only texts in diff views get normalised.
-    If a diff is presetned with text normalised (or possibly normalised), `~` is used in the diff title instead of `↔`)
+    If a diff is presented with text normalised (or possibly normalised), `~` is used in the diff title instead of `↔`)
 
-    Each rule has `match`, `replaceWith` and optionally `name`
+    Each rule has `match`, `replaceWith` and optionally `name`.
 
     * `name`: Optional. Name of the rule to describe what the rule is for.
-    * `match`: Regular expression to find text you want to normalise. [Global search flag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions#Advanced_searching_with_flags) is automatically applied
+    * `match`: Regular expression to find text you want to normalise. [Global search flag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions#Advanced_searching_with_flags) is automatically applied.
     * `replaceWith`: One of the following
       * **Replacement text** as a string. You can use `$N`, where `N` is the index of substring (starting from 1) you captured in `match` with `()`.
       * **Letter case specification** as an object. Valid cases are `upper` and `lower`.
@@ -67,9 +67,9 @@ You can quickly mark the selected text by adding the `partial-diff` commands to 
   { "key": "ctrl+1", "command": "extension.partialDiff.markSection1",
                         "when": "editorTextFocus" },
   { "key": "ctrl+2", "command": "extension.partialDiff.markSection2AndTakeDiff",
-                        "when": "editorTextFocus" }
+                        "when": "editorTextFocus" },
   { "key": "ctrl+3", "command": "extension.partialDiff.diffSelectionWithClipboard",
-                        "when": "editorTextFocus" }
+                        "when": "editorTextFocus" },
 ```
 
 ## Known problems
