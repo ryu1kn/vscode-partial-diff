@@ -1,7 +1,11 @@
 
+### 0.5.1: 29 November 2017
+
+* Fixed the issue that **Compare with Clipboard** was not working. [#19](https://github.com/ryu1kn/vscode-partial-diff/issues/19)
+
 ### 0.5.0: 12 November 2017
 
-* Support user defined text normalisation rules to reduce the noise in the diff [#15](https://github.com/ryu1kn/vscode-partial-diff/issues/15)
+* Support user defined text normalisation rules to reduce the noise in the diff. [#15](https://github.com/ryu1kn/vscode-partial-diff/issues/15)
 
 ### 0.4.1: 28 October 2017
 
