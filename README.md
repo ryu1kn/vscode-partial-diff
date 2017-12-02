@@ -83,3 +83,13 @@ You can quickly mark the selected text by adding the `partial-diff` commands to 
 ## Changelog
 
 * https://github.com/ryu1kn/vscode-partial-diff/blob/master/CHANGELOG.md
+
+## How to Contribute
+
+1. Clone this repository
+1. Make code changes
+1. Before you make a pull request, you can run linter and tests to avoid build failure
+
+    ```sh
+    $ npm run prep
+    ```
