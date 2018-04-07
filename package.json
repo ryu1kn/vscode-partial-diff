@@ -56,15 +56,23 @@
                     "type": "object",
                     "properties": {
                       "letterCase": {
-                        "enum": ["upper", "lower"]
+                        "enum": [
+                          "upper",
+                          "lower"
+                        ]
                       }
                     },
-                    "required": ["letterCase"]
+                    "required": [
+                      "letterCase"
+                    ]
                   }
                 ]
               }
             },
-            "required": ["match", "replaceWith"]
+            "required": [
+              "match",
+              "replaceWith"
+            ]
           },
           "default": []
         }
@@ -116,7 +124,8 @@
     "test-mode": "mocha --opts cli-test-mocha.opts --watch"
   },
   "dependencies": {
-    "clipboardy": "1.1.2"
+    "clipboardy": "1.1.2",
+    "lodash.isequal": "4.5.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",

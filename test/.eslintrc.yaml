@@ -3,6 +3,7 @@ globals:
   sinon: true
   suite: true
   test: true
+  beforeEach: true
   stubWithArgs: true
 rules:
   no-unused-expressions: off
