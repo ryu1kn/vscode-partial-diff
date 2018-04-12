@@ -116,10 +116,10 @@
     }
   },
   "scripts": {
-    "coverage": "nyc npm test",
+    "coverage": "nyc yarn test",
     "lint": "eslint .",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "prep": "npm run lint && npm test",
+    "prep": "yarn run lint && yarn test",
     "test": "mocha --opts cli-test-mocha.opts",
     "test-mode": "mocha --opts cli-test-mocha.opts --watch"
   },

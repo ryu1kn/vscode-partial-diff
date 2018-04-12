@@ -3,6 +3,9 @@ typings/**
 test/**
 coverage/**
 images/public.gif
+npm-debug.log
+yarn.lock
+yarn-error.log
 __*
 .codeclimate.yml
 .editorconfig

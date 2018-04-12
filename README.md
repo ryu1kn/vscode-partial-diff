@@ -91,5 +91,5 @@ You can quickly mark the selected text by adding the `partial-diff` commands to 
 1. Before you make a pull request, you can run linter and tests to avoid build failure
 
     ```sh
-    $ npm run prep
+    $ yarn run prep
     ```
