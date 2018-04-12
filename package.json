@@ -116,7 +116,7 @@
     }
   },
   "scripts": {
-    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- --opts cli-test-mocha.opts",
+    "coverage": "nyc npm test",
     "lint": "eslint .",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "prep": "npm run lint && npm test",
@@ -132,8 +132,8 @@
     "codeclimate-test-reporter": "^0.5.0",
     "eslint": "^4.12.1",
     "eslint-config-xo": "^0.19.0",
-    "istanbul": "^1.1.0-alpha.1",
     "mocha": "^4.0.1",
+    "nyc": "^11.6.0",
     "sinon": "^4.1.2",
     "sinon-chai": "^2.14.0",
     "vscode": "^1.1.9"

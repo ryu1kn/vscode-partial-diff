@@ -10,8 +10,9 @@ __*
 .eslintrc.yaml
 .gitattributes
 .gitignore
-.istanbul.yml
+.idea
 .nvmrc
+.nycrc
 .travis.yml
 cli-test-mocha.opts
 jsconfig.json

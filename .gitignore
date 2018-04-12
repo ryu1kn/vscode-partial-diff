@@ -1,4 +1,5 @@
 /node_modules
 /typings
 /coverage
+/.nyc_output
 npm-debug.log
