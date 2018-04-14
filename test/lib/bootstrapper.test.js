@@ -1,79 +1,65 @@
+const td = require('testdouble')
+
 const Bootstrapper = require('../../lib/bootstrapper')
 
 suite('Bootstrapper', () => {
-  test('it registers commands', () => {
-    const commandFactory = {
-      crateSaveText1Command: () => ({
-        execute: () => 'saveSelectionAsText1 called'
-      }),
-      createCompareSelectionWithText1Command: () => ({
-        execute: () => 'saveSelectionAsText2AndTakeDiff called'
-      }),
-      createCompareSelectionWithClipboardCommand: () => ({
-        execute: () => 'diffSelectionWithClipboard called'
-      }),
-      createCompareVisibleEditorsCommand: () => ({
-        execute: () => 'diffVisibleEditors called'
-      })
+  const commandMap = {
+    saveText1Command: fakeExtensionCommand(),
+    compareSelectionWithText1Command: fakeExtensionCommand(),
+    compareSelectionWithClipboardCommand: fakeExtensionCommand(),
+    compareVisibleEditorsCommand: fakeExtensionCommand()
+  }
+  const bootstrapper = new Bootstrapper({
+    commandFactory: fakeCommandFactory(),
+    contentProvider: 'CONTENT_PROVIDER',
+    vscode: {
+      commands: fakeVSCodeCommands(),
+      workspace: fakeVSCodeWorkspace()
     }
-    const commands = fakeVSCodeCommands()
-    const workspace = fakeVSCodeWorkspace()
-    const vscode = { commands, workspace }
-    const contentProvider = 'CONTENT_PROVIDER'
-    const context = { subscriptions: [] }
-    new Bootstrapper({ commandFactory, contentProvider, vscode }).initiate(
-      context
-    )
+  })
 
-    expect(
-      commands._invokeCommand('extension.partialDiff.markSection1')
-    ).to.eql('saveSelectionAsText1 called')
-    expect(
-      commands._invokeCommand('extension.partialDiff.markSection2AndTakeDiff')
-    ).to.eql('saveSelectionAsText2AndTakeDiff called')
-    expect(
-      commands._invokeCommand(
-        'extension.partialDiff.diffSelectionWithClipboard'
-      )
-    ).to.eql('diffSelectionWithClipboard called')
-    expect(
-      commands._invokeCommand(
-        'extension.partialDiff.diffVisibleEditors'
-      )
-    ).to.eql('diffVisibleEditors called')
-    expect(
-      workspace.registerTextDocumentContentProvider
-    ).to.have.been.calledWith('partialdiff', 'CONTENT_PROVIDER')
+  test('it registers commands', () => {
+    const context = { subscriptions: [] }
+    bootstrapper.initiate(context)
+
     expect(context.subscriptions).to.eql([
       'DISPOSABLE_scheme',
-      'DISPOSABLE_E_extension.partialDiff.diffVisibleEditors',
-      'DISPOSABLE_TE_extension.partialDiff.markSection1',
-      'DISPOSABLE_TE_extension.partialDiff.markSection2AndTakeDiff',
-      'DISPOSABLE_TE_extension.partialDiff.diffSelectionWithClipboard'
+      'DISPOSABLE_diffVisibleEditors',
+      'DISPOSABLE_markSection1',
+      'DISPOSABLE_markSection2AndTakeDiff',
+      'DISPOSABLE_diffSelectionWithClipboard'
     ])
   })
 
   function fakeVSCodeCommands () {
+    const commands = td.object(['registerCommand', 'registerTextEditorCommand'])
+    td.when(commands.registerCommand('extension.partialDiff.diffVisibleEditors', commandMap.compareVisibleEditorsCommand.execute, commandMap.compareVisibleEditorsCommand))
+      .thenReturn('DISPOSABLE_diffVisibleEditors')
+    td.when(commands.registerTextEditorCommand('extension.partialDiff.markSection1', commandMap.saveText1Command.execute, commandMap.saveText1Command))
+      .thenReturn('DISPOSABLE_markSection1')
+    td.when(commands.registerTextEditorCommand('extension.partialDiff.markSection2AndTakeDiff', commandMap.compareSelectionWithText1Command.execute, commandMap.compareSelectionWithText1Command))
+      .thenReturn('DISPOSABLE_markSection2AndTakeDiff')
+    td.when(commands.registerTextEditorCommand('extension.partialDiff.diffSelectionWithClipboard', commandMap.compareSelectionWithClipboardCommand.execute, commandMap.compareSelectionWithClipboardCommand))
+      .thenReturn('DISPOSABLE_diffSelectionWithClipboard')
+    return commands
+  }
+
+  function fakeCommandFactory () {
     return {
-      registerCommand: function (commandId, commandFn) {
-        this[commandId] = commandFn
-        return `DISPOSABLE_E_${commandId}`
-      },
-      registerTextEditorCommand: function (commandId, commandFn) {
-        this[commandId] = commandFn
-        return `DISPOSABLE_TE_${commandId}`
-      },
-      _invokeCommand: function (commandId) {
-        return this[commandId]()
-      }
+      crateSaveText1Command: () => commandMap.saveText1Command,
+      createCompareSelectionWithText1Command: () => commandMap.compareSelectionWithText1Command,
+      createCompareSelectionWithClipboardCommand: () => commandMap.compareSelectionWithClipboardCommand,
+      createCompareVisibleEditorsCommand: () => commandMap.compareVisibleEditorsCommand
     }
   }
 
   function fakeVSCodeWorkspace () {
-    return {
-      registerTextDocumentContentProvider: sinon
-        .stub()
-        .returns('DISPOSABLE_scheme')
-    }
+    const registerTextDocumentContentProvider = td.function()
+    td.when(registerTextDocumentContentProvider('partialdiff', 'CONTENT_PROVIDER')).thenReturn('DISPOSABLE_scheme')
+    return { registerTextDocumentContentProvider }
+  }
+
+  function fakeExtensionCommand () {
+    return { execute: () => {} }
   }
 })
