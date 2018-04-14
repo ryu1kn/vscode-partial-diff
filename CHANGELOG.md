@@ -1,4 +1,8 @@
 
+### 0.6.0: 14 April 2018
+
+* Added a feature to quickly compare text in 2 visible editors. [#11](https://github.com/ryu1kn/vscode-partial-diff/issues/11)
+
 ### 0.5.1: 29 November 2017
 
 * Fixed the issue that **Compare with Clipboard** was not working. [#19](https://github.com/ryu1kn/vscode-partial-diff/issues/19)

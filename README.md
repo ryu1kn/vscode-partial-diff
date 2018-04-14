@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/ryu1kn/vscode-partial-diff.svg?branch=master)](https://travis-ci.org/ryu1kn/vscode-partial-diff) [![Code Climate](https://codeclimate.com/github/ryu1kn/vscode-partial-diff/badges/gpa.svg)](https://codeclimate.com/github/ryu1kn/vscode-partial-diff)
+[![Build Status](https://travis-ci.org/ryu1kn/vscode-partial-diff.svg?branch=master)](https://travis-ci.org/ryu1kn/vscode-partial-diff)
+[![Code Climate](https://codeclimate.com/github/ryu1kn/vscode-partial-diff/badges/gpa.svg)](https://codeclimate.com/github/ryu1kn/vscode-partial-diff)
 
 # Partial Diff
 
@@ -7,6 +8,7 @@
 * You can compare (diff) text selections within a file, across different files, or to the clipboard.
 * Multi cursor text selection
 * User defined text normalisation rules to reduce the noise in the diff (e.g. replace tab characters to spaces)
+* Compare text in 2 visible editors (i.e. tabs) with one command
 
 ![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/public.gif)
 
@@ -15,11 +17,12 @@
 * `Select Text for Compare`: Marks the selected text as the text to compare the next selection with.
 * `Compare Text with Previous Selection`: Compares the selected text to the first selection.
 * `Compare Text with Clipboard`: Compares the current clipboard to the selected text.
+* `Compare Text in Visible Editors`: Compares text in 2 visible editors.
 
 **NOTE:**
 
 * A diff will be shown only after selecting comparison text first (using `Select Text for Compare`).
-* Executing the `Select Text for Compare` or `Compare Text with Previous Selection` command without selecting any text will use the entire text of the current file.
+* Executing `Select Text for Compare`, `Compare Text with Previous Selection` or `Compare Text in Visible Editors` command without selecting any text will use the entire text of the current file.
 
 ## Configurations
 

@@ -2,7 +2,7 @@
   "name": "partial-diff",
   "displayName": "Partial Diff",
   "description": "Compare (diff) text selections within a file, across files, or to the clipboard",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
   "icon": "images/partial-diff_128x128.png",
@@ -27,7 +27,8 @@
   "activationEvents": [
     "onCommand:extension.partialDiff.markSection1",
     "onCommand:extension.partialDiff.markSection2AndTakeDiff",
-    "onCommand:extension.partialDiff.diffSelectionWithClipboard"
+    "onCommand:extension.partialDiff.diffSelectionWithClipboard",
+    "onCommand:extension.partialDiff.diffVisibleEditors"
   ],
   "main": "./extension",
   "contributes": {
@@ -92,6 +93,11 @@
       {
         "command": "extension.partialDiff.diffSelectionWithClipboard",
         "title": "Compare Text with Clipboard",
+        "category": "PartialDiff"
+      },
+      {
+        "command": "extension.partialDiff.diffVisibleEditors",
+        "title": "Compare Text in Visible Editors",
         "category": "PartialDiff"
       }
     ],

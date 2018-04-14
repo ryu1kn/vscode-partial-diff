@@ -11,6 +11,9 @@ suite('Bootstrapper', () => {
       }),
       createCompareSelectionWithClipboardCommand: () => ({
         execute: () => 'diffSelectionWithClipboard called'
+      }),
+      createCompareVisibleEditorsCommand: () => ({
+        execute: () => 'diffVisibleEditors called'
       })
     }
     const commands = fakeVSCodeCommands()
@@ -34,21 +37,31 @@ suite('Bootstrapper', () => {
       )
     ).to.eql('diffSelectionWithClipboard called')
     expect(
+      commands._invokeCommand(
+        'extension.partialDiff.diffVisibleEditors'
+      )
+    ).to.eql('diffVisibleEditors called')
+    expect(
       workspace.registerTextDocumentContentProvider
     ).to.have.been.calledWith('partialdiff', 'CONTENT_PROVIDER')
     expect(context.subscriptions).to.eql([
       'DISPOSABLE_scheme',
-      'DISPOSABLE_extension.partialDiff.markSection1',
-      'DISPOSABLE_extension.partialDiff.markSection2AndTakeDiff',
-      'DISPOSABLE_extension.partialDiff.diffSelectionWithClipboard'
+      'DISPOSABLE_E_extension.partialDiff.diffVisibleEditors',
+      'DISPOSABLE_TE_extension.partialDiff.markSection1',
+      'DISPOSABLE_TE_extension.partialDiff.markSection2AndTakeDiff',
+      'DISPOSABLE_TE_extension.partialDiff.diffSelectionWithClipboard'
     ])
   })
 
   function fakeVSCodeCommands () {
     return {
+      registerCommand: function (commandId, commandFn) {
+        this[commandId] = commandFn
+        return `DISPOSABLE_E_${commandId}`
+      },
       registerTextEditorCommand: function (commandId, commandFn) {
         this[commandId] = commandFn
-        return `DISPOSABLE_${commandId}`
+        return `DISPOSABLE_TE_${commandId}`
       },
       _invokeCommand: function (commandId) {
         return this[commandId]()
