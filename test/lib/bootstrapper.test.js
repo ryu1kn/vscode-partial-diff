@@ -33,13 +33,41 @@ suite('Bootstrapper', () => {
 
   function fakeVSCodeCommands () {
     const commands = td.object(['registerCommand', 'registerTextEditorCommand'])
-    td.when(commands.registerCommand('extension.partialDiff.diffVisibleEditors', commandMap.compareVisibleEditorsCommand.execute, commandMap.compareVisibleEditorsCommand))
+    td
+      .when(
+        commands.registerCommand(
+          'extension.partialDiff.diffVisibleEditors',
+          commandMap.compareVisibleEditorsCommand.execute,
+          commandMap.compareVisibleEditorsCommand
+        )
+      )
       .thenReturn('DISPOSABLE_diffVisibleEditors')
-    td.when(commands.registerTextEditorCommand('extension.partialDiff.markSection1', commandMap.saveText1Command.execute, commandMap.saveText1Command))
+    td
+      .when(
+        commands.registerTextEditorCommand(
+          'extension.partialDiff.markSection1',
+          commandMap.saveText1Command.execute,
+          commandMap.saveText1Command
+        )
+      )
       .thenReturn('DISPOSABLE_markSection1')
-    td.when(commands.registerTextEditorCommand('extension.partialDiff.markSection2AndTakeDiff', commandMap.compareSelectionWithText1Command.execute, commandMap.compareSelectionWithText1Command))
+    td
+      .when(
+        commands.registerTextEditorCommand(
+          'extension.partialDiff.markSection2AndTakeDiff',
+          commandMap.compareSelectionWithText1Command.execute,
+          commandMap.compareSelectionWithText1Command
+        )
+      )
       .thenReturn('DISPOSABLE_markSection2AndTakeDiff')
-    td.when(commands.registerTextEditorCommand('extension.partialDiff.diffSelectionWithClipboard', commandMap.compareSelectionWithClipboardCommand.execute, commandMap.compareSelectionWithClipboardCommand))
+    td
+      .when(
+        commands.registerTextEditorCommand(
+          'extension.partialDiff.diffSelectionWithClipboard',
+          commandMap.compareSelectionWithClipboardCommand.execute,
+          commandMap.compareSelectionWithClipboardCommand
+        )
+      )
       .thenReturn('DISPOSABLE_diffSelectionWithClipboard')
     return commands
   }
@@ -47,15 +75,22 @@ suite('Bootstrapper', () => {
   function fakeCommandFactory () {
     return {
       crateSaveText1Command: () => commandMap.saveText1Command,
-      createCompareSelectionWithText1Command: () => commandMap.compareSelectionWithText1Command,
-      createCompareSelectionWithClipboardCommand: () => commandMap.compareSelectionWithClipboardCommand,
-      createCompareVisibleEditorsCommand: () => commandMap.compareVisibleEditorsCommand
+      createCompareSelectionWithText1Command: () =>
+        commandMap.compareSelectionWithText1Command,
+      createCompareSelectionWithClipboardCommand: () =>
+        commandMap.compareSelectionWithClipboardCommand,
+      createCompareVisibleEditorsCommand: () =>
+        commandMap.compareVisibleEditorsCommand
     }
   }
 
   function fakeVSCodeWorkspace () {
     const registerTextDocumentContentProvider = td.function()
-    td.when(registerTextDocumentContentProvider('partialdiff', 'CONTENT_PROVIDER')).thenReturn('DISPOSABLE_scheme')
+    td
+      .when(
+        registerTextDocumentContentProvider('partialdiff', 'CONTENT_PROVIDER')
+      )
+      .thenReturn('DISPOSABLE_scheme')
     return { registerTextDocumentContentProvider }
   }
 
