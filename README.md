@@ -8,7 +8,7 @@
 * You can compare (diff) text selections within a file, across different files, or to the clipboard.
 * Multi cursor text selection
 * User defined text normalisation rules to reduce the noise in the diff (e.g. replace tab characters to spaces)
-* Compare text in 2 visible editors (i.e. tabs) with one command
+* Compare text in 2 visible editors (i.e. tabs) with one action
 
 ![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/public.gif)
 
