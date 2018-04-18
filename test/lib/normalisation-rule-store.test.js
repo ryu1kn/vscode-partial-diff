@@ -15,7 +15,7 @@ suite('NormalisationRuleStore', () => {
   })
 
   test('it gives pre-comparison text normalization rules from config as active rules', () => {
-    expect(ruleStore.readRules()).to.eql([
+    expect(ruleStore.readRuleStatus()).to.eql([
       { description: 'RULE1', active: true },
       { description: 'RULE2', active: true }
     ])
@@ -23,7 +23,7 @@ suite('NormalisationRuleStore', () => {
 
   test('it marks specified rules as disabled', () => {
     ruleStore.updateRuleStatus([{ active: false }, { active: true }])
-    expect(ruleStore.readRules()).to.eql([
+    expect(ruleStore.readRuleStatus()).to.eql([
       { description: 'RULE1', active: false },
       { description: 'RULE2', active: true }
     ])
@@ -32,7 +32,7 @@ suite('NormalisationRuleStore', () => {
   test('it sets all rules activates if rule set is updated in the editor config', () => {
     ruleStore.updateRuleStatus([{ active: false }, { active: true }])
     configStore.preComparisonTextNormalizationRules.pop()
-    expect(ruleStore.readRules()).to.eql([
+    expect(ruleStore.readRuleStatus()).to.eql([
       { description: 'RULE1', active: true }
     ])
   })
