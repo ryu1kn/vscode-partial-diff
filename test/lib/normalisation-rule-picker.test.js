@@ -6,18 +6,18 @@ suite('NormalisationRulePicker', () => {
   const vscWindow = td.object('showQuickPick')
   td
     .when(
-      vscWindow.showQuickPick([{ label: 'DESCRIPTION', picked: true }], {
+      vscWindow.showQuickPick([{ label: 'RULE_NAME', picked: true }], {
         canPickMany: true
       })
     )
-    .thenResolve([{ label: 'DESCRIPTION', picked: false }])
+    .thenResolve([{ label: 'RULE_NAME', picked: false }])
   const rulePicker = new NormalisationRulePicker({ vscWindow })
 
   test('it returns the new activation status that user specified', async () => {
     const newStatus = await rulePicker.show([
-      { description: 'DESCRIPTION', active: true }
+      { name: 'RULE_NAME', active: true }
     ])
 
-    expect(newStatus).to.eql([{ description: 'DESCRIPTION', active: false }])
+    expect(newStatus).to.eql([{ name: 'RULE_NAME', active: false }])
   })
 })
