@@ -131,6 +131,8 @@
     "lint": "eslint .",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "prep": "yarn run lint && yarn test",
+    "publish": "vsce publish",
+    "postpublish": "./tag-release.sh",
     "test": "mocha --opts cli-test-mocha.opts",
     "test-mode": "mocha --opts cli-test-mocha.opts --watch"
   },
