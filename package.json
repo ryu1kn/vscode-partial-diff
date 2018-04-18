@@ -28,7 +28,8 @@
     "onCommand:extension.partialDiff.markSection1",
     "onCommand:extension.partialDiff.markSection2AndTakeDiff",
     "onCommand:extension.partialDiff.diffSelectionWithClipboard",
-    "onCommand:extension.partialDiff.diffVisibleEditors"
+    "onCommand:extension.partialDiff.diffVisibleEditors",
+    "onCommand:extension.partialDiff.togglePreComparisonTextNormalizationRules"
   ],
   "main": "./extension",
   "contributes": {
@@ -99,6 +100,11 @@
         "command": "extension.partialDiff.diffVisibleEditors",
         "title": "Compare Text in Visible Editors",
         "category": "PartialDiff"
+      },
+      {
+        "command": "extension.partialDiff.togglePreComparisonTextNormalizationRules",
+        "title": "Toggle Pre-Comparison Text Normalisation Rules",
+        "category": "PartialDiff"
       }
     ],
     "menus": {
@@ -121,6 +127,11 @@
         {
           "command": "extension.partialDiff.diffVisibleEditors",
           "group": "2_partialdiff@4",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "extension.partialDiff.togglePreComparisonTextNormalizationRules",
+          "group": "2_partialdiff@5",
           "when": "editorTextFocus"
         }
       ]

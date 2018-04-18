@@ -7,7 +7,8 @@ suite('Bootstrapper', () => {
     saveText1Command: fakeExtensionCommand(),
     compareSelectionWithText1Command: fakeExtensionCommand(),
     compareSelectionWithClipboardCommand: fakeExtensionCommand(),
-    compareVisibleEditorsCommand: fakeExtensionCommand()
+    compareVisibleEditorsCommand: fakeExtensionCommand(),
+    toggleNormalisationRulesCommand: fakeExtensionCommand()
   }
   const bootstrapper = new Bootstrapper({
     commandFactory: fakeCommandFactory(),
@@ -27,7 +28,8 @@ suite('Bootstrapper', () => {
       'DISPOSABLE_diffVisibleEditors',
       'DISPOSABLE_markSection1',
       'DISPOSABLE_markSection2AndTakeDiff',
-      'DISPOSABLE_diffSelectionWithClipboard'
+      'DISPOSABLE_diffSelectionWithClipboard',
+      'DISPOSABLE_togglePreComparisonTextNormalizationRules'
     ])
   })
 
@@ -69,6 +71,15 @@ suite('Bootstrapper', () => {
         )
       )
       .thenReturn('DISPOSABLE_diffSelectionWithClipboard')
+    td
+      .when(
+        commands.registerCommand(
+          'extension.partialDiff.togglePreComparisonTextNormalizationRules',
+          commandMap.toggleNormalisationRulesCommand.execute,
+          commandMap.toggleNormalisationRulesCommand
+        )
+      )
+      .thenReturn('DISPOSABLE_togglePreComparisonTextNormalizationRules')
     return commands
   }
 
@@ -80,7 +91,9 @@ suite('Bootstrapper', () => {
       createCompareSelectionWithClipboardCommand: () =>
         commandMap.compareSelectionWithClipboardCommand,
       createCompareVisibleEditorsCommand: () =>
-        commandMap.compareVisibleEditorsCommand
+        commandMap.compareVisibleEditorsCommand,
+      createToggleNormalisationRulesCommand: () =>
+        commandMap.toggleNormalisationRulesCommand
     }
   }
 
