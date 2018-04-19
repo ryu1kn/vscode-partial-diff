@@ -4,10 +4,12 @@ const ToggleNormalisationRulesCommand = require('../../../lib/commands/toggle-no
 
 suite('ToggleNormalisationRulesCommand', () => {
   const RULES = 'RULES'
-  const normalisationRuleStore = td.object('readRuleStatus', 'updateRuleStatus')
-  td.when(normalisationRuleStore.readRuleStatus()).thenReturn(RULES)
+  const normalisationRuleStore = td.object('getAllRules', 'specifyActiveRules')
+  td.when(normalisationRuleStore.getAllRules()).thenReturn(RULES)
   const normalisationRulePicker = td.object('show')
-  td.when(normalisationRulePicker.show(RULES)).thenResolve('UPDATED_RULES')
+  td
+    .when(normalisationRulePicker.show(RULES))
+    .thenResolve('ACTIVE_RULE_INDICES')
   const command = new ToggleNormalisationRulesCommand({
     normalisationRulePicker,
     normalisationRuleStore
@@ -16,6 +18,6 @@ suite('ToggleNormalisationRulesCommand', () => {
   test('it updates the status of normalisation rules as user specified', async () => {
     await command.execute()
 
-    td.verify(normalisationRuleStore.updateRuleStatus('UPDATED_RULES'))
+    td.verify(normalisationRuleStore.specifyActiveRules('ACTIVE_RULE_INDICES'))
   })
 })
