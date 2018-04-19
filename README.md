@@ -6,9 +6,10 @@
 ## Features
 
 * You can compare (diff) text selections within a file, across different files, or to the clipboard.
-* Multi cursor text selection
-* User defined text normalisation rules to reduce the noise in the diff (e.g. replace tab characters to spaces)
-* Compare text in 2 visible editors (i.e. tabs) with one action
+* Multi cursor text selection.
+* User defined text normalization rules to reduce the noise in the diff (e.g. replace tab characters to spaces).
+* User defined text normalization rules can be toggled off without removing them from the configuration.
+* Compare text in 2 visible editors (i.e. tabs) with one action.
 
 ![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/public.gif)
 
@@ -18,6 +19,7 @@
 * `Compare Text with Previous Selection`: Compares the selected text to the first selection.
 * `Compare Text with Clipboard`: Compares the current clipboard to the selected text.
 * `Compare Text in Visible Editors`: Compares text in 2 visible editors.
+* `Toggle Pre-Comparison Text Normalization Rules`: Toggle pre-comparison text normalization rules.
 
 **NOTE:**
 

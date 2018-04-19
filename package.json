@@ -103,7 +103,7 @@
       },
       {
         "command": "extension.partialDiff.togglePreComparisonTextNormalizationRules",
-        "title": "Toggle Pre-Comparison Text Normalisation Rules",
+        "title": "Toggle Pre-Comparison Text Normalization Rules",
         "category": "PartialDiff"
       }
     ],
