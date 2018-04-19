@@ -15,15 +15,29 @@
 
 ## Commands
 
-* `Select Text for Compare`: Marks the selected text as the text to compare the next selection with.
-* `Compare Text with Previous Selection`: Compares the selected text to the first selection.
-* `Compare Text with Clipboard`: Compares the current clipboard to the selected text.
-* `Compare Text in Visible Editors`: Compares text in 2 visible editors.
-* `Toggle Pre-Comparison Text Normalization Rules`: Toggle pre-comparison text normalization rules.
+* `Select Text for Compare` (**Command ID:** `extension.partialDiff.markSection1`)
+
+    Marks the selected text as the text to compare the next selection with.
+
+* `Compare Text with Previous Selection` (**Command ID:** `extension.partialDiff.markSection2AndTakeDiff`)
+
+    Compares the selected text to the first selection.
+
+* `Compare Text with Clipboard` (**Command ID:** `extension.partialDiff.diffSelectionWithClipboard`)
+
+    Compares the current clipboard to the selected text.
+
+* `Compare Text in Visible Editors` (**Command ID:** `extension.partialDiff.diffVisibleEditors`)
+
+    Compares text in 2 visible editors.
+
+* `Toggle Pre-Comparison Text Normalization Rules` (**Command ID:** `extension.partialDiff.togglePreComparisonTextNormalizationRules`)
+
+    Toggle pre-comparison text normalization rules.
 
 **NOTE:**
 
-* A diff will be shown only after selecting comparison text first (using `Select Text for Compare`).
+* A diff will be shown only after selecting comparison text first (using `Select Text for Compare`) except `Compare Text in Visible Editors`.
 * Executing `Select Text for Compare`, `Compare Text with Previous Selection` or `Compare Text in Visible Editors` command without selecting any text will use the entire text of the current file.
 
 ## Configurations
