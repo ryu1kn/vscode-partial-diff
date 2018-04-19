@@ -36,4 +36,22 @@ suite('NormalisationRuleStore', () => {
     configStore.preComparisonTextNormalizationRules.pop()
     expect(ruleStore.readRuleStatus()).to.eql([{ name: 'RULE1', active: true }])
   })
+
+  test('it returns all the active rules', () => {
+    const activeRuleIndices = [1]
+    ruleStore.updateRuleStatus(activeRuleIndices)
+    expect(ruleStore.activeRules).to.eql([{ name: 'RULE2', active: true }])
+  })
+
+  test('it tells if there are any active rules', () => {
+    const activeRuleIndices = [1]
+    ruleStore.updateRuleStatus(activeRuleIndices)
+    expect(ruleStore.hasActiveRules).to.be.true
+  })
+
+  test('it tells if there are no active rules', () => {
+    const activeRuleIndices = []
+    ruleStore.updateRuleStatus(activeRuleIndices)
+    expect(ruleStore.hasActiveRules).to.be.false
+  })
 })

@@ -13,7 +13,7 @@ suite('DiffPresenter', () => {
     }
     const diffPresenter = new DiffPresenter({
       commands,
-      configStore: {},
+      normalisationRuleStore: {},
       textTitleBuilder: { build: () => {} },
       selectionInfoRegistry: { get: () => {} },
       textResourceUtil
@@ -35,7 +35,7 @@ suite('DiffPresenter', () => {
     }
     const diffPresenter = new DiffPresenter({
       commands,
-      configStore: {},
+      normalisationRuleStore: {},
       textTitleBuilder: { build: textKey => `TITLE_${textKey}` },
       selectionInfoRegistry,
       textResourceUtil: { getUri: () => {} }
@@ -55,7 +55,7 @@ suite('DiffPresenter', () => {
     }
     const diffPresenter = new DiffPresenter({
       commands,
-      configStore: { hasPreComparisonTextNormalizationRules: true },
+      normalisationRuleStore: { hasActiveRules: true },
       textTitleBuilder: { build: textKey => `TITLE_${textKey}` },
       selectionInfoRegistry,
       textResourceUtil: { getUri: () => {} }
