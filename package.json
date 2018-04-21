@@ -69,6 +69,10 @@
                     ]
                   }
                 ]
+              },
+              "enableOnStart": {
+                "type": "boolean",
+                "default": true
               }
             },
             "required": [

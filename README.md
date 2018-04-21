@@ -49,11 +49,12 @@
 
     Each rule has `match`, `replaceWith` and optionally `name`.
 
-    * `name`: Optional. Name of the rule to describe what the rule is for.
+    * `name`: Optional. Name of the rule to describe what the rule is for. You see this name on normalisation rule toggle menu.
     * `match`: Regular expression to find text you want to normalise. [Global search flag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions#Advanced_searching_with_flags) is automatically applied.
     * `replaceWith`: One of the following
       * **Replacement text** as a string. You can use `$N`, where `N` is the index of substring (starting from 1) you captured in `match` with `()`.
       * **Letter case specification** as an object. Valid cases are `upper` and `lower`.
+    * `enableOnStart`: Optional. Set it `false` if you don't want to use the rule when the extension starts up.
 
     Sample `preComparisonTextNormalizationRules`:
 
@@ -72,7 +73,8 @@
       {
         "name": "Capitalise",
         "match": ".*",
-        "replaceWith": {"letterCase": "upper"}
+        "replaceWith": {"letterCase": "upper"},
+        "enableOnStart": false
       }
       ...
     ]
