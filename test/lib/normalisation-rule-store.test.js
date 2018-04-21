@@ -7,34 +7,42 @@ suite('NormalisationRuleStore', () => {
   beforeEach(() => {
     configStore = {
       preComparisonTextNormalizationRules: [
-        { name: 'RULE1' },
-        { name: 'RULE2' }
+        { name: 'RULE1', enableOnStart: true },
+        { name: 'RULE2', enableOnStart: true },
+        { name: 'RULE3', enableOnStart: false },
+        { name: 'RULE4' }
       ]
     }
     ruleStore = new NormalisationRuleStore({ configStore })
   })
 
-  test('it gives pre-comparison text normalization rules from config as active rules', () => {
+  test('it gives pre-comparison text normalization rules from config', () => {
     expect(ruleStore.getAllRules()).to.eql([
       { name: 'RULE1', active: true },
-      { name: 'RULE2', active: true }
+      { name: 'RULE2', active: true },
+      { name: 'RULE3', active: false },
+      { name: 'RULE4', active: true }
     ])
   })
 
-  test('it marks specified rules as disabled', () => {
+  test('it marks unspecified rules as disabled', () => {
     const activeRuleIndices = [1]
     ruleStore.specifyActiveRules(activeRuleIndices)
+    const [firstRule] = ruleStore.getAllRules()
+    expect(firstRule).to.eql({ name: 'RULE1', active: false })
+  })
+
+  test('it resets all rule states in the editor config', () => {
+    const activeRuleIndices = [1]
+    ruleStore.specifyActiveRules(activeRuleIndices)
+    configStore.preComparisonTextNormalizationRules.push({ name: 'RULE_TMP' })
     expect(ruleStore.getAllRules()).to.eql([
-      { name: 'RULE1', active: false },
-      { name: 'RULE2', active: true }
+      { name: 'RULE1', active: true },
+      { name: 'RULE2', active: true },
+      { name: 'RULE3', active: false },
+      { name: 'RULE4', active: true },
+      { name: 'RULE_TMP', active: true }
     ])
-  })
-
-  test('it sets all rules activates if rule set is updated in the editor config', () => {
-    const activeRuleIndices = [1]
-    ruleStore.specifyActiveRules(activeRuleIndices)
-    configStore.preComparisonTextNormalizationRules.pop()
-    expect(ruleStore.getAllRules()).to.eql([{ name: 'RULE1', active: true }])
   })
 
   test('it returns all the active rules', () => {
