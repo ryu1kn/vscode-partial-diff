@@ -6,7 +6,8 @@ images/public.gif
 npm-debug.log
 yarn.lock
 yarn-error.log
-**/__*
+__*
+__*/**/*
 .codeclimate.yml
 .editorconfig
 .eslintignore
