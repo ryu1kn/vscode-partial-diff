@@ -42,7 +42,13 @@
 
 ## Configurations
 
-* `partialDiff.preComparisonTextNormalizationRules`: Rules to normalize texts for diff view.
+* `partialDiff.hideCommandsOnContextMenu` (default: `false`)
+
+    Hide Partial Diff commands on the context menu.
+
+* `partialDiff.preComparisonTextNormalizationRules` (default: `[]`)
+
+    Rules to normalize texts for diff view.
 
     It doesn't mutate texts in the editors. Only texts in diff views get normalised.
     If a diff is presented with text normalised (or possibly normalised), `~` is used in the diff title instead of `↔`)

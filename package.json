@@ -37,6 +37,11 @@
       "type": "object",
       "title": "Partial Diff configurations",
       "properties": {
+        "partialDiff.hideCommandsOnContextMenu": {
+          "description": "Hide Partial Diff commands on the context menu",
+          "type": "boolean",
+          "default": false
+        },
         "partialDiff.preComparisonTextNormalizationRules": {
           "description": "Rules to normalize texts before taking a diff",
           "type": "array",
@@ -116,27 +121,27 @@
         {
           "command": "extension.partialDiff.markSection1",
           "group": "2_partialdiff@1",
-          "when": "editorTextFocus"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
         },
         {
           "command": "extension.partialDiff.markSection2AndTakeDiff",
           "group": "2_partialdiff@2",
-          "when": "editorTextFocus"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
         },
         {
           "command": "extension.partialDiff.diffSelectionWithClipboard",
           "group": "2_partialdiff@3",
-          "when": "editorTextFocus"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
         },
         {
           "command": "extension.partialDiff.diffVisibleEditors",
           "group": "2_partialdiff@4",
-          "when": "editorTextFocus"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
         },
         {
           "command": "extension.partialDiff.togglePreComparisonTextNormalizationRules",
           "group": "2_partialdiff@5",
-          "when": "editorTextFocus"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
         }
       ]
     }
