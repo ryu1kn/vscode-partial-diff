@@ -1,4 +1,4 @@
-const td = require('testdouble')
+const { mockObject, when, verify } = require('../../helpers')
 
 const ToggleNormalisationRulesCommand = require('../../../lib/commands/toggle-normalisation-rules')
 
@@ -7,7 +7,7 @@ suite('ToggleNormalisationRulesCommand', () => {
     const { command, deps } = createCommand({ rules: ['RULE'] })
     await command.execute()
 
-    td.verify(
+    verify(
       deps.normalisationRuleStore.specifyActiveRules('ACTIVE_RULE_INDICES')
     )
   })
@@ -16,7 +16,7 @@ suite('ToggleNormalisationRulesCommand', () => {
     const { command, deps } = createCommand({ rules: [] })
     await command.execute()
 
-    td.verify(
+    verify(
       deps.messageBar.showInfo(
         'Please set `partialDiff.preComparisonTextNormalizationRules` first'
       )
@@ -24,17 +24,17 @@ suite('ToggleNormalisationRulesCommand', () => {
   })
 
   function createCommand ({ rules }) {
-    const normalisationRuleStore = td.object(
+    const normalisationRuleStore = mockObject([
       'getAllRules',
       'specifyActiveRules'
-    )
-    td.when(normalisationRuleStore.getAllRules()).thenReturn(rules)
-    const normalisationRulePicker = td.object('show')
-    td
-      .when(normalisationRulePicker.show(rules))
-      .thenResolve('ACTIVE_RULE_INDICES')
+    ])
+    when(normalisationRuleStore.getAllRules()).thenReturn(rules)
+
+    const normalisationRulePicker = mockObject('show')
+    when(normalisationRulePicker.show(rules)).thenResolve('ACTIVE_RULE_INDICES')
+
     const deps = {
-      messageBar: td.object('showInfo'),
+      messageBar: mockObject('showInfo'),
       normalisationRulePicker,
       normalisationRuleStore
     }

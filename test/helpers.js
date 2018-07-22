@@ -1,7 +1,7 @@
+const sinon = require('sinon')
+const td = require('testdouble')
 const chai = require('chai')
 chai.use(require('sinon-chai'))
-
-const sinon = require('sinon')
 
 exports.expect = chai.expect
 exports.sinon = sinon
@@ -17,3 +17,9 @@ exports.stubWithArgs = function (...args) {
   }
   return stub
 }
+
+exports.mockObject = td.object
+exports.argCaptor = td.matchers.captor
+exports.verify = td.verify
+exports.when = td.when
+exports.matchers = td.matchers

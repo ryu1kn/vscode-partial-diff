@@ -1,19 +1,21 @@
-const { expect, sinon, stubWithArgs } = require('../../helpers')
+const { expect, verify, when, mockObject, argCaptor } = require('../../helpers')
 
 const CompareSelectionWithClipboardCommand = require('../../../lib/commands/compare-selection-with-clipboard')
 
 suite('CompareSelectionWithClipboardCommand', () => {
   test('it compares selected text with clipboard text', async () => {
-    const clipboard = { read: () => Promise.resolve('CLIPBOARD_TEXT') }
-    const selectionInfoBuilder = {
-      extract: stubWithArgs(['EDITOR'], {
-        text: 'SELECTED_TEXT',
-        fileName: 'FILENAME',
-        lineRanges: 'SELECTED_RANGE'
-      })
-    }
-    const selectionInfoRegistry = { set: sinon.spy() }
-    const diffPresenter = { takeDiff: sinon.spy() }
+    const clipboard = mockObject('read')
+    when(clipboard.read()).thenResolve('CLIPBOARD_TEXT')
+
+    const selectionInfoBuilder = mockObject('extract')
+    when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
+      text: 'SELECTED_TEXT',
+      fileName: 'FILENAME',
+      lineRanges: 'SELECTED_RANGE'
+    })
+
+    const selectionInfoRegistry = mockObject('set')
+    const diffPresenter = mockObject('takeDiff')
     const command = new CompareSelectionWithClipboardCommand({
       clipboard,
       diffPresenter,
@@ -23,24 +25,30 @@ suite('CompareSelectionWithClipboardCommand', () => {
 
     await command.execute('EDITOR')
 
-    expect(selectionInfoRegistry.set).to.have.been.calledWith('clipboard', {
+    const arg1 = argCaptor()
+    const arg2 = argCaptor()
+    verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()))
+    expect(arg1.values[0]).to.eql('clipboard')
+    expect(arg2.values[0]).to.eql({
       text: 'CLIPBOARD_TEXT',
       fileName: 'Clipboard'
     })
-    expect(selectionInfoRegistry.set).to.have.been.calledWith('reg2', {
+    expect(arg1.values[1]).to.eql('reg2')
+    expect(arg2.values[1]).to.eql({
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'
     })
-    expect(diffPresenter.takeDiff).to.have.been.calledWith('clipboard', 'reg2')
+
+    verify(diffPresenter.takeDiff('clipboard', 'reg2'))
   })
 
   test('it prints callstack if error occurred', async () => {
-    const logger = { error: sinon.spy() }
+    const logger = mockObject('error')
     const command = new CompareSelectionWithClipboardCommand({ logger })
 
     await command.execute('EDITOR')
 
-    expect(logger.error).to.have.been.called
+    verify(logger.error(), { times: 1, ignoreExtraArgs: true })
   })
 })
