@@ -1,4 +1,3 @@
 --ui tdd
---require test/bootstrap.js
 --recursive
 test

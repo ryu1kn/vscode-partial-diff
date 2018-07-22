@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const SelectionInfoBuilder = require('../../lib/selection-info-builder')
 
 suite('SelectionInfoBuilder', () => {

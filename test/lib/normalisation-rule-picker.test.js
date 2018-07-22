@@ -1,3 +1,4 @@
+const { expect } = require('../helpers')
 const td = require('testdouble')
 
 const NormalisationRulePicker = require('../../lib/normalisation-rule-picker')

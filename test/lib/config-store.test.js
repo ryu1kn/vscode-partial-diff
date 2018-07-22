@@ -1,3 +1,5 @@
+const { expect, stubWithArgs } = require('../helpers')
+
 const ConfigStore = require('../../lib/config-store')
 
 suite('ConfigStore', () => {

@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const ContentProvider = require('../../lib/content-provider')
 
 suite('ContentProvider', () => {

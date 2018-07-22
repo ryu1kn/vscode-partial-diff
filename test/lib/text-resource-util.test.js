@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const TextResourceUtil = require('../../lib/text-resource-util')
 
 suite('TextResourceUtil', () => {

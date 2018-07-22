@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const SelectionInfoRegistry = require('../../lib/selection-info-registry')
 
 suite('SelectionInfoRegistry', () => {

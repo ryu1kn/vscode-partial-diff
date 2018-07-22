@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const TextTitleBuilder = require('../../lib/text-title-builder')
 
 suite('TextTitleBuilder', () => {

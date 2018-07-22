@@ -1,3 +1,5 @@
+const { expect, sinon, stubWithArgs } = require('../../helpers')
+
 const CompareSelectionWithClipboardCommand = require('../../../lib/commands/compare-selection-with-clipboard')
 
 suite('CompareSelectionWithClipboardCommand', () => {

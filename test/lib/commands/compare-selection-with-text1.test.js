@@ -1,3 +1,5 @@
+const { expect, sinon, stubWithArgs } = require('../../helpers')
+
 const CompareSelectionWithText1 = require('../../../lib/commands/compare-selection-with-text1')
 
 suite('CompareSelectionWithText1', () => {

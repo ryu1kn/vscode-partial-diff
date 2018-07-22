@@ -1,5 +1,6 @@
-const CompareVisibleEditorsCommand = require('../../../lib/commands/compare-visible-editors')
 const td = require('testdouble')
+
+const CompareVisibleEditorsCommand = require('../../../lib/commands/compare-visible-editors')
 
 suite('CompareVisibleEditorsCommand', () => {
   const editor1 = { viewColumn: 1 }

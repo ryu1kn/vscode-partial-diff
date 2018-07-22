@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const NormalisationRuleStore = require('../../lib/normalisation-rule-store')
 
 suite('NormalisationRuleStore', () => {

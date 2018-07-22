@@ -1,3 +1,5 @@
+const { expect, sinon, stubWithArgs } = require('../helpers')
+
 const DiffPresenter = require('../../lib/diff-presenter')
 
 suite('DiffPresenter', () => {

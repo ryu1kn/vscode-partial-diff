@@ -1,3 +1,5 @@
+const { expect } = require('../helpers')
+
 const Clipboard = require('../../lib/clipboard')
 
 suite('Clipboard', () => {

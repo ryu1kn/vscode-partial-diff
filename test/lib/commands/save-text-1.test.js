@@ -1,3 +1,5 @@
+const { expect, sinon, stubWithArgs } = require('../../helpers')
+
 const SelectText1Command = require('../../../lib/commands/save-text-1')
 
 suite('SelectText1Command', () => {
