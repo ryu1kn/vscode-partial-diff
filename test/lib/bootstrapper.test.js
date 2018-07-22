@@ -1,5 +1,4 @@
-const td = require('testdouble')
-const { expect } = require('../helpers')
+const { expect, when, mockObject } = require('../helpers')
 
 const Bootstrapper = require('../../lib/bootstrapper')
 
@@ -35,52 +34,45 @@ suite('Bootstrapper', () => {
   })
 
   function fakeVSCodeCommands () {
-    const commands = td.object(['registerCommand', 'registerTextEditorCommand'])
-    td
-      .when(
-        commands.registerCommand(
-          'extension.partialDiff.diffVisibleEditors',
-          commandMap.compareVisibleEditorsCommand.execute,
-          commandMap.compareVisibleEditorsCommand
-        )
+    const commands = mockObject([
+      'registerCommand',
+      'registerTextEditorCommand'
+    ])
+    when(
+      commands.registerCommand(
+        'extension.partialDiff.diffVisibleEditors',
+        commandMap.compareVisibleEditorsCommand.execute,
+        commandMap.compareVisibleEditorsCommand
       )
-      .thenReturn('DISPOSABLE_diffVisibleEditors')
-    td
-      .when(
-        commands.registerTextEditorCommand(
-          'extension.partialDiff.markSection1',
-          commandMap.saveText1Command.execute,
-          commandMap.saveText1Command
-        )
+    ).thenReturn('DISPOSABLE_diffVisibleEditors')
+    when(
+      commands.registerTextEditorCommand(
+        'extension.partialDiff.markSection1',
+        commandMap.saveText1Command.execute,
+        commandMap.saveText1Command
       )
-      .thenReturn('DISPOSABLE_markSection1')
-    td
-      .when(
-        commands.registerTextEditorCommand(
-          'extension.partialDiff.markSection2AndTakeDiff',
-          commandMap.compareSelectionWithText1Command.execute,
-          commandMap.compareSelectionWithText1Command
-        )
+    ).thenReturn('DISPOSABLE_markSection1')
+    when(
+      commands.registerTextEditorCommand(
+        'extension.partialDiff.markSection2AndTakeDiff',
+        commandMap.compareSelectionWithText1Command.execute,
+        commandMap.compareSelectionWithText1Command
       )
-      .thenReturn('DISPOSABLE_markSection2AndTakeDiff')
-    td
-      .when(
-        commands.registerTextEditorCommand(
-          'extension.partialDiff.diffSelectionWithClipboard',
-          commandMap.compareSelectionWithClipboardCommand.execute,
-          commandMap.compareSelectionWithClipboardCommand
-        )
+    ).thenReturn('DISPOSABLE_markSection2AndTakeDiff')
+    when(
+      commands.registerTextEditorCommand(
+        'extension.partialDiff.diffSelectionWithClipboard',
+        commandMap.compareSelectionWithClipboardCommand.execute,
+        commandMap.compareSelectionWithClipboardCommand
       )
-      .thenReturn('DISPOSABLE_diffSelectionWithClipboard')
-    td
-      .when(
-        commands.registerCommand(
-          'extension.partialDiff.togglePreComparisonTextNormalizationRules',
-          commandMap.toggleNormalisationRulesCommand.execute,
-          commandMap.toggleNormalisationRulesCommand
-        )
+    ).thenReturn('DISPOSABLE_diffSelectionWithClipboard')
+    when(
+      commands.registerCommand(
+        'extension.partialDiff.togglePreComparisonTextNormalizationRules',
+        commandMap.toggleNormalisationRulesCommand.execute,
+        commandMap.toggleNormalisationRulesCommand
       )
-      .thenReturn('DISPOSABLE_togglePreComparisonTextNormalizationRules')
+    ).thenReturn('DISPOSABLE_togglePreComparisonTextNormalizationRules')
     return commands
   }
 
@@ -99,13 +91,14 @@ suite('Bootstrapper', () => {
   }
 
   function fakeVSCodeWorkspace () {
-    const registerTextDocumentContentProvider = td.function()
-    td
-      .when(
-        registerTextDocumentContentProvider('partialdiff', 'CONTENT_PROVIDER')
+    const vsWorkspace = mockObject('registerTextDocumentContentProvider')
+    when(
+      vsWorkspace.registerTextDocumentContentProvider(
+        'partialdiff',
+        'CONTENT_PROVIDER'
       )
-      .thenReturn('DISPOSABLE_scheme')
-    return { registerTextDocumentContentProvider }
+    ).thenReturn('DISPOSABLE_scheme')
+    return vsWorkspace
   }
 
   function fakeExtensionCommand () {
