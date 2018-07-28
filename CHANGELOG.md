@@ -5,6 +5,13 @@ All notable changes to "Partial Diff" extension will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2018-07-28
+### Added
+- A configuration for individually show/hide Partial Diff commands on the context menu. [#27](https://github.com/ryu1kn/vscode-partial-diff/issues/27)
+
+### Deprecated
+- `partialDiff.hideCommandsOnContextMenu` setting, as the new configuration can cover its use case.
+
 ## [1.2.0] - 2018-06-27
 ### Added
 - A configuration to hide Partial Diff commands from the context menu. [#26](https://github.com/ryu1kn/vscode-partial-diff/issues/26)

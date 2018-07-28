@@ -42,9 +42,18 @@
 
 ## Configurations
 
-* `partialDiff.hideCommandsOnContextMenu` (default: `false`)
+* `partialDiff.commandsOnContextMenu` (default: `{"markSection1": true, ...}`, all commands visible)
 
-    Hide Partial Diff commands on the context menu.
+    Commands appear on the context menu. Unlisted commands will still appear.
+   
+    For example, if you don't want to see *Compare Text in Visible Editors* command (Command ID: `extension.partialDiff.diffVisibleEditors`)
+    on the context menu, you can set this setting as follows:
+
+    ```
+    "partialDiff.commandsOnContextMenu": {
+      "diffVisibleEditors": false
+    }
+    ```
 
 * `partialDiff.preComparisonTextNormalizationRules` (default: `[]`)
 
@@ -85,6 +94,10 @@
       ...
     ]
     ```
+
+* `partialDiff.hideCommandsOnContextMenu` (default: `false`)
+
+    (DEPRECATED) Hide Partial Diff commands on the context menu. Please use `partialDiff.commandsOnContextMenu` instead.
 
 ## Keyboard Shortcuts
 

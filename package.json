@@ -2,7 +2,7 @@
   "name": "partial-diff",
   "displayName": "Partial Diff",
   "description": "Compare (diff) text selections within a file, across files, or to the clipboard",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "publisher": "ryu1kn",
   "license": "SEE LICENSE IN LICENSE.txt",
   "icon": "images/partial-diff_128x128.png",
@@ -38,9 +38,38 @@
       "title": "Partial Diff configurations",
       "properties": {
         "partialDiff.hideCommandsOnContextMenu": {
-          "description": "Hide Partial Diff commands on the context menu",
+          "description": "(DEPRECATED) Hide Partial Diff commands on the context menu. Use `partialDiff.commandsOnContextMenu` instead",
           "type": "boolean",
           "default": false
+        },
+        "partialDiff.commandsOnContextMenu": {
+          "description": "Commands appear on the context menu. Unlisted commands will appear on the menu",
+          "type": "object",
+          "properties": {
+            "markSection1": {
+              "type": "boolean"
+            },
+            "markSection2AndTakeDiff": {
+              "type": "boolean"
+            },
+            "diffSelectionWithClipboard": {
+              "type": "boolean"
+            },
+            "diffVisibleEditors": {
+              "type": "boolean"
+            },
+            "togglePreComparisonTextNormalizationRules": {
+              "type": "boolean"
+            }
+          },
+          "default": {
+            "markSection1": true,
+            "markSection2AndTakeDiff": true,
+            "diffSelectionWithClipboard": true,
+            "diffVisibleEditors": true,
+            "togglePreComparisonTextNormalizationRules": true
+          },
+          "additionalProperties": false
         },
         "partialDiff.preComparisonTextNormalizationRules": {
           "description": "Rules to normalize texts before taking a diff",
@@ -121,27 +150,27 @@
         {
           "command": "extension.partialDiff.markSection1",
           "group": "2_partialdiff@1",
-          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.markSection1"
         },
         {
           "command": "extension.partialDiff.markSection2AndTakeDiff",
           "group": "2_partialdiff@2",
-          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.markSection2AndTakeDiff"
         },
         {
           "command": "extension.partialDiff.diffSelectionWithClipboard",
           "group": "2_partialdiff@3",
-          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.diffSelectionWithClipboard"
         },
         {
           "command": "extension.partialDiff.diffVisibleEditors",
           "group": "2_partialdiff@4",
-          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.diffVisibleEditors"
         },
         {
           "command": "extension.partialDiff.togglePreComparisonTextNormalizationRules",
           "group": "2_partialdiff@5",
-          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu"
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.togglePreComparisonTextNormalizationRules"
         }
       ]
     }
