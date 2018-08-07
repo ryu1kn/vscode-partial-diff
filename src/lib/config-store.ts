@@ -3,8 +3,8 @@ import {EXTENSION_ID} from './const';
 export default class ConfigStore {
     private readonly workspace: any;
 
-    constructor(params) {
-        this.workspace = params.workspace;
+    constructor(workspace: any) {
+        this.workspace = workspace;
     }
 
     get preComparisonTextNormalizationRules() {

@@ -2,11 +2,11 @@ const PLATFORM_WINDOWS = 'win32';
 
 export default class Clipboard {
     private readonly clipboardy: any;
-    private readonly platform: any;
+    private readonly platform: string;
 
-    constructor(params) {
-        this.clipboardy = params.clipboardy;
-        this.platform = params.platform;
+    constructor(clipboardy: any, platform: string) {
+        this.clipboardy = clipboardy;
+        this.platform = platform;
     }
 
     async read() {

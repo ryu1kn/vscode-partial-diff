@@ -1,5 +1,8 @@
 import ContentProvider from '../../lib/content-provider';
 import * as assert from 'assert';
+import {mockType} from '../helpers';
+import NormalisationRuleStore from '../../lib/normalisation-rule-store';
+import TextResourceUtil from '../../lib/text-resource-util';
 
 suite('ContentProvider', () => {
     test('it extracts text key from the given uri and uses it to retrieve text', () => {
@@ -76,14 +79,15 @@ suite('ContentProvider', () => {
         const defaultSelectionInfoRegistry = {
             get: key => ({text: registeredText || `TEXT_${key}`})
         };
-        const textResourceUtil = {getTextKey: uri => uri.replace('URI_', '')};
-        const normalisationRuleStore = {activeRules: activeRules || []};
-        const contentProvider = new ContentProvider({
-            selectionInfoRegistry:
-                selectionInfoRegistry || defaultSelectionInfoRegistry,
-            textResourceUtil,
-            normalisationRuleStore
+        const textResourceUtil = mockType<TextResourceUtil>({
+            getTextKey: uri => uri.replace('URI_', '')
         });
+        const normalisationRuleStore = mockType<NormalisationRuleStore>({activeRules: activeRules || []});
+        const contentProvider = new ContentProvider(
+            selectionInfoRegistry || defaultSelectionInfoRegistry,
+            normalisationRuleStore,
+            textResourceUtil
+        );
         return contentProvider.provideTextDocumentContent('URI_1');
     }
 });

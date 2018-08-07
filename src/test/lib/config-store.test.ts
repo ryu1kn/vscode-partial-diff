@@ -12,7 +12,7 @@ suite('ConfigStore', () => {
         const workspace = mockObject('getConfiguration') as any;
         when(workspace.getConfiguration('partialDiff')).thenReturn(extensionConfig);
 
-        const configStore = new ConfigStore({workspace});
+        const configStore = new ConfigStore(workspace);
         assert.deepEqual(configStore.preComparisonTextNormalizationRules, 'RULES');
     });
 });

@@ -21,11 +21,11 @@ export default class BootstrapperFactory {
             vscode,
             logger
         });
-        const contentProvider = new ContentProvider({
-            normalisationRuleStore,
+        const contentProvider = new ContentProvider(
             selectionInfoRegistry,
+            normalisationRuleStore,
             textResourceUtil
-        });
+        );
         return new Bootstrapper(commandFactory, contentProvider, vscode);
     }
 
@@ -39,7 +39,7 @@ export default class BootstrapperFactory {
 
     private createNormalisationRuleStore() {
         return new NormalisationRuleStore({
-            configStore: new ConfigStore({workspace: vscode.workspace})
+            configStore: new ConfigStore(vscode.workspace)
         });
     }
 }

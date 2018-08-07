@@ -105,10 +105,7 @@ export default class CommandFactory {
     }
 
     private createClipboard() {
-        return new Clipboard({
-            clipboardy,
-            platform: process.platform
-        });
+        return new Clipboard(clipboardy, process.platform);
     }
 
     private createDiffPresenter() {
