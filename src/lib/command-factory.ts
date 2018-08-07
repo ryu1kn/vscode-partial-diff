@@ -35,11 +35,11 @@ export default class CommandFactory {
     }
 
     crateSaveText1Command() {
-        return new SaveText1Command({
-            selectionInfoRegistry: this.selectionInfoRegistry,
-            selectionInfoBuilder: this.getSelectionInfoBuilder(),
-            logger: this.logger
-        });
+        return new SaveText1Command(
+            this.getSelectionInfoBuilder(),
+            this.selectionInfoRegistry,
+            this.logger
+        );
     }
 
     createCompareSelectionWithText1Command() {

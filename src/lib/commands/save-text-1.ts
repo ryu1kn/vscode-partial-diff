@@ -8,10 +8,12 @@ export default class SaveText1Command {
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
-    constructor(params) {
-        this.logger = params.logger;
-        this.selectionInfoBuilder = params.selectionInfoBuilder;
-        this.selectionInfoRegistry = params.selectionInfoRegistry;
+    constructor(selectionInfoBuilder: SelectionInfoBuilder,
+                selectionInfoRegistry: SelectionInfoRegistry,
+                logger: Logger) {
+        this.logger = logger;
+        this.selectionInfoBuilder = selectionInfoBuilder;
+        this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
     execute(editor) {
