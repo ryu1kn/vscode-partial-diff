@@ -1,4 +1,3 @@
-
 export const EXTENSION_ID = 'partialDiff';
 
 export const EXTENSION_NAMESPACE = 'extension.partialDiff';

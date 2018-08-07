@@ -1,7 +1,7 @@
 import * as td from 'testdouble';
 
 export const throwErrorIfCalled = () => {
-  throw new Error("Shouldn't have been called");
+    throw new Error('Shouldn\'t have been called');
 };
 
 export const mockObject = td.object;

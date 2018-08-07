@@ -1,11 +1,11 @@
 export default class MessageBar {
-  private vscWindow: any;
+    private vscWindow: any;
 
-  constructor({vscWindow}) {
-    this.vscWindow = vscWindow;
-  }
+    constructor({vscWindow}) {
+        this.vscWindow = vscWindow;
+    }
 
-  async showInfo(message) {
-    await this.vscWindow.showInformationMessage(message);
-  }
+    async showInfo(message) {
+        await this.vscWindow.showInformationMessage(message);
+    }
 }
