@@ -1,5 +1,5 @@
 import Bootstrapper from '../../lib/bootstrapper';
-import { when, mockObject } from '../helpers';
+import {when, mockObject} from '../helpers';
 import * as assert from 'assert';
 
 suite('Bootstrapper', () => {
@@ -20,7 +20,7 @@ suite('Bootstrapper', () => {
   });
 
   test('it registers commands', () => {
-    const context = { subscriptions: [] };
+    const context = {subscriptions: []};
     bootstrapper.initiate(context);
 
     assert.deepEqual(context.subscriptions, [
@@ -102,6 +102,6 @@ suite('Bootstrapper', () => {
   }
 
   function fakeExtensionCommand () {
-    return { execute: () => {} };
+    return {execute: () => {}};
   }
 });

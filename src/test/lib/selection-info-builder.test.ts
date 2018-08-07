@@ -35,7 +35,7 @@ suite('SelectionInfoBuilder', () => {
   test('it extracts selected line ranges from editor', () => {
     const textInfo = extractTextInfo(['SELECTED_TEXT']);
     assert.deepEqual(textInfo.lineRanges, [
-      { start: 'START_LINE_1', end: 'END_LINE_1' }
+      {start: 'START_LINE_1', end: 'END_LINE_1'}
     ]);
   });
 
@@ -47,23 +47,23 @@ suite('SelectionInfoBuilder', () => {
   test('it extracts all the line ranges of text selections', () => {
     const textInfo = extractTextInfo(['SELECTED_TEXT_1', 'SELECTED_TEXT_2']);
     assert.deepEqual(textInfo.lineRanges, [
-      { start: 'START_LINE_1', end: 'END_LINE_1' },
-      { start: 'START_LINE_2', end: 'END_LINE_2' }
+      {start: 'START_LINE_1', end: 'END_LINE_1'},
+      {start: 'START_LINE_2', end: 'END_LINE_2'}
     ]);
   });
 
   test('it skips all cursors that are not selecting any text', () => {
     const textInfo = extractTextInfo(['SELECTED_TEXT_1', '', 'SELECTED_TEXT_3']);
     assert.deepEqual(textInfo.lineRanges, [
-      { start: 'START_LINE_1', end: 'END_LINE_1' },
-      { start: 'START_LINE_3', end: 'END_LINE_3' }
+      {start: 'START_LINE_1', end: 'END_LINE_1'},
+      {start: 'START_LINE_3', end: 'END_LINE_3'}
     ]);
   });
 
   test('it sorts the selections by ascending order of line number', () => {
     const selections = [
-      { start: { line: 5 }, end: { line: 6 }, text: 'A' },
-      { start: { line: 1 }, end: { line: 2 }, text: 'B' }
+      {start: {line: 5 }, end: { line: 6}, text: 'A'},
+      {start: {line: 1 }, end: { line: 2}, text: 'B'}
     ];
     const textInfo = extractTextInfoFromSelections(selections);
     assert.deepEqual(textInfo.text, 'B\nA');
@@ -72,18 +72,18 @@ suite('SelectionInfoBuilder', () => {
   test('it sorts the selections by ascending order of column number if in the same line', () => {
     const selections = [
       {
-        start: { line: 5, character: 7 },
-        end: { line: 5, character: 8 },
+        start: {line: 5, character: 7},
+        end: {line: 5, character: 8},
         text: 'A'
       },
       {
-        start: { line: 5, character: 4 },
-        end: { line: 5, character: 5 },
+        start: {line: 5, character: 4},
+        end: {line: 5, character: 5},
         text: 'B'
       },
       {
-        start: { line: 1, character: 1 },
-        end: { line: 1, character: 2 },
+        start: {line: 1, character: 1},
+        end: {line: 1, character: 2},
         text: 'C'
       }
     ];
@@ -99,8 +99,8 @@ suite('SelectionInfoBuilder', () => {
   function extractTextInfo (selectedTexts) {
     const selections = selectedTexts.map((text, i) => ({
       text,
-      start: { line: `START_LINE_${i + 1}` },
-      end: { line: `END_LINE_${i + 1}` }
+      start: {line: `START_LINE_${i + 1}`},
+      end: {line: `END_LINE_${i + 1}`}
     }));
     return extractTextInfoFromSelections(selections);
   }
@@ -108,7 +108,7 @@ suite('SelectionInfoBuilder', () => {
   function extractTextInfoFromSelections (selections) {
     const selectionInfoBuilder = new SelectionInfoBuilder();
     const selectionWithIsEmptyFlag = selections.map(s =>
-      Object.assign({}, s, { isEmpty: !s.text })
+      Object.assign({}, s, {isEmpty: !s.text})
     );
     return selectionInfoBuilder.extract(fakeEditor(selectionWithIsEmptyFlag));
   }

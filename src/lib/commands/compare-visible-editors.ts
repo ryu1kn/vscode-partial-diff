@@ -2,7 +2,7 @@ import DiffPresenter from '../diff-presenter';
 import MessageBar from '../message-bar';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
-import { TextKey } from '../const';
+import {TextKey} from '../const';
 
 export default class CompareVisibleEditorsCommand {
   private readonly logger: Console;
@@ -12,7 +12,7 @@ export default class CompareVisibleEditorsCommand {
   private readonly selectionInfoBuilder: SelectionInfoBuilder;
   private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
-  constructor (params) {
+  constructor(params) {
     this.logger = params.logger;
     this.editorWindow = params.editorWindow;
     this.diffPresenter = params.diffPresenter;
@@ -21,7 +21,7 @@ export default class CompareVisibleEditorsCommand {
     this.selectionInfoRegistry = params.selectionInfoRegistry;
   }
 
-  async execute () {
+  async execute() {
     try {
       const editors = this.editorWindow.visibleTextEditors;
       if (editors.length !== 2) {
@@ -47,14 +47,14 @@ export default class CompareVisibleEditorsCommand {
     }
   }
 
-  private registerTextInfo (textInfos, isReverseOrder) {
+  private registerTextInfo(textInfos, isReverseOrder) {
     const textInfo1 = textInfos[isReverseOrder ? 1 : 0];
     const textInfo2 = textInfos[isReverseOrder ? 0 : 1];
     this.selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR1, textInfo1);
     this.selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR2, textInfo2);
   }
 
-  private handleError (e) {
+  private handleError(e) {
     this.logger.error(e.stack);
   }
 }

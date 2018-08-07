@@ -5,7 +5,7 @@ suite('TextTitleBuilder', () => {
   test('it uses both file name and line numbers', () => {
     const textInfo = {
       fileName: 'FILE_NAME',
-      lineRanges: [{ start: 0, end: 1 }]
+      lineRanges: [{start: 0, end: 1}]
     };
     const textTitleBuilder = new TextTitleBuilder();
     assert.deepEqual(textTitleBuilder.build(textInfo), 'FILE_NAME (ll.1-2)');
@@ -14,7 +14,7 @@ suite('TextTitleBuilder', () => {
   test('it shows only one line number', () => {
     const textInfo = {
       fileName: 'FILE_NAME',
-      lineRanges: [{ start: 10, end: 10 }]
+      lineRanges: [{start: 10, end: 10}]
     };
     const textTitleBuilder = new TextTitleBuilder();
     assert.deepEqual(textTitleBuilder.build(textInfo), 'FILE_NAME (l.11)');
@@ -23,7 +23,7 @@ suite('TextTitleBuilder', () => {
   test('it uses all line ranges to build title', () => {
     const textInfo = {
       fileName: 'FILE_NAME',
-      lineRanges: [{ start: 0, end: 1 }, { start: 5, end: 7 }]
+      lineRanges: [{start: 0, end: 1 }, { start: 5, end: 7}]
     };
     const textTitleBuilder = new TextTitleBuilder();
     assert.deepEqual(textTitleBuilder.build(textInfo), 'FILE_NAME (ll.1-2,ll.6-8)');

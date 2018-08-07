@@ -8,14 +8,14 @@ export default class ToggleNormalisationRulesCommand {
   private readonly normalisationRulePicker: NormalisationRulePicker;
   private readonly normalisationRuleStore: NormalisationRuleStore;
 
-  constructor (params) {
+  constructor(params) {
     this.logger = params.logger;
     this.messageBar = params.messageBar;
     this.normalisationRulePicker = params.normalisationRulePicker;
     this.normalisationRuleStore = params.normalisationRuleStore;
   }
 
-  async execute () {
+  async execute() {
     try {
       const rules = this.normalisationRuleStore.getAllRules();
       if (rules.length > 0) {
@@ -31,7 +31,7 @@ export default class ToggleNormalisationRulesCommand {
     }
   }
 
-  private handleError (e) {
+  private handleError(e) {
     this.logger.error(e.stack);
   }
 }

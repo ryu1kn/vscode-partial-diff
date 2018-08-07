@@ -7,7 +7,7 @@ export default class ContentProvider {
   private readonly textResourceUtil: TextResourceUtil;
   private readonly textProcessRuleApplier: TextProcessRuleApplier;
 
-  constructor (params) {
+  constructor(params) {
     this.selectionInfoRegistry = params.selectionInfoRegistry;
     this.textResourceUtil = params.textResourceUtil;
     this.textProcessRuleApplier = new TextProcessRuleApplier({
@@ -15,10 +15,10 @@ export default class ContentProvider {
     });
   }
 
-  provideTextDocumentContent (uri) {
+  provideTextDocumentContent(uri) {
     const textKey = this.textResourceUtil.getTextKey(uri);
     const registeredText = (
-      this.selectionInfoRegistry.get(textKey) || { text: '' }
+      this.selectionInfoRegistry.get(textKey) || {text: ''}
     ).text;
     return this.textProcessRuleApplier.applyTo(registeredText);
   }

@@ -1,9 +1,9 @@
 import ToggleNormalisationRulesCommand from '../../../lib/commands/toggle-normalisation-rules';
-import { mockObject, when, verify } from '../../helpers';
+import {mockObject, when, verify} from '../../helpers';
 
 suite('ToggleNormalisationRulesCommand', () => {
   test('it updates the status of normalisation rules as user specified', async () => {
-    const { command, deps } = createCommand({ rules: ['RULE'] });
+    const {command, deps } = createCommand({ rules: ['RULE']});
     await command.execute();
 
     verify(
@@ -12,7 +12,7 @@ suite('ToggleNormalisationRulesCommand', () => {
   });
 
   test('it just shows message if no rules are defined', async () => {
-    const { command, deps } = createCommand({ rules: [] });
+    const {command, deps } = createCommand({ rules: []});
     await command.execute();
 
     verify(
@@ -22,7 +22,7 @@ suite('ToggleNormalisationRulesCommand', () => {
     );
   });
 
-  function createCommand ({ rules }) {
+  function createCommand ({rules}) {
     const normalisationRuleStore = mockObject([
       'getAllRules',
       'specifyActiveRules'
@@ -38,6 +38,6 @@ suite('ToggleNormalisationRulesCommand', () => {
       normalisationRuleStore
     };
     const command = new ToggleNormalisationRulesCommand(deps);
-    return { command, deps } as any;
+    return {command, deps} as any;
   }
 });

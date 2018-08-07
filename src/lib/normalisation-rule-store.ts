@@ -10,17 +10,17 @@ export default class NormalisationRuleStore {
   private baseRules: any;
   private rules: any;
 
-  constructor (params) {
+  constructor(params) {
     this.configStore = params.configStore;
     this.setupRules(this.configStore.preComparisonTextNormalizationRules);
   }
 
-  private setupRules (rules) {
+  private setupRules(rules) {
     this.baseRules = clone(rules);
     this.rules = this.resetRuleStatus(this.baseRules);
   }
 
-  private resetRuleStatus (rules) {
+  private resetRuleStatus(rules) {
     return rules.map(rule =>
       Object.assign({}, omit(rule, ['enableOnStart']), {
         active: rule.enableOnStart !== false
@@ -28,7 +28,7 @@ export default class NormalisationRuleStore {
     );
   }
 
-  getAllRules () {
+  getAllRules() {
     const newBaseRules = this.configStore.preComparisonTextNormalizationRules;
     if (!isEqual(newBaseRules, this.baseRules)) {
       this.setupRules(newBaseRules);
@@ -36,17 +36,17 @@ export default class NormalisationRuleStore {
     return this.rules;
   }
 
-  get activeRules () {
+  get activeRules() {
     return this.getAllRules().filter(rule => rule.active);
   }
 
-  get hasActiveRules () {
+  get hasActiveRules() {
     return this.activeRules.length > 0;
   }
 
-  specifyActiveRules (ruleIndices) {
+  specifyActiveRules(ruleIndices) {
     this.rules = this.rules.map((rule, index) =>
-      Object.assign({}, rule, { active: ruleIndices.includes(index) })
+      Object.assign({}, rule, {active: ruleIndices.includes(index)})
     );
   }
 }

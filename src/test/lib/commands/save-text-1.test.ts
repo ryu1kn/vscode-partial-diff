@@ -30,11 +30,11 @@ suite('SelectText1Command', () => {
 
   test('it prints callstack if error occurred', async () => {
     const logger = mockObject('error') as any;
-    const command = new SelectText1Command({ logger });
+    const command = new SelectText1Command({logger});
 
     await command.execute('EDITOR');
 
-    verify(logger.error(), { times: 1, ignoreExtraArgs: true });
+    verify(logger.error(), {times: 1, ignoreExtraArgs: true});
   });
 
   test('it prints callstack if saving text failed', () => {
@@ -46,7 +46,7 @@ suite('SelectText1Command', () => {
       lineRanges: 'SELECTED_RANGE'
     });
     const selectionInfoRegistry = mockObject('set') as any;
-    when(selectionInfoRegistry.set(), { ignoreExtraArgs: true }).thenThrow(
+    when(selectionInfoRegistry.set(), {ignoreExtraArgs: true}).thenThrow(
       new Error('UNEXPECTED_ERROR')
     );
 

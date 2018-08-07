@@ -1,24 +1,24 @@
 import CommandFactory from './command-factory';
 import ContentProvider from './content-provider';
-import { EXTENSION_NAMESPACE, EXTENSION_SCHEME } from './const';
+import {EXTENSION_NAMESPACE, EXTENSION_SCHEME} from './const';
 
 export default class Bootstrapper {
   private readonly commandFactory: CommandFactory;
   private readonly contentProvider: ContentProvider;
   private readonly vscode: any;
 
-  constructor (params) {
+  constructor(params) {
     this.commandFactory = params.commandFactory;
     this.contentProvider = params.contentProvider;
     this.vscode = params.vscode;
   }
 
-  initiate (context) {
+  initiate(context) {
     this.registerProviders(context);
     this.registerCommands(context);
   }
 
-  private registerProviders (context) {
+  private registerProviders(context) {
     const disposable = this.vscode.workspace.registerTextDocumentContentProvider(
       EXTENSION_SCHEME,
       this.contentProvider
@@ -26,7 +26,7 @@ export default class Bootstrapper {
     context.subscriptions.push(disposable);
   }
 
-  private registerCommands (context) {
+  private registerCommands(context) {
     this.commandList.forEach(cmd => {
       const registerer = this.getCommandRegisterer(cmd.type);
       const disposable = registerer(cmd.name, cmd.command.execute, cmd.command);
@@ -34,13 +34,13 @@ export default class Bootstrapper {
     });
   }
 
-  private getCommandRegisterer (commandType) {
+  private getCommandRegisterer(commandType) {
     return commandType === 'TEXT_EDITOR'
       ? this.vscode.commands.registerTextEditorCommand
       : this.vscode.commands.registerCommand;
   }
 
-  private get commandList () {
+  private get commandList() {
     return [
       {
         name: `${EXTENSION_NAMESPACE}.diffVisibleEditors`,

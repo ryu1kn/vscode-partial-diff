@@ -1,5 +1,5 @@
 import CompareSelectionWithClipboardCommand from '../../../lib/commands/compare-selection-with-clipboard';
-import { argCaptor, mockObject, verify, when } from '../../helpers';
+import {argCaptor, mockObject, verify, when} from '../../helpers';
 import * as assert from 'assert';
 
 suite('CompareSelectionWithClipboardCommand', () => {
@@ -45,10 +45,10 @@ suite('CompareSelectionWithClipboardCommand', () => {
 
   test('it prints callstack if error occurred', async () => {
     const logger = mockObject('error') as any;
-    const command = new CompareSelectionWithClipboardCommand({ logger });
+    const command = new CompareSelectionWithClipboardCommand({logger});
 
     await command.execute('EDITOR');
 
-    verify(logger.error(), { times: 1, ignoreExtraArgs: true });
+    verify(logger.error(), {times: 1, ignoreExtraArgs: true});
   });
 });

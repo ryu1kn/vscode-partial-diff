@@ -1,6 +1,6 @@
 import CompareSelectionWithText1 from '../../../lib/commands/compare-selection-with-text1';
 
-import { argCaptor, mockObject, verify, when } from '../../helpers';
+import {argCaptor, mockObject, verify, when} from '../../helpers';
 import * as assert from 'assert';
 
 suite('CompareSelectionWithText1', () => {
@@ -37,10 +37,10 @@ suite('CompareSelectionWithText1', () => {
 
   test('it prints callstack if error occurred', async () => {
     const logger = mockObject('error') as any;
-    const command = new CompareSelectionWithText1({ logger });
+    const command = new CompareSelectionWithText1({logger});
 
     await command.execute('EDITOR');
 
-    verify(logger.error(), { times: 1, ignoreExtraArgs: true });
+    verify(logger.error(), {times: 1, ignoreExtraArgs: true});
   });
 });

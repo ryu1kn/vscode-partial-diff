@@ -1,12 +1,12 @@
 import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-editors';
-import { mockObject, verify, when } from '../../helpers';
+import {mockObject, verify, when} from '../../helpers';
 
 suite('CompareVisibleEditorsCommand', () => {
-  const editor1 = { viewColumn: 1 };
-  const editor2 = { viewColumn: 2 };
+  const editor1 = {viewColumn: 1};
+  const editor2 = {viewColumn: 2};
 
   test('it compares 2 visible editors', async () => {
-    const { command, deps } = createCommand([editor1, editor2]);
+    const {command, deps} = createCommand([editor1, editor2]);
     await command.execute();
 
     verify(deps.selectionInfoRegistry.set('visible1', 'TEXT_INFO1'));
@@ -15,7 +15,7 @@ suite('CompareVisibleEditorsCommand', () => {
   });
 
   test('it keeps the visual order of the editors when presents a diff', async () => {
-    const { command, deps } = createCommand([editor2, editor1]);
+    const {command, deps} = createCommand([editor2, editor1]);
     await command.execute();
 
     verify(deps.selectionInfoRegistry.set('visible1', 'TEXT_INFO1'));
@@ -23,7 +23,7 @@ suite('CompareVisibleEditorsCommand', () => {
   });
 
   test('it tells you that it needs 2 visible editors', async () => {
-    const { command, deps } = createCommand([editor1]);
+    const {command, deps} = createCommand([editor1]);
     await command.execute();
 
     verify(
@@ -37,13 +37,13 @@ suite('CompareVisibleEditorsCommand', () => {
     when(selectionInfoBuilder.extract(editor2)).thenReturn('TEXT_INFO2');
 
     const dependencies = {
-      editorWindow: { visibleTextEditors },
+      editorWindow: {visibleTextEditors},
       diffPresenter: mockObject('takeDiff'),
       messageBar: mockObject('showInfo'),
       selectionInfoBuilder,
       selectionInfoRegistry: mockObject('set')
     };
     const command = new CompareVisibleEditorsCommand(dependencies);
-    return { command, deps: dependencies } as any;
+    return {command, deps: dependencies} as any;
   }
 });

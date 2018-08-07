@@ -1,11 +1,11 @@
 export default class SelectionInfoRegistry {
   private readonly data: any;
 
-  constructor () {
+  constructor() {
     this.data = Object.create(null);
   }
 
-  set (key, textInfo) {
+  set(key, textInfo) {
     this.data[key] = {
       text: textInfo.text,
       fileName: textInfo.fileName,
@@ -13,7 +13,7 @@ export default class SelectionInfoRegistry {
     };
   }
 
-  get (key) {
+  get(key) {
     return this.data[key];
   }
 }

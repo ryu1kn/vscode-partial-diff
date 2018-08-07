@@ -2,7 +2,7 @@ import DiffPresenter from '../diff-presenter';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import Clipboard from '../clipboard';
-import { TextKey } from '../const';
+import {TextKey} from '../const';
 
 export default class CompareSelectionWithClipboardCommand {
   private readonly diffPresenter: DiffPresenter;
@@ -11,7 +11,7 @@ export default class CompareSelectionWithClipboardCommand {
   private readonly clipboard: Clipboard;
   private readonly logger: Console;
 
-  constructor (params) {
+  constructor(params) {
     this.diffPresenter = params.diffPresenter;
     this.selectionInfoBuilder = params.selectionInfoBuilder;
     this.selectionInfoRegistry = params.selectionInfoRegistry;
@@ -19,7 +19,7 @@ export default class CompareSelectionWithClipboardCommand {
     this.logger = params.logger;
   }
 
-  async execute (editor) {
+  async execute(editor) {
     try {
       const text = await this.clipboard.read();
       this.selectionInfoRegistry.set(TextKey.CLIPBOARD, {
@@ -36,7 +36,7 @@ export default class CompareSelectionWithClipboardCommand {
     }
   }
 
-  private handleError (e) {
+  private handleError(e) {
     this.logger.error(e.stack);
   }
 }

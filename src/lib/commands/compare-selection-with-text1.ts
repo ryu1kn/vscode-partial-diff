@@ -1,7 +1,7 @@
 import DiffPresenter from '../diff-presenter';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
-import { TextKey } from '../const';
+import {TextKey} from '../const';
 
 export default class CompareSelectionWithText1Command {
   private readonly logger: Console;
@@ -9,14 +9,14 @@ export default class CompareSelectionWithText1Command {
   private readonly selectionInfoBuilder: SelectionInfoBuilder;
   private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
-  constructor (params) {
+  constructor(params) {
     this.logger = params.logger;
     this.diffPresenter = params.diffPresenter;
     this.selectionInfoBuilder = params.selectionInfoBuilder;
     this.selectionInfoRegistry = params.selectionInfoRegistry;
   }
 
-  async execute (editor) {
+  async execute(editor) {
     try {
       const textInfo = this.selectionInfoBuilder.extract(editor);
       this.selectionInfoRegistry.set(TextKey.REGISTER2, textInfo);
@@ -28,7 +28,7 @@ export default class CompareSelectionWithText1Command {
     }
   }
 
-  private handleError (e) {
+  private handleError(e) {
     this.logger.error(e.stack);
   }
 }

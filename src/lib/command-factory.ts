@@ -25,7 +25,7 @@ export default class CommandFactory {
   private messageBar: MessageBar;
   private selectionInfoBuilder: SelectionInfoBuilder;
 
-  constructor (params) {
+  constructor(params) {
     this.normalisationRuleStore = params.normalisationRuleStore;
     this.selectionInfoRegistry = params.selectionInfoRegistry;
     this.textResourceUtil = params.textResourceUtil;
@@ -33,7 +33,7 @@ export default class CommandFactory {
     this.logger = params.logger;
   }
 
-  crateSaveText1Command () {
+  crateSaveText1Command() {
     return new SaveText1Command({
       selectionInfoRegistry: this.selectionInfoRegistry,
       selectionInfoBuilder: this.getSelectionInfoBuilder(),
@@ -41,7 +41,7 @@ export default class CommandFactory {
     });
   }
 
-  createCompareSelectionWithText1Command () {
+  createCompareSelectionWithText1Command() {
     return new CompareSelectionWithText1Command({
       selectionInfoRegistry: this.selectionInfoRegistry,
       diffPresenter: this.getDiffPresenter(),
@@ -50,7 +50,7 @@ export default class CommandFactory {
     });
   }
 
-  createCompareSelectionWithClipboardCommand () {
+  createCompareSelectionWithClipboardCommand() {
     return new CompareSelectionWithClipboardCommand({
       selectionInfoRegistry: this.selectionInfoRegistry,
       diffPresenter: this.getDiffPresenter(),
@@ -60,7 +60,7 @@ export default class CommandFactory {
     });
   }
 
-  createCompareVisibleEditorsCommand () {
+  createCompareVisibleEditorsCommand() {
     return new CompareVisibleEditorsCommand({
       diffPresenter: this.getDiffPresenter(),
       editorWindow: this.vscode.window,
@@ -71,7 +71,7 @@ export default class CommandFactory {
     });
   }
 
-  createToggleNormalisationRulesCommand () {
+  createToggleNormalisationRulesCommand() {
     return new ToggleNormalisationRulesCommand({
       logger: this.logger,
       messageBar: this.getMessageBar(),
@@ -82,35 +82,35 @@ export default class CommandFactory {
     });
   }
 
-  private getClipboard () {
+  private getClipboard() {
     this.clipboard = this.clipboard || this.createClipboard();
     return this.clipboard;
   }
 
-  private getDiffPresenter () {
+  private getDiffPresenter() {
     this.diffPresenter = this.diffPresenter || this.createDiffPresenter();
     return this.diffPresenter;
   }
 
-  private getMessageBar () {
+  private getMessageBar() {
     this.messageBar = this.messageBar || this.createMessageBar();
     return this.messageBar;
   }
 
-  private getSelectionInfoBuilder () {
+  private getSelectionInfoBuilder() {
     this.selectionInfoBuilder =
       this.selectionInfoBuilder || new SelectionInfoBuilder();
     return this.selectionInfoBuilder;
   }
 
-  private createClipboard () {
+  private createClipboard() {
     return new Clipboard({
       clipboardy,
       platform: process.platform
     });
   }
 
-  private createDiffPresenter () {
+  private createDiffPresenter() {
     return new DiffPresenter({
       commands: this.vscode.commands,
       normalisationRuleStore: this.normalisationRuleStore,
@@ -120,7 +120,7 @@ export default class CommandFactory {
     });
   }
 
-  private createMessageBar () {
+  private createMessageBar() {
     return new MessageBar({
       vscWindow: this.vscode.window
     });

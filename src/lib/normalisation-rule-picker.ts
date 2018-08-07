@@ -1,19 +1,19 @@
 export default class NormalisationRulePicker {
   private vscWindow: any;
 
-  constructor ({ vscWindow }) {
+  constructor({vscWindow}) {
     this.vscWindow = vscWindow;
   }
 
-  async show (rules) {
+  async show(rules) {
     const items = this.convertToQuickPickItems(rules);
-    const options = { canPickMany: true };
+    const options = {canPickMany: true};
     const userSelection = await this.vscWindow.showQuickPick(items, options);
     const activeItems = userSelection || items.filter(item => item.picked);
     return this.convertToRules(activeItems);
   }
 
-  private convertToQuickPickItems (rules) {
+  private convertToQuickPickItems(rules) {
     return rules.map((rule, index) => ({
       label: rule.name || '(no "name" set for this rule)',
       picked: rule.active,
@@ -21,7 +21,7 @@ export default class NormalisationRulePicker {
     }));
   }
 
-  private convertToRules (pickedItems) {
+  private convertToRules(pickedItems) {
     return pickedItems.map(pickedItem => pickedItem.ruleIndex);
   }
 }
