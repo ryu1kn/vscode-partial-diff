@@ -1,47 +1,44 @@
 const assert = require('assert')
-const td = require('testdouble')
+const {mockObject, when} = require('../helpers')
 
 const NormalisationRulePicker = require('../../lib/normalisation-rule-picker')
 
 suite('NormalisationRulePicker', () => {
-  const vscWindow = td.object('showQuickPick')
-  td
-    .when(
-      vscWindow.showQuickPick(
-        [
-          { label: 'RULE_NAME_1', picked: true, ruleIndex: 0 },
-          { label: 'RULE_NAME_2', picked: false, ruleIndex: 1 }
-        ],
-        {
-          canPickMany: true
-        }
-      )
+  const vscWindow = mockObject('showQuickPick')
+  when(
+    vscWindow.showQuickPick(
+      [
+        { label: 'RULE_NAME_1', picked: true, ruleIndex: 0 },
+        { label: 'RULE_NAME_2', picked: false, ruleIndex: 1 }
+      ],
+      {
+        canPickMany: true
+      }
     )
+  )
     .thenResolve([{ label: 'RULE_NAME_2', picked: true, ruleIndex: 1 }])
-  td
-    .when(
-      vscWindow.showQuickPick(
-        [
-          { label: 'RULE_NAME_3', picked: false, ruleIndex: 0 },
-          { label: 'RULE_NAME_4', picked: true, ruleIndex: 1 }
-        ],
-        {
-          canPickMany: true
-        }
-      )
+  when(
+    vscWindow.showQuickPick(
+      [
+        { label: 'RULE_NAME_3', picked: false, ruleIndex: 0 },
+        { label: 'RULE_NAME_4', picked: true, ruleIndex: 1 }
+      ],
+      {
+        canPickMany: true
+      }
     )
+  )
     .thenResolve()
-  td
-    .when(
-      vscWindow.showQuickPick(
-        [
-          { label: '(no "name" set for this rule)', picked: true, ruleIndex: 0 }
-        ],
-        {
-          canPickMany: true
-        }
-      )
+  when(
+    vscWindow.showQuickPick(
+      [
+        { label: '(no "name" set for this rule)', picked: true, ruleIndex: 0 }
+      ],
+      {
+        canPickMany: true
+      }
     )
+  )
     .thenResolve([])
 
   const rulePicker = new NormalisationRulePicker({ vscWindow })

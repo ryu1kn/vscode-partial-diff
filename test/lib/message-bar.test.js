@@ -1,14 +1,14 @@
-const td = require('testdouble')
+const {mockObject, verify} = require('../helpers')
 
 const MessageBar = require('../../lib/message-bar')
 
 suite('MessageBar', () => {
-  const vscWindow = td.object(['showInformationMessage'])
+  const vscWindow = mockObject(['showInformationMessage'])
   const messageBar = new MessageBar({ vscWindow })
 
   test('it shows information message', async () => {
     await messageBar.showInfo('MESSAGE')
 
-    td.verify(vscWindow.showInformationMessage('MESSAGE'))
+    verify(vscWindow.showInformationMessage('MESSAGE'))
   })
 })
