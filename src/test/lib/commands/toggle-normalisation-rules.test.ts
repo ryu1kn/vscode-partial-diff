@@ -1,5 +1,9 @@
 import ToggleNormalisationRulesCommand from '../../../lib/commands/toggle-normalisation-rules';
-import {mockObject, verify, when} from '../../helpers';
+import {mockMethods, mockType, verify, when} from '../../helpers';
+import {Logger} from '../../../lib/logger';
+import MessageBar from '../../../lib/message-bar';
+import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
+import NormalisationRulePicker from '../../../lib/normalisation-rule-picker';
 
 suite('ToggleNormalisationRulesCommand', () => {
     test('it updates the status of normalisation rules as user specified', async () => {
@@ -23,21 +27,23 @@ suite('ToggleNormalisationRulesCommand', () => {
     });
 
     function createCommand({rules}) {
-        const normalisationRuleStore = mockObject([
-            'getAllRules',
-            'specifyActiveRules'
-        ]);
+        const normalisationRuleStore = mockMethods<NormalisationRuleStore>(['getAllRules', 'specifyActiveRules']);
         when(normalisationRuleStore.getAllRules()).thenReturn(rules);
 
-        const normalisationRulePicker = mockObject('show') as any;
+        const normalisationRulePicker = mockMethods<NormalisationRulePicker>(['show']);
         when(normalisationRulePicker.show(rules)).thenResolve('ACTIVE_RULE_INDICES');
 
         const deps = {
-            messageBar: mockObject('showInfo'),
+            messageBar: mockMethods<MessageBar>(['showInfo']),
             normalisationRulePicker,
             normalisationRuleStore
         };
-        const command = new ToggleNormalisationRulesCommand(deps);
+        const command = new ToggleNormalisationRulesCommand(
+            deps.normalisationRuleStore,
+            deps.normalisationRulePicker,
+            deps.messageBar,
+            mockType<Logger>()
+        );
         return {command, deps} as any;
     }
 });

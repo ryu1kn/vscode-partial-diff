@@ -9,11 +9,14 @@ export default class ToggleNormalisationRulesCommand {
     private readonly normalisationRulePicker: NormalisationRulePicker;
     private readonly normalisationRuleStore: NormalisationRuleStore;
 
-    constructor(params) {
-        this.logger = params.logger;
-        this.messageBar = params.messageBar;
-        this.normalisationRulePicker = params.normalisationRulePicker;
-        this.normalisationRuleStore = params.normalisationRuleStore;
+    constructor(normalisationRuleStore: NormalisationRuleStore,
+                normalisationRulePicker: NormalisationRulePicker,
+                messageBar: MessageBar,
+                logger: Logger) {
+        this.logger = logger;
+        this.messageBar = messageBar;
+        this.normalisationRulePicker = normalisationRulePicker;
+        this.normalisationRuleStore = normalisationRuleStore;
     }
 
     async execute() {

@@ -73,14 +73,14 @@ export default class CommandFactory {
     }
 
     createToggleNormalisationRulesCommand() {
-        return new ToggleNormalisationRulesCommand({
-            logger: this.logger,
-            messageBar: this.getMessageBar(),
-            normalisationRulePicker: new NormalisationRulePicker({
+        return new ToggleNormalisationRulesCommand(
+            this.normalisationRuleStore,
+            new NormalisationRulePicker({
                 vscWindow: this.vscode.window
             }),
-            normalisationRuleStore: this.normalisationRuleStore
-        });
+            this.getMessageBar(),
+            this.logger
+        );
     }
 
     private getClipboard() {
