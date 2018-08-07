@@ -1,6 +1,5 @@
 .vscode/**/*
-typings/**/*
-test/**/*
+src/**/*
 coverage/**/*
 images/public.gif
 npm-debug.log
@@ -10,8 +9,6 @@ __*
 __*/**/*
 .codeclimate.yml
 .editorconfig
-.eslintignore
-.eslintrc.yaml
 .gitattributes
 .gitignore
 .idea/**/*
@@ -20,6 +17,8 @@ __*/**/*
 .nycrc
 .travis.yml
 cli-test-mocha.opts
-jsconfig.json
+out/**/*.map
+out/test/**/*
+tsconfig.json
+tslint.json
 tag-release.sh
-

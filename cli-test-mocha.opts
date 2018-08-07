@@ -1,3 +1,4 @@
+--require ts-node/register
 --ui tdd
 --recursive
-test
+src/test/**/*.ts

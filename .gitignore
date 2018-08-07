@@ -1,6 +1,7 @@
 /node_modules
-/typings
 /coverage
 /.nyc_output
+/out
 npm-debug.log
 yarn-error.log
+__*

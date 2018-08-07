@@ -1,6 +1,0 @@
-globals:
-  suite: true
-  test: true
-  setup: true
-rules:
-  no-unused-expressions: off
