@@ -6,7 +6,7 @@ suite('NormalisationRuleStore', () => {
   let configStore
   let ruleStore
 
-  beforeEach(() => {
+  setup(() => {
     configStore = {
       preComparisonTextNormalizationRules: [
         { name: 'RULE1', enableOnStart: true },

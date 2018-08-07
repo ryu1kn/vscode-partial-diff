@@ -1,6 +1,6 @@
 globals:
   suite: true
   test: true
-  beforeEach: true
+  setup: true
 rules:
   no-unused-expressions: off
