@@ -7,7 +7,7 @@ suite('TextResourceUtil', () => {
     test('it converts a given text key into an uri', () => {
       const extensionScheme = 'EXTENSION_SCHEME'
       const Uri = { parse: uriString => `__${uriString}__` }
-      const getCurrentDateFn = () => new Date('2016-06-15T11:43:00')
+      const getCurrentDateFn = () => new Date('2016-06-15T11:43:00Z')
       const textResourceUtil = new TextResourceUtil({
         extensionScheme,
         Uri,
