@@ -1,5 +1,5 @@
 export default class SelectionInfoRegistry {
-  private _data: any;
+  private readonly _data: any;
 
   constructor () {
     this._data = Object.create(null);

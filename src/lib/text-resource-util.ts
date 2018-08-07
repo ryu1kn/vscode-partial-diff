@@ -1,7 +1,7 @@
 export default class TextResourceUtil {
-  private _extensionScheme: any;
-  private _Uri: any;
-  private _getCurrentDateFn: any;
+  private readonly _extensionScheme: any;
+  private readonly _Uri: any;
+  private readonly _getCurrentDateFn: any;
 
   constructor (params) {
     this._extensionScheme = params.extensionScheme;

@@ -33,7 +33,7 @@ export default class BootstrapperFactory {
     });
   }
 
-  _createTextResourceUtil () {
+  private _createTextResourceUtil () {
     return new TextResourceUtil({
       Uri: vscode.Uri,
       extensionScheme: EXTENSION_SCHEME,
@@ -41,7 +41,7 @@ export default class BootstrapperFactory {
     });
   }
 
-  _createNormalisationRuleStore () {
+  private _createNormalisationRuleStore () {
     return new NormalisationRuleStore({
       configStore: new ConfigStore({ workspace: vscode.workspace })
     });

@@ -13,7 +13,7 @@ export default class NormalisationRulePicker {
     return this._convertToRules(activeItems);
   }
 
-  _convertToQuickPickItems (rules) {
+  private _convertToQuickPickItems (rules) {
     return rules.map((rule, index) => ({
       label: rule.name || '(no "name" set for this rule)',
       picked: rule.active,
@@ -21,7 +21,7 @@ export default class NormalisationRulePicker {
     }));
   }
 
-  _convertToRules (pickedItems) {
+  private _convertToRules (pickedItems) {
     return pickedItems.map(pickedItem => pickedItem.ruleIndex);
   }
 }

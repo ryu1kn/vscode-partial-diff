@@ -6,13 +6,13 @@ export default class TextTitleBuilder {
     return `${textInfo.fileName}${suffix}`;
   }
 
-  _lineRangesSuffix (lineRanges) {
+  private _lineRangesSuffix (lineRanges) {
     return lineRanges.length !== 0
       ? ` (${lineRanges.map(this._lineRangeLabel)})`
       : '';
   }
 
-  _lineRangeLabel (lineRange) {
+  private _lineRangeLabel (lineRange) {
     const isOneLine = lineRange.start === lineRange.end;
     return isOneLine
       ? `l.${lineRange.start + 1}`

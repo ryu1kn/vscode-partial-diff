@@ -3,10 +3,10 @@ import NormalisationRulePicker from '../normalisation-rule-picker';
 import NormalisationRuleStore from '../normalisation-rule-store';
 
 export default class ToggleNormalisationRulesCommand {
-  private _logger: Console;
-  private _messageBar: MessageBar;
-  private _normalisationRulePicker: NormalisationRulePicker;
-  private _normalisationRuleStore: NormalisationRuleStore;
+  private readonly _logger: Console;
+  private readonly _messageBar: MessageBar;
+  private readonly _normalisationRulePicker: NormalisationRulePicker;
+  private readonly _normalisationRuleStore: NormalisationRuleStore;
 
   constructor (params) {
     this._logger = params.logger;
@@ -31,7 +31,7 @@ export default class ToggleNormalisationRulesCommand {
     }
   }
 
-  _handleError (e) {
+  private _handleError (e) {
     this._logger.error(e.stack);
   }
 }

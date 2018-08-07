@@ -5,11 +5,11 @@ import Clipboard from '../clipboard';
 import { TextKey } from '../const';
 
 export default class CompareSelectionWithClipboardCommand {
-  private _diffPresenter: DiffPresenter;
-  private _selectionInfoBuilder: SelectionInfoBuilder;
-  private _selectionInfoRegistry: SelectionInfoRegistry;
-  private _clipboard: Clipboard;
-  private _logger: Console;
+  private readonly _diffPresenter: DiffPresenter;
+  private readonly _selectionInfoBuilder: SelectionInfoBuilder;
+  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly _clipboard: Clipboard;
+  private readonly _logger: Console;
 
   constructor (params) {
     this._diffPresenter = params.diffPresenter;
@@ -36,7 +36,7 @@ export default class CompareSelectionWithClipboardCommand {
     }
   }
 
-  _handleError (e) {
+  private _handleError (e) {
     this._logger.error(e.stack);
   }
 }

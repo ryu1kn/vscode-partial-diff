@@ -6,7 +6,7 @@ import * as omit from 'lodash.omit';
 const clone = value => JSON.parse(JSON.stringify(value));
 
 export default class NormalisationRuleStore {
-  private _configStore: ConfigStore;
+  private readonly _configStore: ConfigStore;
   private _baseRules: any;
   private _rules: any;
 
@@ -15,12 +15,12 @@ export default class NormalisationRuleStore {
     this._setupRules(this._configStore.preComparisonTextNormalizationRules);
   }
 
-  _setupRules (rules) {
+  private _setupRules (rules) {
     this._baseRules = clone(rules);
     this._rules = this._resetRuleStatus(this._baseRules);
   }
 
-  _resetRuleStatus (rules) {
+  private _resetRuleStatus (rules) {
     return rules.map(rule =>
       Object.assign({}, omit(rule, ['enableOnStart']), {
         active: rule.enableOnStart !== false

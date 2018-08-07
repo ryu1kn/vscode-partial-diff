@@ -3,9 +3,9 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import { TextKey } from '../const';
 
 export default class SaveText1Command {
-  private _logger: Console;
-  private _selectionInfoBuilder: SelectionInfoBuilder;
-  private _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly _logger: Console;
+  private readonly _selectionInfoBuilder: SelectionInfoBuilder;
+  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
 
   constructor (params) {
     this._logger = params.logger;
@@ -22,7 +22,7 @@ export default class SaveText1Command {
     }
   }
 
-  _handleError (e) {
+  private _handleError (e) {
     this._logger.error(e.stack);
   }
 }

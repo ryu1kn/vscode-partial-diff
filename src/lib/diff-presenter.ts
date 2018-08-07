@@ -9,11 +9,11 @@ const DiffModeSymbols = {
 };
 
 export default class DiffPresenter {
-  private _commands: any;
-  private _normalisationRuleStore: NormalisationRuleStore;
-  private _selectionInfoRegistry: SelectionInfoRegistry;
-  private _textResourceUtil: TextResourceUtil;
-  private _textTitleBuilder: TextTitleBuilder;
+  private readonly _commands: any;
+  private readonly _normalisationRuleStore: NormalisationRuleStore;
+  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly _textResourceUtil: TextResourceUtil;
+  private readonly _textTitleBuilder: TextTitleBuilder;
 
   constructor (params) {
     this._commands = params.commands;
@@ -34,7 +34,7 @@ export default class DiffPresenter {
     );
   }
 
-  _buildTitle (textKey1, textKey2) {
+  private _buildTitle (textKey1, textKey2) {
     const title1 = this._buildTextTitle(textKey1);
     const title2 = this._buildTextTitle(textKey2);
     const comparisonSymbol = this._normalisationRuleStore.hasActiveRules
@@ -43,7 +43,7 @@ export default class DiffPresenter {
     return `${title1} ${comparisonSymbol} ${title2}`;
   }
 
-  _buildTextTitle (textKey) {
+  private _buildTextTitle (textKey) {
     const textInfo = this._selectionInfoRegistry.get(textKey);
     return this._textTitleBuilder.build(textInfo);
   }

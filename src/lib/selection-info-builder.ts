@@ -12,7 +12,7 @@ export default class SelectionInfoBuilder {
     };
   }
 
-  _collectNonEmptySelections (selections) {
+  private _collectNonEmptySelections (selections) {
     return selections.filter(s => !s.isEmpty).sort((s1, s2) => {
       const lineComparison = s1.start.line - s2.start.line;
       return lineComparison !== 0
@@ -21,13 +21,13 @@ export default class SelectionInfoBuilder {
     });
   }
 
-  _extractText (selections, extractText) {
+  private _extractText (selections, extractText) {
     return selections.length === 0
       ? extractText()
       : selections.map(extractText).join('\n');
   }
 
-  _extractLineRanges (selections) {
+  private _extractLineRanges (selections) {
     return selections.map(selection => ({
       start: selection.start.line,
       end: selection.end.line

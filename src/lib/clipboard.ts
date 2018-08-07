@@ -1,8 +1,8 @@
 const PLATFORM_WINDOWS = 'win32';
 
 export default class Clipboard {
-  private _clipboardy: any;
-  private _platform: any;
+  private readonly _clipboardy: any;
+  private readonly _platform: any;
 
   constructor (params) {
     this._clipboardy = params.clipboardy;
@@ -14,11 +14,11 @@ export default class Clipboard {
     return this._windows ? this._dropCRFromEOL(text) : text;
   }
 
-  get _windows () {
+  private get _windows () {
     return this._platform === PLATFORM_WINDOWS;
   }
 
-  _dropCRFromEOL (text) {
+  private _dropCRFromEOL (text) {
     return text.split('\r\r\n').join('\r\n');
   }
 }

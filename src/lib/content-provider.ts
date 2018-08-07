@@ -3,9 +3,9 @@ import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
 
 export default class ContentProvider {
-  private _selectionInfoRegistry: SelectionInfoRegistry;
-  private _textResourceUtil: TextResourceUtil;
-  private _textProcessRuleApplier: TextProcessRuleApplier;
+  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly _textResourceUtil: TextResourceUtil;
+  private readonly _textProcessRuleApplier: TextProcessRuleApplier;
 
   constructor (params) {
     this._selectionInfoRegistry = params.selectionInfoRegistry;

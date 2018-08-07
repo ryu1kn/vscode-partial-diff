@@ -5,12 +5,12 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import { TextKey } from '../const';
 
 export default class CompareVisibleEditorsCommand {
-  private _logger: Console;
-  private _editorWindow: any;
-  private _diffPresenter: DiffPresenter;
-  private _messageBar: MessageBar;
-  private _selectionInfoBuilder: SelectionInfoBuilder;
-  private _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly _logger: Console;
+  private readonly _editorWindow: any;
+  private readonly _diffPresenter: DiffPresenter;
+  private readonly _messageBar: MessageBar;
+  private readonly _selectionInfoBuilder: SelectionInfoBuilder;
+  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
 
   constructor (params) {
     this._logger = params.logger;
@@ -47,14 +47,14 @@ export default class CompareVisibleEditorsCommand {
     }
   }
 
-  _registerTextInfo (textInfos, isReverseOrder) {
+  private _registerTextInfo (textInfos, isReverseOrder) {
     const textInfo1 = textInfos[isReverseOrder ? 1 : 0];
     const textInfo2 = textInfos[isReverseOrder ? 0 : 1];
     this._selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR1, textInfo1);
     this._selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR2, textInfo2);
   }
 
-  _handleError (e) {
+  private _handleError (e) {
     this._logger.error(e.stack);
   }
 }

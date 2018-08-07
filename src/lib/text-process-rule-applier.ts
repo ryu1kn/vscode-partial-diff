@@ -1,7 +1,7 @@
 import NormalisationRuleStore from './normalisation-rule-store';
 
 export default class TextProcessRuleApplier {
-  private _normalisationRuleStore: NormalisationRuleStore;
+  private readonly _normalisationRuleStore: NormalisationRuleStore;
 
   constructor (params) {
     this._normalisationRuleStore = params.normalisationRuleStore;
@@ -12,14 +12,14 @@ export default class TextProcessRuleApplier {
     return rules.length !== 0 ? this._applyRulesToText(rules, text) : text;
   }
 
-  _applyRulesToText (rules, text) {
+  private _applyRulesToText (rules, text) {
     return rules.reduce(
       (newText, rule) => this._applyRuleToText(rule, newText),
       text
     );
   }
 
-  _applyRuleToText (rule, text) {
+  private _applyRuleToText (rule, text) {
     const pattern = new RegExp(rule.match, 'g');
 
     if (typeof rule.replaceWith === 'string') {

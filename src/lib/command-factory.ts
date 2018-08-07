@@ -15,11 +15,11 @@ import TextResourceUtil from './text-resource-util';
 import * as clipboardy from 'clipboardy';
 
 export default class CommandFactory {
-  private _normalisationRuleStore: NormalisationRuleStore;
-  private _selectionInfoRegistry: SelectionInfoRegistry;
-  private _textResourceUtil: TextResourceUtil;
-  private _vscode: any;
-  private _logger: Console;
+  private readonly _normalisationRuleStore: NormalisationRuleStore;
+  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly _textResourceUtil: TextResourceUtil;
+  private readonly _vscode: any;
+  private readonly _logger: Console;
   private _clipboard: Clipboard;
   private _diffPresenter: DiffPresenter;
   private _messageBar: MessageBar;
@@ -44,7 +44,7 @@ export default class CommandFactory {
   createCompareSelectionWithText1Command () {
     return new CompareSelectionWithText1Command({
       selectionInfoRegistry: this._selectionInfoRegistry,
-      diffPresenter: this._createDiffPresenter(),
+      diffPresenter: this._getDiffPresenter(),
       selectionInfoBuilder: this._getSelectionInfoBuilder(),
       logger: this._logger
     });
@@ -53,7 +53,7 @@ export default class CommandFactory {
   createCompareSelectionWithClipboardCommand () {
     return new CompareSelectionWithClipboardCommand({
       selectionInfoRegistry: this._selectionInfoRegistry,
-      diffPresenter: this._createDiffPresenter(),
+      diffPresenter: this._getDiffPresenter(),
       selectionInfoBuilder: this._getSelectionInfoBuilder(),
       logger: this._logger,
       clipboard: this._getClipboard()
@@ -62,7 +62,7 @@ export default class CommandFactory {
 
   createCompareVisibleEditorsCommand () {
     return new CompareVisibleEditorsCommand({
-      diffPresenter: this._createDiffPresenter(),
+      diffPresenter: this._getDiffPresenter(),
       editorWindow: this._vscode.window,
       logger: this._logger,
       messageBar: this._getMessageBar(),
@@ -82,35 +82,35 @@ export default class CommandFactory {
     });
   }
 
-  _getClipboard () {
+  private _getClipboard () {
     this._clipboard = this._clipboard || this._createClipboard();
     return this._clipboard;
   }
 
-  _getDiffPresenter () {
+  private _getDiffPresenter () {
     this._diffPresenter = this._diffPresenter || this._createDiffPresenter();
     return this._diffPresenter;
   }
 
-  _getMessageBar () {
+  private _getMessageBar () {
     this._messageBar = this._messageBar || this._createMessageBar();
     return this._messageBar;
   }
 
-  _getSelectionInfoBuilder () {
+  private _getSelectionInfoBuilder () {
     this._selectionInfoBuilder =
       this._selectionInfoBuilder || new SelectionInfoBuilder();
     return this._selectionInfoBuilder;
   }
 
-  _createClipboard () {
+  private _createClipboard () {
     return new Clipboard({
       clipboardy,
       platform: process.platform
     });
   }
 
-  _createDiffPresenter () {
+  private _createDiffPresenter () {
     return new DiffPresenter({
       commands: this._vscode.commands,
       normalisationRuleStore: this._normalisationRuleStore,
@@ -120,7 +120,7 @@ export default class CommandFactory {
     });
   }
 
-  _createMessageBar () {
+  private _createMessageBar () {
     return new MessageBar({
       vscWindow: this._vscode.window
     });
