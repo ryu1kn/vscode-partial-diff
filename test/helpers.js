@@ -1,9 +1,8 @@
 const sinon = require('sinon')
 const td = require('testdouble')
-const chai = require('chai')
-chai.use(require('sinon-chai'))
+const {expect} = require('chai')
 
-exports.expect = chai.expect
+exports.expect = expect
 exports.sinon = sinon
 exports.throwErrorIfCalled = () => {
   throw new Error("Shouldn't have been called")

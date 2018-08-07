@@ -23,11 +23,12 @@ suite('DiffPresenter', () => {
 
     await diffPresenter.takeDiff('TEXT1', 'TEXT2')
 
-    expect(commands.executeCommand).to.have.been.calledWith(
+    expect(commands.executeCommand.args).to.eql([[
       'vscode.diff',
       'URI_INSTANCE_1',
-      'URI_INSTANCE_2'
-    )
+      'URI_INSTANCE_2',
+      'undefined \u2194 undefined'
+    ]])
   })
 
   test('it builds up diff view title by using TextTitleBuilder', async () => {
