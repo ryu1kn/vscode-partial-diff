@@ -13,13 +13,18 @@ export default class CompareVisibleEditorsCommand {
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
-    constructor(params) {
-        this.logger = params.logger;
-        this.editorWindow = params.editorWindow;
-        this.diffPresenter = params.diffPresenter;
-        this.messageBar = params.messageBar;
-        this.selectionInfoBuilder = params.selectionInfoBuilder;
-        this.selectionInfoRegistry = params.selectionInfoRegistry;
+    constructor(diffPresenter: DiffPresenter,
+                selectionInfoBuilder: SelectionInfoBuilder,
+                selectionInfoRegistry: SelectionInfoRegistry,
+                messageBar: MessageBar,
+                editorWindow: any,
+                logger: Logger) {
+        this.logger = logger;
+        this.editorWindow = editorWindow;
+        this.diffPresenter = diffPresenter;
+        this.messageBar = messageBar;
+        this.selectionInfoBuilder = selectionInfoBuilder;
+        this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
     async execute() {

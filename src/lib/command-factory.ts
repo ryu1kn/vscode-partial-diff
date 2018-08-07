@@ -62,14 +62,14 @@ export default class CommandFactory {
     }
 
     createCompareVisibleEditorsCommand() {
-        return new CompareVisibleEditorsCommand({
-            diffPresenter: this.getDiffPresenter(),
-            editorWindow: this.vscode.window,
-            logger: this.logger,
-            messageBar: this.getMessageBar(),
-            selectionInfoRegistry: this.selectionInfoRegistry,
-            selectionInfoBuilder: this.getSelectionInfoBuilder()
-        });
+        return new CompareVisibleEditorsCommand(
+            this.getDiffPresenter(),
+            this.getSelectionInfoBuilder(),
+            this.selectionInfoRegistry,
+            this.getMessageBar(),
+            this.vscode.window,
+            this.logger
+        );
     }
 
     createToggleNormalisationRulesCommand() {

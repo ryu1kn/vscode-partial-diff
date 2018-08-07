@@ -1,5 +1,9 @@
 import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-editors';
-import {mockObject, verify, when} from '../../helpers';
+import {mockMethods, mockObject, mockType, verify, when} from '../../helpers';
+import {Logger} from '../../../lib/logger';
+import DiffPresenter from '../../../lib/diff-presenter';
+import SelectionInfoRegistry from '../../../lib/selection-info-registry';
+import MessageBar from '../../../lib/message-bar';
 
 suite('CompareVisibleEditorsCommand', () => {
     const editor1 = {viewColumn: 1};
@@ -38,12 +42,19 @@ suite('CompareVisibleEditorsCommand', () => {
 
         const dependencies = {
             editorWindow: {visibleTextEditors},
-            diffPresenter: mockObject('takeDiff'),
-            messageBar: mockObject('showInfo'),
+            diffPresenter: mockMethods<DiffPresenter>(['takeDiff']),
+            messageBar: mockMethods<MessageBar>(['showInfo']),
             selectionInfoBuilder,
-            selectionInfoRegistry: mockObject('set')
+            selectionInfoRegistry: mockMethods<SelectionInfoRegistry>(['set'])
         };
-        const command = new CompareVisibleEditorsCommand(dependencies);
+        const command = new CompareVisibleEditorsCommand(
+            dependencies.diffPresenter,
+            dependencies.selectionInfoBuilder,
+            dependencies.selectionInfoRegistry,
+            dependencies.messageBar,
+            dependencies.editorWindow,
+            mockType<Logger>()
+        );
         return {command, deps: dependencies} as any;
     }
 });
