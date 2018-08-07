@@ -1,7 +1,6 @@
 import CommandFactory from './command-factory';
 import ContentProvider from './content-provider';
-
-const { EXTENSION_SCHEME, EXTENSION_NAMESPACE } = require('./const');
+import { EXTENSION_NAMESPACE, EXTENSION_SCHEME } from './const';
 
 export default class Bootstrapper {
   private _commandFactory: CommandFactory;

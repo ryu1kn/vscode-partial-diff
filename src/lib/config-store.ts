@@ -1,4 +1,4 @@
-const { EXTENSION_ID } = require('./const');
+import { EXTENSION_ID } from './const';
 
 export default class ConfigStore {
   private _workspace: any;

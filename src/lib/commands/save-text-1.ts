@@ -1,7 +1,6 @@
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
-
-const { TextKey } = require('../const');
+import { TextKey } from '../const';
 
 export default class SaveText1Command {
   private _logger: Console;

@@ -1,7 +1,8 @@
 import ConfigStore from './config-store';
 
-const isEqual = require('lodash.isequal');
-const omit = require('lodash.omit');
+import * as isEqual from 'lodash.isequal';
+import * as omit from 'lodash.omit';
+
 const clone = value => JSON.parse(JSON.stringify(value));
 
 export default class NormalisationRuleStore {

@@ -2,8 +2,7 @@ import DiffPresenter from '../diff-presenter';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import Clipboard from '../clipboard';
-
-const { TextKey } = require('../const');
+import { TextKey } from '../const';
 
 export default class CompareSelectionWithClipboardCommand {
   private _diffPresenter: DiffPresenter;

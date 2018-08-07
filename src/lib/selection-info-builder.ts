@@ -1,4 +1,4 @@
-const path = require('path');
+import {basename} from 'path';
 
 export default class SelectionInfoBuilder {
   extract (editor) {
@@ -7,7 +7,7 @@ export default class SelectionInfoBuilder {
 
     return {
       text: this._extractText(validSelections, extractText),
-      fileName: path.basename(editor.document.fileName),
+      fileName: basename(editor.document.fileName),
       lineRanges: this._extractLineRanges(validSelections)
     };
   }

@@ -1,8 +1,7 @@
 import DiffPresenter from '../diff-presenter';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
-
-const { TextKey } = require('../const');
+import { TextKey } from '../const';
 
 export default class CompareSelectionWithText1Command {
   private _logger: Console;

@@ -12,7 +12,7 @@ import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rul
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
-const clipboardy = require('clipboardy');
+import * as clipboardy from 'clipboardy';
 
 export default class CommandFactory {
   private _normalisationRuleStore: NormalisationRuleStore;
