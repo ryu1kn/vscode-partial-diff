@@ -10,11 +10,14 @@ export default class CompareSelectionWithText1Command {
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
-    constructor(params) {
-        this.logger = params.logger;
-        this.diffPresenter = params.diffPresenter;
-        this.selectionInfoBuilder = params.selectionInfoBuilder;
-        this.selectionInfoRegistry = params.selectionInfoRegistry;
+    constructor(diffPresenter: DiffPresenter,
+                selectionInfoBuilder: SelectionInfoBuilder,
+                selectionInfoRegistry: SelectionInfoRegistry,
+                logger: Logger) {
+        this.logger = logger;
+        this.diffPresenter = diffPresenter;
+        this.selectionInfoBuilder = selectionInfoBuilder;
+        this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
     async execute(editor) {

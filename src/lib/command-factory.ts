@@ -43,12 +43,12 @@ export default class CommandFactory {
     }
 
     createCompareSelectionWithText1Command() {
-        return new CompareSelectionWithText1Command({
-            selectionInfoRegistry: this.selectionInfoRegistry,
-            diffPresenter: this.getDiffPresenter(),
-            selectionInfoBuilder: this.getSelectionInfoBuilder(),
-            logger: this.logger
-        });
+        return new CompareSelectionWithText1Command(
+            this.getDiffPresenter(),
+            this.getSelectionInfoBuilder(),
+            this.selectionInfoRegistry,
+            this.logger
+        );
     }
 
     createCompareSelectionWithClipboardCommand() {
