@@ -1,5 +1,5 @@
 import ContentProvider from '../../lib/content-provider';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('ContentProvider', () => {
   test('it extracts text key from the given uri and uses it to retrieve text', () => {

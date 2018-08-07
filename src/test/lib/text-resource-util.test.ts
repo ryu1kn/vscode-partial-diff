@@ -1,5 +1,5 @@
 import TextResourceUtil from '../../lib/text-resource-util';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('TextResourceUtil', () => {
   suite('#getUri', () => {

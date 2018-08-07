@@ -1,5 +1,5 @@
 import NormalisationRuleStore from '../../lib/normalisation-rule-store';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('NormalisationRuleStore', () => {
   let configStore;

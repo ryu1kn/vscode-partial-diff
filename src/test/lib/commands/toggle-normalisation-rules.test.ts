@@ -1,5 +1,5 @@
 import ToggleNormalisationRulesCommand from '../../../lib/commands/toggle-normalisation-rules';
-const { mockObject, when, verify } = require('../../helpers');
+import { mockObject, when, verify } from '../../helpers';
 
 suite('ToggleNormalisationRulesCommand', () => {
   test('it updates the status of normalisation rules as user specified', async () => {
@@ -29,7 +29,7 @@ suite('ToggleNormalisationRulesCommand', () => {
     ]);
     when(normalisationRuleStore.getAllRules()).thenReturn(rules);
 
-    const normalisationRulePicker = mockObject('show');
+    const normalisationRulePicker = mockObject('show') as any;
     when(normalisationRulePicker.show(rules)).thenResolve('ACTIVE_RULE_INDICES');
 
     const deps = {
@@ -38,6 +38,6 @@ suite('ToggleNormalisationRulesCommand', () => {
       normalisationRuleStore
     };
     const command = new ToggleNormalisationRulesCommand(deps);
-    return { command, deps };
+    return { command, deps } as any;
   }
 });

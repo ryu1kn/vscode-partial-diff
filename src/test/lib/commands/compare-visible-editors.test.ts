@@ -1,5 +1,5 @@
 import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-editors';
-const { mockObject, verify, when } = require('../../helpers');
+import { mockObject, verify, when } from '../../helpers';
 
 suite('CompareVisibleEditorsCommand', () => {
   const editor1 = { viewColumn: 1 };
@@ -32,7 +32,7 @@ suite('CompareVisibleEditorsCommand', () => {
   });
 
   function createCommand (visibleTextEditors) {
-    const selectionInfoBuilder = mockObject('extract');
+    const selectionInfoBuilder = mockObject('extract') as any;
     when(selectionInfoBuilder.extract(editor1)).thenReturn('TEXT_INFO1');
     when(selectionInfoBuilder.extract(editor2)).thenReturn('TEXT_INFO2');
 
@@ -44,6 +44,6 @@ suite('CompareVisibleEditorsCommand', () => {
       selectionInfoRegistry: mockObject('set')
     };
     const command = new CompareVisibleEditorsCommand(dependencies);
-    return { command, deps: dependencies };
+    return { command, deps: dependencies } as any;
   }
 });

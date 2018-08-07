@@ -1,22 +1,21 @@
 import CompareSelectionWithClipboardCommand from '../../../lib/commands/compare-selection-with-clipboard';
-
-const { verify, when, mockObject, argCaptor } = require('../../helpers');
-const assert = require('assert');
+import { argCaptor, mockObject, verify, when } from '../../helpers';
+import * as assert from 'assert';
 
 suite('CompareSelectionWithClipboardCommand', () => {
   test('it compares selected text with clipboard text', async () => {
-    const clipboard = mockObject('read');
+    const clipboard = mockObject('read') as any;
     when(clipboard.read()).thenResolve('CLIPBOARD_TEXT');
 
-    const selectionInfoBuilder = mockObject('extract');
+    const selectionInfoBuilder = mockObject('extract') as any;
     when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'
     });
 
-    const selectionInfoRegistry = mockObject('set');
-    const diffPresenter = mockObject('takeDiff');
+    const selectionInfoRegistry = mockObject('set') as any;
+    const diffPresenter = mockObject('takeDiff') as any;
     const command = new CompareSelectionWithClipboardCommand({
       clipboard,
       diffPresenter,
@@ -45,7 +44,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
   });
 
   test('it prints callstack if error occurred', async () => {
-    const logger = mockObject('error');
+    const logger = mockObject('error') as any;
     const command = new CompareSelectionWithClipboardCommand({ logger });
 
     await command.execute('EDITOR');

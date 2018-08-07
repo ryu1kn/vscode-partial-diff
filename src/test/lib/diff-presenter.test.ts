@@ -1,11 +1,11 @@
 import DiffPresenter from '../../lib/diff-presenter';
-const { mockObject, verify, when, any } = require('../helpers');
+import { mockObject, verify, when, any } from '../helpers';
 
 suite('DiffPresenter', () => {
   test('it passes URI of 2 texts to compare', async () => {
-    const commands = fakeCommands();
+    const commands = fakeCommands() as any;
 
-    const textResourceUtil = mockObject('getUri');
+    const textResourceUtil = mockObject('getUri') as any;
     when(textResourceUtil.getUri('TEXT1')).thenReturn('URI_INSTANCE_1');
     when(textResourceUtil.getUri('TEXT2')).thenReturn('URI_INSTANCE_2');
 
@@ -28,9 +28,9 @@ suite('DiffPresenter', () => {
   });
 
   test('it builds up diff view title by using TextTitleBuilder', async () => {
-    const commands = fakeCommands();
+    const commands = fakeCommands() as any;
 
-    const selectionInfoRegistry = mockObject('get');
+    const selectionInfoRegistry = mockObject('get') as any;
     when(selectionInfoRegistry.get('TEXT1')).thenReturn('TEXT_INFO_1');
     when(selectionInfoRegistry.get('TEXT2')).thenReturn('TEXT_INFO_2');
 
@@ -48,8 +48,8 @@ suite('DiffPresenter', () => {
   });
 
   test('it uses \u007E if the comparison was done with text normalisation', async () => {
-    const commands = fakeCommands();
-    const selectionInfoRegistry = mockObject('get');
+    const commands = fakeCommands() as any;
+    const selectionInfoRegistry = mockObject('get') as any;
     when(selectionInfoRegistry.get('TEXT1')).thenReturn('TEXT_INFO_1');
     when(selectionInfoRegistry.get('TEXT2')).thenReturn('TEXT_INFO_2');
 

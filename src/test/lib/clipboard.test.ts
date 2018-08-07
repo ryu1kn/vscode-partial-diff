@@ -1,5 +1,5 @@
 import Clipboard from '../../lib/clipboard';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('Clipboard', () => {
   test('it reads text from clipboard', async () => {

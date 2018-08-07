@@ -1,23 +1,16 @@
 import SelectText1Command from '../../../lib/commands/save-text-1';
-const {
-  mockObject,
-  when,
-  verify,
-  argCaptor,
-  contains
-} = require('../../helpers');
-const assert = require('assert');
-
+import {mockObject, when, verify, argCaptor, contains} from '../../helpers';
+import * as assert from 'assert';
 
 suite('SelectText1Command', () => {
   test('it saves selected text', () => {
-    const selectionInfoBuilder = mockObject('extract');
+    const selectionInfoBuilder = mockObject('extract') as any;
     when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'
     });
-    const selectionInfoRegistry = mockObject('set');
+    const selectionInfoRegistry = mockObject('set') as any;
     const command = new SelectText1Command({
       selectionInfoBuilder,
       selectionInfoRegistry
@@ -36,7 +29,7 @@ suite('SelectText1Command', () => {
   });
 
   test('it prints callstack if error occurred', async () => {
-    const logger = mockObject('error');
+    const logger = mockObject('error') as any;
     const command = new SelectText1Command({ logger });
 
     await command.execute('EDITOR');
@@ -45,14 +38,14 @@ suite('SelectText1Command', () => {
   });
 
   test('it prints callstack if saving text failed', () => {
-    const logger = mockObject('error');
-    const selectionInfoBuilder = mockObject('extract');
+    const logger = mockObject('error') as any;
+    const selectionInfoBuilder = mockObject('extract') as any;
     when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'
     });
-    const selectionInfoRegistry = mockObject('set');
+    const selectionInfoRegistry = mockObject('set') as any;
     when(selectionInfoRegistry.set(), { ignoreExtraArgs: true }).thenThrow(
       new Error('UNEXPECTED_ERROR')
     );

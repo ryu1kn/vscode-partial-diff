@@ -1,5 +1,5 @@
 import MessageBar from '../../lib/message-bar';
-const {mockObject, verify} = require('../helpers');
+import {mockObject, verify} from '../helpers';
 
 suite('MessageBar', () => {
   const vscWindow = mockObject(['showInformationMessage']);

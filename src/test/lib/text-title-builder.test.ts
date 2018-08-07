@@ -1,5 +1,5 @@
 import TextTitleBuilder from '../../lib/text-title-builder';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('TextTitleBuilder', () => {
   test('it uses both file name and line numbers', () => {

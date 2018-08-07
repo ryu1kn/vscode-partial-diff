@@ -1,9 +1,9 @@
 import NormalisationRulePicker from '../../lib/normalisation-rule-picker';
-const assert = require('assert');
-const {mockObject, when} = require('../helpers');
+import * as assert from 'assert';
+import {mockObject, when} from '../helpers';
 
 suite('NormalisationRulePicker', () => {
-  const vscWindow = mockObject('showQuickPick');
+  const vscWindow = mockObject('showQuickPick') as any;
   when(
     vscWindow.showQuickPick(
       [

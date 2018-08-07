@@ -1,5 +1,5 @@
 import SelectionInfoRegistry from '../../lib/selection-info-registry';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('SelectionInfoRegistry', () => {
   test('it saves selected text with a given key', () => {

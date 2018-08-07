@@ -1,5 +1,5 @@
 import SelectionInfoBuilder from '../../lib/selection-info-builder';
-const assert = require('assert');
+import * as assert from 'assert';
 
 suite('SelectionInfoBuilder', () => {
   test('it extracts text from editor', () => {

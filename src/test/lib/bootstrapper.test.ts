@@ -1,6 +1,6 @@
 import Bootstrapper from '../../lib/bootstrapper';
-const { when, mockObject } = require('../helpers');
-const assert = require('assert');
+import { when, mockObject } from '../helpers';
+import * as assert from 'assert';
 
 suite('Bootstrapper', () => {
   const commandMap = {
@@ -91,7 +91,7 @@ suite('Bootstrapper', () => {
   }
 
   function fakeVSCodeWorkspace () {
-    const vsWorkspace = mockObject('registerTextDocumentContentProvider');
+    const vsWorkspace = mockObject('registerTextDocumentContentProvider') as any;
     when(
       vsWorkspace.registerTextDocumentContentProvider(
         'partialdiff',

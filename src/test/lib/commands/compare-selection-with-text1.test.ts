@@ -1,19 +1,19 @@
 import CompareSelectionWithText1 from '../../../lib/commands/compare-selection-with-text1';
 
-const { verify, when, mockObject, argCaptor } = require('../../helpers');
-const assert = require('assert');
+import { argCaptor, mockObject, verify, when } from '../../helpers';
+import * as assert from 'assert';
 
 suite('CompareSelectionWithText1', () => {
   test('it saves selected text and takes a diff of 2 texts', async () => {
-    const selectionInfoBuilder = mockObject('extract');
+    const selectionInfoBuilder = mockObject('extract') as any;
     when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'
     });
 
-    const selectionInfoRegistry = mockObject('set');
-    const diffPresenter = mockObject('takeDiff');
+    const selectionInfoRegistry = mockObject('set') as any;
+    const diffPresenter = mockObject('takeDiff') as any;
 
     const command = new CompareSelectionWithText1({
       diffPresenter,
@@ -36,7 +36,7 @@ suite('CompareSelectionWithText1', () => {
   });
 
   test('it prints callstack if error occurred', async () => {
-    const logger = mockObject('error');
+    const logger = mockObject('error') as any;
     const command = new CompareSelectionWithText1({ logger });
 
     await command.execute('EDITOR');

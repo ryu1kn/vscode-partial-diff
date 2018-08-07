@@ -1,12 +1,12 @@
-const td = require('testdouble');
+import * as td from 'testdouble';
 
-exports.throwErrorIfCalled = () => {
+export const throwErrorIfCalled = () => {
   throw new Error("Shouldn't have been called");
 };
 
-exports.mockObject = td.object;
-exports.argCaptor = td.matchers.captor;
-exports.verify = td.verify;
-exports.when = td.when;
-exports.contains = td.matchers.contains;
-exports.any = td.matchers.anything;
+export const mockObject = td.object;
+export const argCaptor = td.matchers.captor;
+export const verify = td.verify;
+export const when = td.when;
+export const contains = td.matchers.contains;
+export const any = td.matchers.anything;
