@@ -1,18 +1,18 @@
 export default class TextResourceUtil {
-  private readonly _extensionScheme: any;
-  private readonly _Uri: any;
-  private readonly _getCurrentDateFn: any;
+  private readonly extensionScheme: any;
+  private readonly Uri: any;
+  private readonly getCurrentDateFn: any;
 
   constructor (params) {
-    this._extensionScheme = params.extensionScheme;
-    this._Uri = params.Uri;
-    this._getCurrentDateFn = params.getCurrentDateFn;
+    this.extensionScheme = params.extensionScheme;
+    this.Uri = params.Uri;
+    this.getCurrentDateFn = params.getCurrentDateFn;
   }
 
   getUri (textKey) {
-    const timestamp = this._getCurrentDateFn().getTime();
-    return this._Uri.parse(
-      `${this._extensionScheme}:text/${textKey}?_ts=${timestamp}`
+    const timestamp = this.getCurrentDateFn().getTime();
+    return this.Uri.parse(
+      `${this.extensionScheme}:text/${textKey}?_ts=${timestamp}`
     ); // `_ts` for avoid cache
   }
 

@@ -3,35 +3,35 @@ import NormalisationRulePicker from '../normalisation-rule-picker';
 import NormalisationRuleStore from '../normalisation-rule-store';
 
 export default class ToggleNormalisationRulesCommand {
-  private readonly _logger: Console;
-  private readonly _messageBar: MessageBar;
-  private readonly _normalisationRulePicker: NormalisationRulePicker;
-  private readonly _normalisationRuleStore: NormalisationRuleStore;
+  private readonly logger: Console;
+  private readonly messageBar: MessageBar;
+  private readonly normalisationRulePicker: NormalisationRulePicker;
+  private readonly normalisationRuleStore: NormalisationRuleStore;
 
   constructor (params) {
-    this._logger = params.logger;
-    this._messageBar = params.messageBar;
-    this._normalisationRulePicker = params.normalisationRulePicker;
-    this._normalisationRuleStore = params.normalisationRuleStore;
+    this.logger = params.logger;
+    this.messageBar = params.messageBar;
+    this.normalisationRulePicker = params.normalisationRulePicker;
+    this.normalisationRuleStore = params.normalisationRuleStore;
   }
 
   async execute () {
     try {
-      const rules = this._normalisationRuleStore.getAllRules();
+      const rules = this.normalisationRuleStore.getAllRules();
       if (rules.length > 0) {
-        const newRules = await this._normalisationRulePicker.show(rules);
-        this._normalisationRuleStore.specifyActiveRules(newRules);
+        const newRules = await this.normalisationRulePicker.show(rules);
+        this.normalisationRuleStore.specifyActiveRules(newRules);
       } else {
-        await this._messageBar.showInfo(
+        await this.messageBar.showInfo(
           'Please set `partialDiff.preComparisonTextNormalizationRules` first'
         );
       }
     } catch (e) {
-      this._handleError(e);
+      this.handleError(e);
     }
   }
 
-  private _handleError (e) {
-    this._logger.error(e.stack);
+  private handleError (e) {
+    this.logger.error(e.stack);
   }
 }

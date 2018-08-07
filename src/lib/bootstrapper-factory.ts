@@ -12,8 +12,8 @@ export default class BootstrapperFactory {
   create () {
     const logger = console;
     const selectionInfoRegistry = new SelectionInfoRegistry();
-    const textResourceUtil = this._createTextResourceUtil();
-    const normalisationRuleStore = this._createNormalisationRuleStore();
+    const textResourceUtil = this.createTextResourceUtil();
+    const normalisationRuleStore = this.createNormalisationRuleStore();
     const commandFactory = new CommandFactory({
       normalisationRuleStore,
       selectionInfoRegistry,
@@ -33,7 +33,7 @@ export default class BootstrapperFactory {
     });
   }
 
-  private _createTextResourceUtil () {
+  private createTextResourceUtil () {
     return new TextResourceUtil({
       Uri: vscode.Uri,
       extensionScheme: EXTENSION_SCHEME,
@@ -41,7 +41,7 @@ export default class BootstrapperFactory {
     });
   }
 
-  private _createNormalisationRuleStore () {
+  private createNormalisationRuleStore () {
     return new NormalisationRuleStore({
       configStore: new ConfigStore({ workspace: vscode.workspace })
     });

@@ -6,21 +6,21 @@ import * as omit from 'lodash.omit';
 const clone = value => JSON.parse(JSON.stringify(value));
 
 export default class NormalisationRuleStore {
-  private readonly _configStore: ConfigStore;
-  private _baseRules: any;
-  private _rules: any;
+  private readonly configStore: ConfigStore;
+  private baseRules: any;
+  private rules: any;
 
   constructor (params) {
-    this._configStore = params.configStore;
-    this._setupRules(this._configStore.preComparisonTextNormalizationRules);
+    this.configStore = params.configStore;
+    this.setupRules(this.configStore.preComparisonTextNormalizationRules);
   }
 
-  private _setupRules (rules) {
-    this._baseRules = clone(rules);
-    this._rules = this._resetRuleStatus(this._baseRules);
+  private setupRules (rules) {
+    this.baseRules = clone(rules);
+    this.rules = this.resetRuleStatus(this.baseRules);
   }
 
-  private _resetRuleStatus (rules) {
+  private resetRuleStatus (rules) {
     return rules.map(rule =>
       Object.assign({}, omit(rule, ['enableOnStart']), {
         active: rule.enableOnStart !== false
@@ -29,11 +29,11 @@ export default class NormalisationRuleStore {
   }
 
   getAllRules () {
-    const newBaseRules = this._configStore.preComparisonTextNormalizationRules;
-    if (!isEqual(newBaseRules, this._baseRules)) {
-      this._setupRules(newBaseRules);
+    const newBaseRules = this.configStore.preComparisonTextNormalizationRules;
+    if (!isEqual(newBaseRules, this.baseRules)) {
+      this.setupRules(newBaseRules);
     }
-    return this._rules;
+    return this.rules;
   }
 
   get activeRules () {
@@ -45,7 +45,7 @@ export default class NormalisationRuleStore {
   }
 
   specifyActiveRules (ruleIndices) {
-    this._rules = this._rules.map((rule, index) =>
+    this.rules = this.rules.map((rule, index) =>
       Object.assign({}, rule, { active: ruleIndices.includes(index) })
     );
   }

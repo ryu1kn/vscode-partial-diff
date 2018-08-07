@@ -3,26 +3,26 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import { TextKey } from '../const';
 
 export default class SaveText1Command {
-  private readonly _logger: Console;
-  private readonly _selectionInfoBuilder: SelectionInfoBuilder;
-  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly logger: Console;
+  private readonly selectionInfoBuilder: SelectionInfoBuilder;
+  private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
   constructor (params) {
-    this._logger = params.logger;
-    this._selectionInfoBuilder = params.selectionInfoBuilder;
-    this._selectionInfoRegistry = params.selectionInfoRegistry;
+    this.logger = params.logger;
+    this.selectionInfoBuilder = params.selectionInfoBuilder;
+    this.selectionInfoRegistry = params.selectionInfoRegistry;
   }
 
   execute (editor) {
     try {
-      const textInfo = this._selectionInfoBuilder.extract(editor);
-      this._selectionInfoRegistry.set(TextKey.REGISTER1, textInfo);
+      const textInfo = this.selectionInfoBuilder.extract(editor);
+      this.selectionInfoRegistry.set(TextKey.REGISTER1, textInfo);
     } catch (e) {
-      this._handleError(e);
+      this.handleError(e);
     }
   }
 
-  private _handleError (e) {
-    this._logger.error(e.stack);
+  private handleError (e) {
+    this.logger.error(e.stack);
   }
 }

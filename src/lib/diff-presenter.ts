@@ -9,24 +9,24 @@ const DiffModeSymbols = {
 };
 
 export default class DiffPresenter {
-  private readonly _commands: any;
-  private readonly _normalisationRuleStore: NormalisationRuleStore;
-  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
-  private readonly _textResourceUtil: TextResourceUtil;
-  private readonly _textTitleBuilder: TextTitleBuilder;
+  private readonly commands: any;
+  private readonly normalisationRuleStore: NormalisationRuleStore;
+  private readonly selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly textResourceUtil: TextResourceUtil;
+  private readonly textTitleBuilder: TextTitleBuilder;
 
   constructor (params) {
-    this._commands = params.commands;
-    this._normalisationRuleStore = params.normalisationRuleStore;
-    this._selectionInfoRegistry = params.selectionInfoRegistry;
-    this._textResourceUtil = params.textResourceUtil;
-    this._textTitleBuilder = params.textTitleBuilder;
+    this.commands = params.commands;
+    this.normalisationRuleStore = params.normalisationRuleStore;
+    this.selectionInfoRegistry = params.selectionInfoRegistry;
+    this.textResourceUtil = params.textResourceUtil;
+    this.textTitleBuilder = params.textTitleBuilder;
   }
 
   takeDiff (textKey1, textKey2) {
-    const getUri = textKey => this._textResourceUtil.getUri(textKey);
-    const title = this._buildTitle(textKey1, textKey2);
-    return this._commands.executeCommand(
+    const getUri = textKey => this.textResourceUtil.getUri(textKey);
+    const title = this.buildTitle(textKey1, textKey2);
+    return this.commands.executeCommand(
       'vscode.diff',
       getUri(textKey1),
       getUri(textKey2),
@@ -34,17 +34,17 @@ export default class DiffPresenter {
     );
   }
 
-  private _buildTitle (textKey1, textKey2) {
-    const title1 = this._buildTextTitle(textKey1);
-    const title2 = this._buildTextTitle(textKey2);
-    const comparisonSymbol = this._normalisationRuleStore.hasActiveRules
+  private buildTitle (textKey1, textKey2) {
+    const title1 = this.buildTextTitle(textKey1);
+    const title2 = this.buildTextTitle(textKey2);
+    const comparisonSymbol = this.normalisationRuleStore.hasActiveRules
       ? DiffModeSymbols.NORMALISED
       : DiffModeSymbols.AS_IS;
     return `${title1} ${comparisonSymbol} ${title2}`;
   }
 
-  private _buildTextTitle (textKey) {
-    const textInfo = this._selectionInfoRegistry.get(textKey);
-    return this._textTitleBuilder.build(textInfo);
+  private buildTextTitle (textKey) {
+    const textInfo = this.selectionInfoRegistry.get(textKey);
+    return this.textTitleBuilder.build(textInfo);
   }
 }

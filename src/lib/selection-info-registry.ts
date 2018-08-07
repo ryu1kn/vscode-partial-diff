@@ -1,12 +1,12 @@
 export default class SelectionInfoRegistry {
-  private readonly _data: any;
+  private readonly data: any;
 
   constructor () {
-    this._data = Object.create(null);
+    this.data = Object.create(null);
   }
 
   set (key, textInfo) {
-    this._data[key] = {
+    this.data[key] = {
       text: textInfo.text,
       fileName: textInfo.fileName,
       lineRanges: textInfo.lineRanges || []
@@ -14,6 +14,6 @@ export default class SelectionInfoRegistry {
   }
 
   get (key) {
-    return this._data[key];
+    return this.data[key];
   }
 }

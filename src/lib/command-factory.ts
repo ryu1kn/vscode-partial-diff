@@ -15,114 +15,114 @@ import TextResourceUtil from './text-resource-util';
 import * as clipboardy from 'clipboardy';
 
 export default class CommandFactory {
-  private readonly _normalisationRuleStore: NormalisationRuleStore;
-  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
-  private readonly _textResourceUtil: TextResourceUtil;
-  private readonly _vscode: any;
-  private readonly _logger: Console;
-  private _clipboard: Clipboard;
-  private _diffPresenter: DiffPresenter;
-  private _messageBar: MessageBar;
-  private _selectionInfoBuilder: SelectionInfoBuilder;
+  private readonly normalisationRuleStore: NormalisationRuleStore;
+  private readonly selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly textResourceUtil: TextResourceUtil;
+  private readonly vscode: any;
+  private readonly logger: Console;
+  private clipboard: Clipboard;
+  private diffPresenter: DiffPresenter;
+  private messageBar: MessageBar;
+  private selectionInfoBuilder: SelectionInfoBuilder;
 
   constructor (params) {
-    this._normalisationRuleStore = params.normalisationRuleStore;
-    this._selectionInfoRegistry = params.selectionInfoRegistry;
-    this._textResourceUtil = params.textResourceUtil;
-    this._vscode = params.vscode;
-    this._logger = params.logger;
+    this.normalisationRuleStore = params.normalisationRuleStore;
+    this.selectionInfoRegistry = params.selectionInfoRegistry;
+    this.textResourceUtil = params.textResourceUtil;
+    this.vscode = params.vscode;
+    this.logger = params.logger;
   }
 
   crateSaveText1Command () {
     return new SaveText1Command({
-      selectionInfoRegistry: this._selectionInfoRegistry,
-      selectionInfoBuilder: this._getSelectionInfoBuilder(),
-      logger: this._logger
+      selectionInfoRegistry: this.selectionInfoRegistry,
+      selectionInfoBuilder: this.getSelectionInfoBuilder(),
+      logger: this.logger
     });
   }
 
   createCompareSelectionWithText1Command () {
     return new CompareSelectionWithText1Command({
-      selectionInfoRegistry: this._selectionInfoRegistry,
-      diffPresenter: this._getDiffPresenter(),
-      selectionInfoBuilder: this._getSelectionInfoBuilder(),
-      logger: this._logger
+      selectionInfoRegistry: this.selectionInfoRegistry,
+      diffPresenter: this.getDiffPresenter(),
+      selectionInfoBuilder: this.getSelectionInfoBuilder(),
+      logger: this.logger
     });
   }
 
   createCompareSelectionWithClipboardCommand () {
     return new CompareSelectionWithClipboardCommand({
-      selectionInfoRegistry: this._selectionInfoRegistry,
-      diffPresenter: this._getDiffPresenter(),
-      selectionInfoBuilder: this._getSelectionInfoBuilder(),
-      logger: this._logger,
-      clipboard: this._getClipboard()
+      selectionInfoRegistry: this.selectionInfoRegistry,
+      diffPresenter: this.getDiffPresenter(),
+      selectionInfoBuilder: this.getSelectionInfoBuilder(),
+      logger: this.logger,
+      clipboard: this.getClipboard()
     });
   }
 
   createCompareVisibleEditorsCommand () {
     return new CompareVisibleEditorsCommand({
-      diffPresenter: this._getDiffPresenter(),
-      editorWindow: this._vscode.window,
-      logger: this._logger,
-      messageBar: this._getMessageBar(),
-      selectionInfoRegistry: this._selectionInfoRegistry,
-      selectionInfoBuilder: this._getSelectionInfoBuilder()
+      diffPresenter: this.getDiffPresenter(),
+      editorWindow: this.vscode.window,
+      logger: this.logger,
+      messageBar: this.getMessageBar(),
+      selectionInfoRegistry: this.selectionInfoRegistry,
+      selectionInfoBuilder: this.getSelectionInfoBuilder()
     });
   }
 
   createToggleNormalisationRulesCommand () {
     return new ToggleNormalisationRulesCommand({
-      logger: this._logger,
-      messageBar: this._getMessageBar(),
+      logger: this.logger,
+      messageBar: this.getMessageBar(),
       normalisationRulePicker: new NormalisationRulePicker({
-        vscWindow: this._vscode.window
+        vscWindow: this.vscode.window
       }),
-      normalisationRuleStore: this._normalisationRuleStore
+      normalisationRuleStore: this.normalisationRuleStore
     });
   }
 
-  private _getClipboard () {
-    this._clipboard = this._clipboard || this._createClipboard();
-    return this._clipboard;
+  private getClipboard () {
+    this.clipboard = this.clipboard || this.createClipboard();
+    return this.clipboard;
   }
 
-  private _getDiffPresenter () {
-    this._diffPresenter = this._diffPresenter || this._createDiffPresenter();
-    return this._diffPresenter;
+  private getDiffPresenter () {
+    this.diffPresenter = this.diffPresenter || this.createDiffPresenter();
+    return this.diffPresenter;
   }
 
-  private _getMessageBar () {
-    this._messageBar = this._messageBar || this._createMessageBar();
-    return this._messageBar;
+  private getMessageBar () {
+    this.messageBar = this.messageBar || this.createMessageBar();
+    return this.messageBar;
   }
 
-  private _getSelectionInfoBuilder () {
-    this._selectionInfoBuilder =
-      this._selectionInfoBuilder || new SelectionInfoBuilder();
-    return this._selectionInfoBuilder;
+  private getSelectionInfoBuilder () {
+    this.selectionInfoBuilder =
+      this.selectionInfoBuilder || new SelectionInfoBuilder();
+    return this.selectionInfoBuilder;
   }
 
-  private _createClipboard () {
+  private createClipboard () {
     return new Clipboard({
       clipboardy,
       platform: process.platform
     });
   }
 
-  private _createDiffPresenter () {
+  private createDiffPresenter () {
     return new DiffPresenter({
-      commands: this._vscode.commands,
-      normalisationRuleStore: this._normalisationRuleStore,
-      selectionInfoRegistry: this._selectionInfoRegistry,
-      textResourceUtil: this._textResourceUtil,
+      commands: this.vscode.commands,
+      normalisationRuleStore: this.normalisationRuleStore,
+      selectionInfoRegistry: this.selectionInfoRegistry,
+      textResourceUtil: this.textResourceUtil,
       textTitleBuilder: new TextTitleBuilder()
     });
   }
 
-  private _createMessageBar () {
+  private createMessageBar () {
     return new MessageBar({
-      vscWindow: this._vscode.window
+      vscWindow: this.vscode.window
     });
   }
 }

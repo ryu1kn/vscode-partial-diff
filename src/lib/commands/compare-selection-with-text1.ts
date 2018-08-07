@@ -4,31 +4,31 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import { TextKey } from '../const';
 
 export default class CompareSelectionWithText1Command {
-  private readonly _logger: Console;
-  private readonly _diffPresenter: DiffPresenter;
-  private readonly _selectionInfoBuilder: SelectionInfoBuilder;
-  private readonly _selectionInfoRegistry: SelectionInfoRegistry;
+  private readonly logger: Console;
+  private readonly diffPresenter: DiffPresenter;
+  private readonly selectionInfoBuilder: SelectionInfoBuilder;
+  private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
   constructor (params) {
-    this._logger = params.logger;
-    this._diffPresenter = params.diffPresenter;
-    this._selectionInfoBuilder = params.selectionInfoBuilder;
-    this._selectionInfoRegistry = params.selectionInfoRegistry;
+    this.logger = params.logger;
+    this.diffPresenter = params.diffPresenter;
+    this.selectionInfoBuilder = params.selectionInfoBuilder;
+    this.selectionInfoRegistry = params.selectionInfoRegistry;
   }
 
   async execute (editor) {
     try {
-      const textInfo = this._selectionInfoBuilder.extract(editor);
-      this._selectionInfoRegistry.set(TextKey.REGISTER2, textInfo);
+      const textInfo = this.selectionInfoBuilder.extract(editor);
+      this.selectionInfoRegistry.set(TextKey.REGISTER2, textInfo);
 
       await 'HACK'; // HACK: To avoid TextEditor has been disposed error
-      await this._diffPresenter.takeDiff(TextKey.REGISTER1, TextKey.REGISTER2);
+      await this.diffPresenter.takeDiff(TextKey.REGISTER1, TextKey.REGISTER2);
     } catch (e) {
-      this._handleError(e);
+      this.handleError(e);
     }
   }
 
-  private _handleError (e) {
-    this._logger.error(e.stack);
+  private handleError (e) {
+    this.logger.error(e.stack);
   }
 }

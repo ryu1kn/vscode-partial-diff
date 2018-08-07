@@ -2,17 +2,17 @@ export default class TextTitleBuilder {
   build (textInfo) {
     if (!textInfo) return 'N/A';
 
-    const suffix = this._lineRangesSuffix(textInfo.lineRanges);
+    const suffix = this.lineRangesSuffix(textInfo.lineRanges);
     return `${textInfo.fileName}${suffix}`;
   }
 
-  private _lineRangesSuffix (lineRanges) {
+  private lineRangesSuffix (lineRanges) {
     return lineRanges.length !== 0
-      ? ` (${lineRanges.map(this._lineRangeLabel)})`
+      ? ` (${lineRanges.map(this.lineRangeLabel)})`
       : '';
   }
 
-  private _lineRangeLabel (lineRange) {
+  private lineRangeLabel (lineRange) {
     const isOneLine = lineRange.start === lineRange.end;
     return isOneLine
       ? `l.${lineRange.start + 1}`
