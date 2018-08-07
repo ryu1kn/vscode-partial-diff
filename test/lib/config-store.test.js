@@ -1,4 +1,5 @@
-const { expect, when, mockObject } = require('../helpers')
+const { when, mockObject } = require('../helpers')
+const assert = require('assert')
 
 const ConfigStore = require('../../lib/config-store')
 
@@ -13,6 +14,6 @@ suite('ConfigStore', () => {
     when(workspace.getConfiguration('partialDiff')).thenReturn(extensionConfig)
 
     const configStore = new ConfigStore({ workspace })
-    expect(configStore.preComparisonTextNormalizationRules).to.eql('RULES')
+    assert.deepEqual(configStore.preComparisonTextNormalizationRules, 'RULES')
   })
 })

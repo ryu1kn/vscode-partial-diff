@@ -1,4 +1,5 @@
-const { expect, when, mockObject } = require('../helpers')
+const { when, mockObject } = require('../helpers')
+const assert = require('assert')
 
 const Bootstrapper = require('../../lib/bootstrapper')
 
@@ -23,7 +24,7 @@ suite('Bootstrapper', () => {
     const context = { subscriptions: [] }
     bootstrapper.initiate(context)
 
-    expect(context.subscriptions).to.eql([
+    assert.deepEqual(context.subscriptions, [
       'DISPOSABLE_scheme',
       'DISPOSABLE_diffVisibleEditors',
       'DISPOSABLE_markSection1',

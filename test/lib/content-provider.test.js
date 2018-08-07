@@ -1,35 +1,35 @@
-const { expect } = require('../helpers')
+const assert = require('assert')
 
 const ContentProvider = require('../../lib/content-provider')
 
 suite('ContentProvider', () => {
   test('it extracts text key from the given uri and uses it to retrieve text', () => {
     const content = retrieveEditorContent({})
-    expect(content).to.eql('TEXT_1')
+    assert.deepEqual(content, 'TEXT_1')
   })
 
   test('it returns an empty string if a text is not yet selected', () => {
     const selectionInfoRegistry = { get: () => {} }
     const content = retrieveEditorContent({ selectionInfoRegistry })
-    expect(content).to.eql('')
+    assert.deepEqual(content, '')
   })
 
   test('it uses a user defined rule to preprocess text to compare', () => {
     const activeRules = [{ match: '_', replaceWith: ':' }]
     const content = retrieveEditorContent({ activeRules })
-    expect(content).to.eql('TEXT:1')
+    assert.deepEqual(content, 'TEXT:1')
   })
 
   test('it replaces all occurence of specified pattern', () => {
     const activeRules = [{ match: 'T', replaceWith: 't' }]
     const content = retrieveEditorContent({ activeRules })
-    expect(content).to.eql('tEXt_1')
+    assert.deepEqual(content, 'tEXt_1')
   })
 
   test('it can use part of matched text as replace text', () => {
     const activeRules = [{ match: '(TE)(XT)', replaceWith: '$2$1' }]
     const content = retrieveEditorContent({ activeRules })
-    expect(content).to.eql('XTTE_1')
+    assert.deepEqual(content, 'XTTE_1')
   })
 
   test('it can change matched text to lower case', () => {
@@ -40,7 +40,7 @@ suite('ContentProvider', () => {
       }
     ]
     const content = retrieveEditorContent({ activeRules })
-    expect(content).to.eql('teXT_1')
+    assert.deepEqual(content, 'teXT_1')
   })
 
   test('it can change all characters to upper case', () => {
@@ -54,7 +54,7 @@ suite('ContentProvider', () => {
       activeRules,
       registeredText: 'Registered Text'
     })
-    expect(content).to.eql('REGISTERed Text')
+    assert.deepEqual(content, 'REGISTERed Text')
   })
 
   test('it applies all given rules to preprocess text', () => {
@@ -63,7 +63,7 @@ suite('ContentProvider', () => {
       { match: 'T', replaceWith: 't' }
     ]
     const content = retrieveEditorContent({ activeRules })
-    expect(content).to.eql('tEXt:1')
+    assert.deepEqual(content, 'tEXt:1')
   })
 
   function retrieveEditorContent ({

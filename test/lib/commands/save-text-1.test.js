@@ -1,11 +1,11 @@
 const {
   mockObject,
-  expect,
   when,
   verify,
   argCaptor,
   matchers
 } = require('../../helpers')
+const assert = require('assert')
 
 const SelectText1Command = require('../../../lib/commands/save-text-1')
 
@@ -27,8 +27,8 @@ suite('SelectText1Command', () => {
     const arg1 = argCaptor()
     const arg2 = argCaptor()
     verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()))
-    expect(arg1.values[0]).to.eql('reg1')
-    expect(arg2.values[0]).to.eql({
+    assert.deepEqual(arg1.values[0], 'reg1')
+    assert.deepEqual(arg2.values[0], {
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'

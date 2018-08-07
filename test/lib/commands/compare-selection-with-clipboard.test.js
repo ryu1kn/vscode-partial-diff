@@ -1,4 +1,5 @@
-const { expect, verify, when, mockObject, argCaptor } = require('../../helpers')
+const { verify, when, mockObject, argCaptor } = require('../../helpers')
+const assert = require('assert')
 
 const CompareSelectionWithClipboardCommand = require('../../../lib/commands/compare-selection-with-clipboard')
 
@@ -28,13 +29,13 @@ suite('CompareSelectionWithClipboardCommand', () => {
     const arg1 = argCaptor()
     const arg2 = argCaptor()
     verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()))
-    expect(arg1.values[0]).to.eql('clipboard')
-    expect(arg2.values[0]).to.eql({
+    assert.deepEqual(arg1.values[0], 'clipboard')
+    assert.deepEqual(arg2.values[0], {
       text: 'CLIPBOARD_TEXT',
       fileName: 'Clipboard'
     })
-    expect(arg1.values[1]).to.eql('reg2')
-    expect(arg2.values[1]).to.eql({
+    assert.deepEqual(arg1.values[1], 'reg2')
+    assert.deepEqual(arg2.values[1], {
       text: 'SELECTED_TEXT',
       fileName: 'FILENAME',
       lineRanges: 'SELECTED_RANGE'

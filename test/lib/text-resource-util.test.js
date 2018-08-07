@@ -1,4 +1,4 @@
-const { expect } = require('../helpers')
+const assert = require('assert')
 
 const TextResourceUtil = require('../../lib/text-resource-util')
 
@@ -13,7 +13,7 @@ suite('TextResourceUtil', () => {
         Uri,
         getCurrentDateFn
       })
-      expect(textResourceUtil.getUri('reg1')).to.eql(
+      assert.deepEqual(textResourceUtil.getUri('reg1'),
         '__EXTENSION_SCHEME:text/reg1?_ts=1465990980000__'
       )
     })
@@ -23,7 +23,7 @@ suite('TextResourceUtil', () => {
     test('it extracts a text key information from the given uri', () => {
       const uri = { path: 'text/reg1' }
       const textResourceUtil = new TextResourceUtil({})
-      expect(textResourceUtil.getTextKey(uri)).to.eql('reg1')
+      assert.deepEqual(textResourceUtil.getTextKey(uri), 'reg1')
     })
   })
 })

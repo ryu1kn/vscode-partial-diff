@@ -1,4 +1,4 @@
-const { expect } = require('../helpers')
+const assert = require('assert')
 const td = require('testdouble')
 
 const NormalisationRulePicker = require('../../lib/normalisation-rule-picker')
@@ -52,7 +52,7 @@ suite('NormalisationRulePicker', () => {
       { name: 'RULE_NAME_2', active: false }
     ])
 
-    expect(activeRuleIndices).to.eql([1])
+    assert.deepEqual(activeRuleIndices, [1])
   })
 
   test('it returns the indices of all active rules if user dismissed the selection popup', async () => {
@@ -61,12 +61,12 @@ suite('NormalisationRulePicker', () => {
       { name: 'RULE_NAME_4', active: true }
     ])
 
-    expect(activeRuleIndices).to.eql([1])
+    assert.deepEqual(activeRuleIndices, [1])
   })
 
   test('it shows a note to tell the user that no name is given for the rule', async () => {
     const activeRuleIndices = await rulePicker.show([{ active: true }])
 
-    expect(activeRuleIndices).to.eql([])
+    assert.deepEqual(activeRuleIndices, [])
   })
 })

@@ -1,7 +1,5 @@
 const td = require('testdouble')
-const {expect} = require('chai')
 
-exports.expect = expect
 exports.throwErrorIfCalled = () => {
   throw new Error("Shouldn't have been called")
 }

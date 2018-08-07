@@ -1,4 +1,4 @@
-const { expect } = require('../helpers')
+const assert = require('assert')
 
 const NormalisationRuleStore = require('../../lib/normalisation-rule-store')
 
@@ -19,7 +19,7 @@ suite('NormalisationRuleStore', () => {
   })
 
   test('it gives pre-comparison text normalization rules from config', () => {
-    expect(ruleStore.getAllRules()).to.eql([
+    assert.deepEqual(ruleStore.getAllRules(), [
       { name: 'RULE1', active: true },
       { name: 'RULE2', active: true },
       { name: 'RULE3', active: false },
@@ -31,14 +31,14 @@ suite('NormalisationRuleStore', () => {
     const activeRuleIndices = [1]
     ruleStore.specifyActiveRules(activeRuleIndices)
     const [firstRule] = ruleStore.getAllRules()
-    expect(firstRule).to.eql({ name: 'RULE1', active: false })
+    assert.deepEqual(firstRule, { name: 'RULE1', active: false })
   })
 
   test('it resets all rule states in the editor config', () => {
     const activeRuleIndices = [1]
     ruleStore.specifyActiveRules(activeRuleIndices)
     configStore.preComparisonTextNormalizationRules.push({ name: 'RULE_TMP' })
-    expect(ruleStore.getAllRules()).to.eql([
+    assert.deepEqual(ruleStore.getAllRules(), [
       { name: 'RULE1', active: true },
       { name: 'RULE2', active: true },
       { name: 'RULE3', active: false },
@@ -50,18 +50,18 @@ suite('NormalisationRuleStore', () => {
   test('it returns all the active rules', () => {
     const activeRuleIndices = [1]
     ruleStore.specifyActiveRules(activeRuleIndices)
-    expect(ruleStore.activeRules).to.eql([{ name: 'RULE2', active: true }])
+    assert.deepEqual(ruleStore.activeRules, [{ name: 'RULE2', active: true }])
   })
 
   test('it tells if there are any active rules', () => {
     const activeRuleIndices = [1]
     ruleStore.specifyActiveRules(activeRuleIndices)
-    expect(ruleStore.hasActiveRules).to.be.true
+    assert.equal(ruleStore.hasActiveRules, true)
   })
 
   test('it tells if there are no active rules', () => {
     const activeRuleIndices = []
     ruleStore.specifyActiveRules(activeRuleIndices)
-    expect(ruleStore.hasActiveRules).to.be.false
+    assert.equal(ruleStore.hasActiveRules, false)
   })
 })
