@@ -3,7 +3,7 @@ const {
   when,
   verify,
   argCaptor,
-  matchers
+  contains
 } = require('../../helpers')
 const assert = require('assert')
 
@@ -64,6 +64,6 @@ suite('SelectText1Command', () => {
     })
     command.execute('EDITOR')
 
-    verify(logger.error(matchers.contains('Error: UNEXPECTED_ERROR')))
+    verify(logger.error(contains('Error: UNEXPECTED_ERROR')))
   })
 })
