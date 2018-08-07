@@ -204,7 +204,6 @@
     "nyc": "^11.6.0",
     "prettier": "^1.12.0",
     "prettier-eslint-cli": "^4.7.1",
-    "sinon": "^4.5.0",
     "testdouble": "^3.7.0",
     "vscode": "^1.1.14"
   }
