@@ -1,7 +1,8 @@
 import CompareSelectionWithText1 from '../../../lib/commands/compare-selection-with-text1';
 
-import {argCaptor, mockObject, verify, when} from '../../helpers';
+import {argCaptor, mockMethods, mockObject, verify, when} from '../../helpers';
 import * as assert from 'assert';
+import {Logger} from '../../../lib/logger';
 
 suite('CompareSelectionWithText1', () => {
     test('it saves selected text and takes a diff of 2 texts', async () => {
@@ -36,7 +37,7 @@ suite('CompareSelectionWithText1', () => {
     });
 
     test('it prints callstack if error occurred', async () => {
-        const logger = mockObject('error') as any;
+        const logger = mockMethods<Logger>(['error']);
         const command = new CompareSelectionWithText1({logger});
 
         await command.execute('EDITOR');

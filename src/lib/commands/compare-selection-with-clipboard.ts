@@ -3,20 +3,25 @@ import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import Clipboard from '../clipboard';
 import {TextKey} from '../const';
+import {Logger} from '../logger';
 
 export default class CompareSelectionWithClipboardCommand {
     private readonly diffPresenter: DiffPresenter;
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly clipboard: Clipboard;
-    private readonly logger: Console;
+    private readonly logger: Logger;
 
-    constructor(params) {
-        this.diffPresenter = params.diffPresenter;
-        this.selectionInfoBuilder = params.selectionInfoBuilder;
-        this.selectionInfoRegistry = params.selectionInfoRegistry;
-        this.clipboard = params.clipboard;
-        this.logger = params.logger;
+    constructor(diffPresenter: DiffPresenter,
+                selectionInfoBuilder: SelectionInfoBuilder,
+                selectionInfoRegistry: SelectionInfoRegistry,
+                clipboard: Clipboard,
+                logger: Logger) {
+        this.diffPresenter = diffPresenter;
+        this.selectionInfoBuilder = selectionInfoBuilder;
+        this.selectionInfoRegistry = selectionInfoRegistry;
+        this.clipboard = clipboard;
+        this.logger = logger;
     }
 
     async execute(editor) {

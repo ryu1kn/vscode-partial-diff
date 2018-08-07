@@ -2,9 +2,10 @@ import DiffPresenter from '../diff-presenter';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
+import {Logger} from '../logger';
 
 export default class CompareSelectionWithText1Command {
-    private readonly logger: Console;
+    private readonly logger: Logger;
     private readonly diffPresenter: DiffPresenter;
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;

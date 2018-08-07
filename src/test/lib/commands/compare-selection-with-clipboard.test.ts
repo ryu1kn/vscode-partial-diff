@@ -1,8 +1,16 @@
 import CompareSelectionWithClipboardCommand from '../../../lib/commands/compare-selection-with-clipboard';
-import {argCaptor, mockObject, verify, when} from '../../helpers';
+import {argCaptor, mock, mockMethods, mockObject, mockType, verify, when} from '../../helpers';
 import * as assert from 'assert';
+import {Logger} from '../../../lib/logger';
+import DiffPresenter from '../../../lib/diff-presenter';
+import SelectionInfoBuilder from '../../../lib/selection-info-builder';
+import SelectionInfoRegistry from '../../../lib/selection-info-registry';
+import Clipboard from '../../../lib/clipboard';
 
 suite('CompareSelectionWithClipboardCommand', () => {
+
+    const logger = mockType<Logger>();
+
     test('it compares selected text with clipboard text', async () => {
         const clipboard = mockObject('read') as any;
         when(clipboard.read()).thenResolve('CLIPBOARD_TEXT');
@@ -16,12 +24,13 @@ suite('CompareSelectionWithClipboardCommand', () => {
 
         const selectionInfoRegistry = mockObject('set') as any;
         const diffPresenter = mockObject('takeDiff') as any;
-        const command = new CompareSelectionWithClipboardCommand({
-            clipboard,
+        const command = new CompareSelectionWithClipboardCommand(
             diffPresenter,
             selectionInfoBuilder,
-            selectionInfoRegistry
-        });
+            selectionInfoRegistry,
+            clipboard,
+            logger
+        );
 
         await command.execute('EDITOR');
 
@@ -44,8 +53,18 @@ suite('CompareSelectionWithClipboardCommand', () => {
     });
 
     test('it prints callstack if error occurred', async () => {
-        const logger = mockObject('error') as any;
-        const command = new CompareSelectionWithClipboardCommand({logger});
+        const clipboard = mock(Clipboard);
+        when(clipboard.read()).thenReject(new Error('UNEXPECTED_ERROR'));
+
+        const logger = mockMethods<Logger>(['error']);
+
+        const command = new CompareSelectionWithClipboardCommand(
+            mock(DiffPresenter),
+            mock(SelectionInfoBuilder),
+            mock(SelectionInfoRegistry),
+            clipboard,
+            logger
+        );
 
         await command.execute('EDITOR');
 

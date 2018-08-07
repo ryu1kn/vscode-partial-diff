@@ -3,9 +3,10 @@ import MessageBar from '../message-bar';
 import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
+import {Logger} from '../logger';
 
 export default class CompareVisibleEditorsCommand {
-    private readonly logger: Console;
+    private readonly logger: Logger;
     private readonly editorWindow: any;
     private readonly diffPresenter: DiffPresenter;
     private readonly messageBar: MessageBar;

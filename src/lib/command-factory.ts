@@ -13,13 +13,14 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
 import * as clipboardy from 'clipboardy';
+import {Logger} from './logger';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly textResourceUtil: TextResourceUtil;
     private readonly vscode: any;
-    private readonly logger: Console;
+    private readonly logger: Logger;
     private clipboard: Clipboard;
     private diffPresenter: DiffPresenter;
     private messageBar: MessageBar;
@@ -51,13 +52,13 @@ export default class CommandFactory {
     }
 
     createCompareSelectionWithClipboardCommand() {
-        return new CompareSelectionWithClipboardCommand({
-            selectionInfoRegistry: this.selectionInfoRegistry,
-            diffPresenter: this.getDiffPresenter(),
-            selectionInfoBuilder: this.getSelectionInfoBuilder(),
-            logger: this.logger,
-            clipboard: this.getClipboard()
-        });
+        return new CompareSelectionWithClipboardCommand(
+            this.getDiffPresenter(),
+            this.getSelectionInfoBuilder(),
+            this.selectionInfoRegistry,
+            this.getClipboard(),
+            this.logger
+        );
     }
 
     createCompareVisibleEditorsCommand() {
