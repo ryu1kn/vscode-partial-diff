@@ -7,10 +7,12 @@ export default class Bootstrapper {
     private readonly contentProvider: ContentProvider;
     private readonly vscode: any;
 
-    constructor(params) {
-        this.commandFactory = params.commandFactory;
-        this.contentProvider = params.contentProvider;
-        this.vscode = params.vscode;
+    constructor(commandFactory: CommandFactory,
+                contentProvider: ContentProvider,
+                vscode: any) {
+        this.commandFactory = commandFactory;
+        this.contentProvider = contentProvider;
+        this.vscode = vscode;
     }
 
     initiate(context) {

@@ -26,11 +26,7 @@ export default class BootstrapperFactory {
             selectionInfoRegistry,
             textResourceUtil
         });
-        return new Bootstrapper({
-            contentProvider,
-            vscode,
-            commandFactory
-        });
+        return new Bootstrapper(commandFactory, contentProvider, vscode);
     }
 
     private createTextResourceUtil() {

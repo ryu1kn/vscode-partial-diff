@@ -1,6 +1,8 @@
 import Bootstrapper from '../../lib/bootstrapper';
-import {mockObject, when} from '../helpers';
+import {mock, mockObject, when} from '../helpers';
 import * as assert from 'assert';
+import CommandFactory from '../../lib/command-factory';
+import ContentProvider from '../../lib/content-provider';
 
 suite('Bootstrapper', () => {
     const commandMap = {
@@ -10,14 +12,16 @@ suite('Bootstrapper', () => {
         compareVisibleEditorsCommand: fakeExtensionCommand(),
         toggleNormalisationRulesCommand: fakeExtensionCommand()
     };
-    const bootstrapper = new Bootstrapper({
-        commandFactory: fakeCommandFactory(),
-        contentProvider: 'CONTENT_PROVIDER',
-        vscode: {
+    const contentProvider = mock(ContentProvider);
+
+    const bootstrapper = new Bootstrapper(
+        fakeCommandFactory(),
+        contentProvider,
+        {
             commands: fakeVSCodeCommands(),
             workspace: fakeVSCodeWorkspace()
         }
-    });
+    );
 
     test('it registers commands', () => {
         const context = {subscriptions: []};
@@ -77,17 +81,13 @@ suite('Bootstrapper', () => {
     }
 
     function fakeCommandFactory() {
-        return {
-            crateSaveText1Command: () => commandMap.saveText1Command,
-            createCompareSelectionWithText1Command: () =>
-                commandMap.compareSelectionWithText1Command,
-            createCompareSelectionWithClipboardCommand: () =>
-                commandMap.compareSelectionWithClipboardCommand,
-            createCompareVisibleEditorsCommand: () =>
-                commandMap.compareVisibleEditorsCommand,
-            createToggleNormalisationRulesCommand: () =>
-                commandMap.toggleNormalisationRulesCommand
-        };
+        const commandFactory = mock(CommandFactory);
+        when(commandFactory.crateSaveText1Command()).thenReturn(commandMap.saveText1Command);
+        when(commandFactory.createCompareSelectionWithText1Command()).thenReturn(commandMap.compareSelectionWithText1Command);
+        when(commandFactory.createCompareSelectionWithClipboardCommand()).thenReturn(commandMap.compareSelectionWithClipboardCommand);
+        when(commandFactory.createCompareVisibleEditorsCommand()).thenReturn(commandMap.compareVisibleEditorsCommand);
+        when(commandFactory.createToggleNormalisationRulesCommand()).thenReturn(commandMap.toggleNormalisationRulesCommand);
+        return commandFactory;
     }
 
     function fakeVSCodeWorkspace() {
@@ -95,16 +95,13 @@ suite('Bootstrapper', () => {
         when(
             vsWorkspace.registerTextDocumentContentProvider(
                 'partialdiff',
-                'CONTENT_PROVIDER'
+                contentProvider
             )
         ).thenReturn('DISPOSABLE_scheme');
         return vsWorkspace;
     }
 
     function fakeExtensionCommand() {
-        return {
-            execute: () => {
-            }
-        };
+        return {execute: () => {}};
     }
 });
