@@ -1,8 +1,10 @@
 {
+  "extension": [
+    ".ts"
+  ],
   "exclude": [
-    "**/__*",
-    "coverage",
-    "test"
+    "out",
+    "coverage"
   ],
   "all": true,
   "reporter": [
