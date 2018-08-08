@@ -4,10 +4,14 @@ import {Logger} from '../../../lib/logger';
 import MessageBar from '../../../lib/message-bar';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import NormalisationRulePicker from '../../../lib/normalisation-rule-picker';
+import {LoadedNormalisationRule} from '../../../lib/entities/normalisation-rule';
 
 suite('ToggleNormalisationRulesCommand', () => {
+
+    const rules = mockType<LoadedNormalisationRule>();
+
     test('it updates the status of normalisation rules as user specified', async () => {
-        const {command, deps} = createCommand({rules: ['RULE']});
+        const {command, deps} = createCommand({rules: [rules]});
         await command.execute();
 
         verify(
@@ -26,7 +30,7 @@ suite('ToggleNormalisationRulesCommand', () => {
         );
     });
 
-    function createCommand({rules}) {
+    function createCommand({rules}: {rules: LoadedNormalisationRule[]}) {
         const normalisationRuleStore = mockMethods<NormalisationRuleStore>(['getAllRules', 'specifyActiveRules']);
         when(normalisationRuleStore.getAllRules()).thenReturn(rules);
 

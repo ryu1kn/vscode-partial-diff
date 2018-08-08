@@ -8,7 +8,7 @@ export default class SelectionInfoRegistry {
         this.data = Object.create(null);
     }
 
-    set(key, textInfo) {
+    set(key: string, textInfo: SelectionInfo) {
         this.data[key] = {
             text: textInfo.text,
             fileName: textInfo.fileName,
@@ -16,7 +16,7 @@ export default class SelectionInfoRegistry {
         };
     }
 
-    get(key) {
+    get(key: string): SelectionInfo {
         return this.data[key];
     }
 }

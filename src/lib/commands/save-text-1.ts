@@ -2,6 +2,7 @@ import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
+import * as vscode from 'vscode';
 
 export default class SaveText1Command {
     private readonly logger: Logger;
@@ -16,7 +17,7 @@ export default class SaveText1Command {
         this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
-    execute(editor) {
+    execute(editor: vscode.TextEditor) {
         try {
             const textInfo = this.selectionInfoBuilder.extract(editor);
             this.selectionInfoRegistry.set(TextKey.REGISTER1, textInfo);
@@ -25,7 +26,7 @@ export default class SaveText1Command {
         }
     }
 
-    private handleError(e) {
+    private handleError(e: Error) {
         this.logger.error(e.stack);
     }
 }

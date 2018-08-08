@@ -1,7 +1,7 @@
 const PLATFORM_WINDOWS = 'win32';
 
 interface Clipboardy {
-    read: () => string;
+    read: () => Promise<string>;
 }
 
 export default class Clipboard {
@@ -22,7 +22,7 @@ export default class Clipboard {
         return this.platform === PLATFORM_WINDOWS;
     }
 
-    private dropCRFromEOL(text) {
+    private dropCRFromEOL(text: string) {
         return text.split('\r\r\n').join('\r\n');
     }
 }

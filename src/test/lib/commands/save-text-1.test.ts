@@ -4,14 +4,16 @@ import * as assert from 'assert';
 import {Logger} from '../../../lib/logger';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import SelectionInfoBuilder from '../../../lib/selection-info-builder';
+import * as vscode from 'vscode';
 
 suite('SelectText1Command', () => {
 
     const logger = mockType<Logger>();
+    const editor = mockType<vscode.TextEditor>();
 
     test('it saves selected text', () => {
         const selectionInfoBuilder = mockObject('extract') as any;
-        when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
+        when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
@@ -22,13 +24,13 @@ suite('SelectText1Command', () => {
             selectionInfoRegistry,
             logger
         );
-        command.execute('EDITOR');
+        command.execute(editor);
 
         const arg1 = argCaptor();
         const arg2 = argCaptor();
         verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()));
-        assert.deepEqual(arg1.values[0], 'reg1');
-        assert.deepEqual(arg2.values[0], {
+        assert.deepEqual(arg1.values![0], 'reg1');
+        assert.deepEqual(arg2.values![0], {
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
@@ -45,7 +47,7 @@ suite('SelectText1Command', () => {
             logger
         );
 
-        await command.execute('EDITOR');
+        await command.execute(editor);
 
         verify(logger.error(), {times: 1, ignoreExtraArgs: true});
     });
@@ -53,7 +55,7 @@ suite('SelectText1Command', () => {
     test('it prints callstack if saving text failed', () => {
         const logger = mockObject('error') as any;
         const selectionInfoBuilder = mockObject('extract') as any;
-        when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
+        when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
@@ -68,7 +70,7 @@ suite('SelectText1Command', () => {
             selectionInfoRegistry,
             logger
         );
-        command.execute('EDITOR');
+        command.execute(editor);
 
         verify(logger.error(contains('Error: UNEXPECTED_ERROR')));
     });

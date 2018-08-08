@@ -77,10 +77,10 @@ suite('ContentProvider', () => {
                                        registeredText
                                    }: any) {
         const defaultSelectionInfoRegistry = {
-            get: key => ({text: registeredText || `TEXT_${key}`})
+            get: (key: string) => ({text: registeredText || `TEXT_${key}`})
         };
         const textResourceUtil = mockType<TextResourceUtil>({
-            getTextKey: uri => uri.replace('URI_', '')
+            getTextKey: (uri: any) => uri.replace('URI_', '')
         });
         const normalisationRuleStore = mockType<NormalisationRuleStore>({activeRules: activeRules || []});
         const contentProvider = new ContentProvider(
@@ -88,6 +88,6 @@ suite('ContentProvider', () => {
             normalisationRuleStore,
             textResourceUtil
         );
-        return contentProvider.provideTextDocumentContent('URI_1');
+        return contentProvider.provideTextDocumentContent('URI_1' as any);
     }
 });

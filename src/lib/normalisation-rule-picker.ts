@@ -1,5 +1,11 @@
 import * as vscode from 'vscode';
-import {QuickPickOptions} from 'vscode';
+import {QuickPickItem} from 'vscode';
+import {LoadedNormalisationRule} from './entities/normalisation-rule';
+
+interface NormalisationRuleQuickPickItem extends QuickPickItem {
+    picked: boolean;
+    ruleIndex: number;
+}
 
 export default class NormalisationRulePicker {
     private vscWindow: typeof vscode.window;
@@ -8,23 +14,26 @@ export default class NormalisationRulePicker {
         this.vscWindow = vscWindow;
     }
 
-    async show(rules) {
+    async show(rules: LoadedNormalisationRule[]) {
         const items = this.convertToQuickPickItems(rules);
-        const options = {canPickMany: true} as QuickPickOptions;
-        const userSelection = await this.vscWindow.showQuickPick(items, options);
+
+        // @ts-ignore
+        const userSelection = await this.vscWindow.showQuickPick(items, {canPickMany: true});
+
         const activeItems = userSelection || items.filter(item => item.picked);
         return this.convertToRules(activeItems);
     }
 
-    private convertToQuickPickItems(rules) {
+    private convertToQuickPickItems(rules: LoadedNormalisationRule[]): NormalisationRuleQuickPickItem[] {
         return rules.map((rule, index) => ({
             label: rule.name || '(no "name" set for this rule)',
             picked: rule.active,
-            ruleIndex: index
+            ruleIndex: index,
+            description: ''
         }));
     }
 
-    private convertToRules(pickedItems) {
+    private convertToRules(pickedItems: NormalisationRuleQuickPickItem[]) {
         return pickedItems.map(pickedItem => pickedItem.ruleIndex);
     }
 }

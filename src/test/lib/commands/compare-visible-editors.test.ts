@@ -4,10 +4,11 @@ import {Logger} from '../../../lib/logger';
 import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import MessageBar from '../../../lib/message-bar';
+import * as vscode from 'vscode';
 
 suite('CompareVisibleEditorsCommand', () => {
-    const editor1 = {viewColumn: 1};
-    const editor2 = {viewColumn: 2};
+    const editor1 = mockType<vscode.TextEditor>({viewColumn: 1});
+    const editor2 = mockType<vscode.TextEditor>({viewColumn: 2});
 
     test('it compares 2 visible editors', async () => {
         const {command, deps} = createCommand([editor1, editor2]);
@@ -35,13 +36,13 @@ suite('CompareVisibleEditorsCommand', () => {
         );
     });
 
-    function createCommand(visibleTextEditors) {
+    function createCommand(visibleTextEditors: vscode.TextEditor[]) {
         const selectionInfoBuilder = mockObject('extract') as any;
         when(selectionInfoBuilder.extract(editor1)).thenReturn('TEXT_INFO1');
         when(selectionInfoBuilder.extract(editor2)).thenReturn('TEXT_INFO2');
 
         const dependencies = {
-            editorWindow: {visibleTextEditors},
+            editorWindow: mockType<typeof vscode.window>({visibleTextEditors}),
             diffPresenter: mockMethods<DiffPresenter>(['takeDiff']),
             messageBar: mockMethods<MessageBar>(['showInfo']),
             selectionInfoBuilder,

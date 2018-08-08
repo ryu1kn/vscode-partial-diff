@@ -1,4 +1,5 @@
 import NormalisationRuleStore from './normalisation-rule-store';
+import {LoadedNormalisationRule} from './entities/normalisation-rule';
 
 export default class TextProcessRuleApplier {
     private readonly normalisationRuleStore: NormalisationRuleStore;
@@ -7,19 +8,19 @@ export default class TextProcessRuleApplier {
         this.normalisationRuleStore = normalisationRuleStore;
     }
 
-    applyTo(text) {
+    applyTo(text: string) {
         const rules = this.normalisationRuleStore.activeRules;
         return rules.length !== 0 ? this.applyRulesToText(rules, text) : text;
     }
 
-    private applyRulesToText(rules, text) {
+    private applyRulesToText(rules: LoadedNormalisationRule[], text: string) {
         return rules.reduce(
             (newText, rule) => this.applyRuleToText(rule, newText),
             text
         );
     }
 
-    private applyRuleToText(rule, text) {
+    private applyRuleToText(rule: LoadedNormalisationRule, text: string) {
         const pattern = new RegExp(rule.match, 'g');
 
         if (typeof rule.replaceWith === 'string') {
@@ -27,6 +28,10 @@ export default class TextProcessRuleApplier {
         }
 
         return text.replace(pattern, matched => {
+            // Type guard above is not working, so even though this `if` is
+            // unnecessary logic, I need it to make typescript happy
+            if (typeof rule.replaceWith === 'string') return matched;
+
             switch (rule.replaceWith.letterCase) {
                 case 'lower':
                     return matched.toLowerCase();

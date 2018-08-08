@@ -42,7 +42,7 @@ suite('DiffPresenter', () => {
             commands,
             selectionInfoRegistry,
             mock(NormalisationRuleStore),
-            mockType<TextTitleBuilder>({build: textKey => `TITLE_${textKey}`}),
+            mockType<TextTitleBuilder>({build: (textKey: string) => `TITLE_${textKey}`}),
             mockType<TextResourceUtil>({getUri: () => {}})
         );
 
@@ -61,7 +61,7 @@ suite('DiffPresenter', () => {
             commands,
             selectionInfoRegistry,
             mockType<NormalisationRuleStore>({hasActiveRules: true}),
-            mockType<TextTitleBuilder>({build: textKey => `TITLE_${textKey}`}),
+            mockType<TextTitleBuilder>({build: (textKey: string) => `TITLE_${textKey}`}),
             mockType<TextResourceUtil>({getUri: () => {}})
         );
 

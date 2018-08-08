@@ -2,6 +2,7 @@ import TextProcessRuleApplier from './text-process-rule-applier';
 import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
 import NormalisationRuleStore from './normalisation-rule-store';
+import * as vscode from 'vscode';
 
 export default class ContentProvider {
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
@@ -16,7 +17,7 @@ export default class ContentProvider {
         this.textProcessRuleApplier = new TextProcessRuleApplier(normalisationRuleStore);
     }
 
-    provideTextDocumentContent(uri) {
+    provideTextDocumentContent(uri: vscode.Uri) {
         const textKey = this.textResourceUtil.getTextKey(uri);
         const registeredText = (
             this.selectionInfoRegistry.get(textKey) || {text: ''}

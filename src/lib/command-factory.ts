@@ -21,12 +21,12 @@ export default class CommandFactory {
     private readonly textResourceUtil: TextResourceUtil;
     private readonly vscode: any;
     private readonly logger: Logger;
-    private clipboard: Clipboard;
-    private diffPresenter: DiffPresenter;
-    private messageBar: MessageBar;
-    private selectionInfoBuilder: SelectionInfoBuilder;
+    private clipboard?: Clipboard;
+    private diffPresenter?: DiffPresenter;
+    private messageBar?: MessageBar;
+    private selectionInfoBuilder?: SelectionInfoBuilder;
 
-    constructor(params) {
+    constructor(params: any) {
         this.normalisationRuleStore = params.normalisationRuleStore;
         this.selectionInfoRegistry = params.selectionInfoRegistry;
         this.textResourceUtil = params.textResourceUtil;
@@ -56,7 +56,7 @@ export default class CommandFactory {
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
-            this.getClipboard(),
+            this.getClipboard()!,
             this.logger
         );
     }

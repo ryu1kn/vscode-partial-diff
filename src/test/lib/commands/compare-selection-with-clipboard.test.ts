@@ -6,17 +6,19 @@ import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoBuilder from '../../../lib/selection-info-builder';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import Clipboard from '../../../lib/clipboard';
+import * as vscode from 'vscode';
 
 suite('CompareSelectionWithClipboardCommand', () => {
 
     const logger = mockType<Logger>();
+    const editor = mockType<vscode.TextEditor>();
 
     test('it compares selected text with clipboard text', async () => {
         const clipboard = mockObject('read') as any;
         when(clipboard.read()).thenResolve('CLIPBOARD_TEXT');
 
         const selectionInfoBuilder = mockObject('extract') as any;
-        when(selectionInfoBuilder.extract('EDITOR')).thenReturn({
+        when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
@@ -32,18 +34,19 @@ suite('CompareSelectionWithClipboardCommand', () => {
             logger
         );
 
-        await command.execute('EDITOR');
+        await command.execute(editor);
 
         const arg1 = argCaptor();
         const arg2 = argCaptor();
         verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()));
-        assert.deepEqual(arg1.values[0], 'clipboard');
-        assert.deepEqual(arg2.values[0], {
+        assert.deepEqual(arg1.values![0], 'clipboard');
+        assert.deepEqual(arg2.values![0], {
             text: 'CLIPBOARD_TEXT',
-            fileName: 'Clipboard'
+            fileName: 'Clipboard',
+            lineRanges: []
         });
-        assert.deepEqual(arg1.values[1], 'reg2');
-        assert.deepEqual(arg2.values[1], {
+        assert.deepEqual(arg1.values![1], 'reg2');
+        assert.deepEqual(arg2.values![1], {
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
@@ -66,7 +69,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
             logger
         );
 
-        await command.execute('EDITOR');
+        await command.execute(editor);
 
         verify(logger.error(), {times: 1, ignoreExtraArgs: true});
     });

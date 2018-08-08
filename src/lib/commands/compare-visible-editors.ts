@@ -5,6 +5,7 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
 import * as vscode from 'vscode';
+import {SelectionInfo} from '../entities/selection-info';
 
 export default class CompareVisibleEditorsCommand {
     private readonly logger: Logger;
@@ -54,14 +55,14 @@ export default class CompareVisibleEditorsCommand {
         }
     }
 
-    private registerTextInfo(textInfos, isReverseOrder) {
+    private registerTextInfo(textInfos: SelectionInfo[], isReverseOrder: boolean) {
         const textInfo1 = textInfos[isReverseOrder ? 1 : 0];
         const textInfo2 = textInfos[isReverseOrder ? 0 : 1];
         this.selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR1, textInfo1);
         this.selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR2, textInfo2);
     }
 
-    private handleError(e) {
+    private handleError(e: Error) {
         this.logger.error(e.stack);
     }
 }

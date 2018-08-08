@@ -96,7 +96,7 @@ suite('SelectionInfoBuilder', () => {
         assert.equal(textInfo.fileName, 'FILENAME');
     });
 
-    function extractTextInfo(selectedTexts) {
+    function extractTextInfo(selectedTexts: string[]) {
         const selections = selectedTexts.map((text, i) => ({
             text,
             start: {line: `START_LINE_${i + 1}`},
@@ -105,22 +105,22 @@ suite('SelectionInfoBuilder', () => {
         return extractTextInfoFromSelections(selections);
     }
 
-    function extractTextInfoFromSelections(selections) {
+    function extractTextInfoFromSelections(selections: any[]) {
         const selectionInfoBuilder = new SelectionInfoBuilder();
         const selectionWithIsEmptyFlag = selections.map(s =>
             Object.assign({}, s, {isEmpty: !s.text})
         );
-        return selectionInfoBuilder.extract(fakeEditor(selectionWithIsEmptyFlag));
+        return selectionInfoBuilder.extract(fakeEditor(selectionWithIsEmptyFlag) as any);
     }
 
-    function fakeEditor(selections) {
+    function fakeEditor(selections: any[]) {
         return {
             selections,
             selection: selections[0],
             document: {
                 fileName: 'FILENAME',
                 _entireText: 'ENTIRE TEXT',
-                getText(selection) {
+                getText(selection: any) {
                     return selection ? selection.text : this._entireText;
                 }
             }

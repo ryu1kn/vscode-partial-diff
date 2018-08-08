@@ -3,6 +3,7 @@ import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
+import * as vscode from 'vscode';
 
 export default class CompareSelectionWithText1Command {
     private readonly logger: Logger;
@@ -20,7 +21,7 @@ export default class CompareSelectionWithText1Command {
         this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
-    async execute(editor) {
+    async execute(editor: vscode.TextEditor) {
         try {
             const textInfo = this.selectionInfoBuilder.extract(editor);
             this.selectionInfoRegistry.set(TextKey.REGISTER2, textInfo);
@@ -32,7 +33,7 @@ export default class CompareSelectionWithText1Command {
         }
     }
 
-    private handleError(e) {
+    private handleError(e: Error) {
         this.logger.error(e.stack);
     }
 }

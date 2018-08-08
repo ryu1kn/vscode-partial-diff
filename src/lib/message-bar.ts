@@ -7,7 +7,7 @@ export default class MessageBar {
         this.vscWindow = vscWindow;
     }
 
-    async showInfo(message) {
+    async showInfo(message: string) {
         await this.vscWindow.showInformationMessage(message);
     }
 }

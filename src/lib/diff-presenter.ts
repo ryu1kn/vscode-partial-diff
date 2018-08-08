@@ -28,8 +28,8 @@ export default class DiffPresenter {
         this.textTitleBuilder = textTitleBuilder;
     }
 
-    takeDiff(textKey1, textKey2) {
-        const getUri = textKey => this.textResourceUtil.getUri(textKey);
+    takeDiff(textKey1: string, textKey2: string) {
+        const getUri = (textKey: string) => this.textResourceUtil.getUri(textKey);
         const title = this.buildTitle(textKey1, textKey2);
         return this.commands.executeCommand(
             'vscode.diff',
@@ -39,7 +39,7 @@ export default class DiffPresenter {
         );
     }
 
-    private buildTitle(textKey1, textKey2) {
+    private buildTitle(textKey1: string, textKey2: string) {
         const title1 = this.buildTextTitle(textKey1);
         const title2 = this.buildTextTitle(textKey2);
         const comparisonSymbol = this.normalisationRuleStore.hasActiveRules
@@ -48,7 +48,7 @@ export default class DiffPresenter {
         return `${title1} ${comparisonSymbol} ${title2}`;
     }
 
-    private buildTextTitle(textKey) {
+    private buildTextTitle(textKey: string) {
         const textInfo = this.selectionInfoRegistry.get(textKey);
         return this.textTitleBuilder.build(textInfo);
     }

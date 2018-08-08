@@ -1,8 +1,9 @@
 import MessageBar from '../../lib/message-bar';
-import {mockObject, verify} from '../helpers';
+import {mockMethods, verify} from '../helpers';
+import * as vscode from 'vscode';
 
 suite('MessageBar', () => {
-    const vscWindow = mockObject(['showInformationMessage']);
+    const vscWindow = mockMethods<typeof vscode.window>(['showInformationMessage']);
     const messageBar = new MessageBar(vscWindow);
 
     test('it shows information message', async () => {

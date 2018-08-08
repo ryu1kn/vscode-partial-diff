@@ -4,6 +4,7 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import Clipboard from '../clipboard';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
+import * as vscode from 'vscode';
 
 export default class CompareSelectionWithClipboardCommand {
     private readonly diffPresenter: DiffPresenter;
@@ -24,12 +25,13 @@ export default class CompareSelectionWithClipboardCommand {
         this.logger = logger;
     }
 
-    async execute(editor) {
+    async execute(editor: vscode.TextEditor) {
         try {
             const text = await this.clipboard.read();
             this.selectionInfoRegistry.set(TextKey.CLIPBOARD, {
                 text,
-                fileName: 'Clipboard'
+                fileName: 'Clipboard',
+                lineRanges: []
             });
 
             const textInfo = this.selectionInfoBuilder.extract(editor);
@@ -41,7 +43,7 @@ export default class CompareSelectionWithClipboardCommand {
         }
     }
 
-    private handleError(e) {
+    private handleError(e: Error) {
         this.logger.error(e.stack);
     }
 }

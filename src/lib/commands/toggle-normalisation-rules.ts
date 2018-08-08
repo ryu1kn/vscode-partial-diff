@@ -35,7 +35,7 @@ export default class ToggleNormalisationRulesCommand {
         }
     }
 
-    private handleError(e) {
+    private handleError(e: Error) {
         this.logger.error(e.stack);
     }
 }

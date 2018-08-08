@@ -13,7 +13,7 @@ export default class ConfigStore {
         return this.get('preComparisonTextNormalizationRules') as SavedNormalisationRule[];
     }
 
-    private get(configName) {
+    private get(configName: string) {
         const extensionConfig = this.workspace.getConfiguration(EXTENSION_ID);
         return extensionConfig.get(configName);
     }
