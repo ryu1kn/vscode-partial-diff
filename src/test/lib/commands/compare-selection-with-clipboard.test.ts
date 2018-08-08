@@ -1,6 +1,5 @@
 import CompareSelectionWithClipboardCommand from '../../../lib/commands/compare-selection-with-clipboard';
-import {mock, mockMethods, mockType, verify, when, wrapVerify} from '../../helpers';
-import {Logger} from '../../../lib/logger';
+import {mock, mockType, verify, when, wrapVerify} from '../../helpers';
 import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoBuilder from '../../../lib/selection-info-builder';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
@@ -9,7 +8,6 @@ import * as vscode from 'vscode';
 
 suite('CompareSelectionWithClipboardCommand', () => {
 
-    const logger = mockType<Logger>();
     const editor = mockType<vscode.TextEditor>();
 
     test('it compares selected text with clipboard text', async () => {
@@ -29,8 +27,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
             diffPresenter,
             selectionInfoBuilder,
             selectionInfoRegistry,
-            clipboard,
-            logger
+            clipboard
         );
 
         await command.execute(editor);
@@ -54,24 +51,5 @@ suite('CompareSelectionWithClipboardCommand', () => {
             ]
         ]);
         verify(diffPresenter.takeDiff('clipboard', 'reg2'));
-    });
-
-    test('it prints callstack if error occurred', async () => {
-        const clipboard = mock(Clipboard);
-        when(clipboard.read()).thenReject(new Error('UNEXPECTED_ERROR'));
-
-        const logger = mockMethods<Logger>(['error']);
-
-        const command = new CompareSelectionWithClipboardCommand(
-            mock(DiffPresenter),
-            mock(SelectionInfoBuilder),
-            mock(SelectionInfoRegistry),
-            clipboard,
-            logger
-        );
-
-        await command.execute(editor);
-
-        verify(logger.error(), {times: 1, ignoreExtraArgs: true});
     });
 });

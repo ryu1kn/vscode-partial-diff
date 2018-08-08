@@ -1,6 +1,5 @@
 import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-editors';
 import {mock, mockMethods, mockType, verify, when} from '../../helpers';
-import {Logger} from '../../../lib/logger';
 import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import MessageBar from '../../../lib/message-bar';
@@ -54,8 +53,7 @@ suite('CompareVisibleEditorsCommand', () => {
             dependencies.selectionInfoBuilder,
             dependencies.selectionInfoRegistry,
             dependencies.messageBar,
-            dependencies.editorWindow,
-            mockType<Logger>()
+            dependencies.editorWindow
         );
         return {command, deps: dependencies} as any;
     }

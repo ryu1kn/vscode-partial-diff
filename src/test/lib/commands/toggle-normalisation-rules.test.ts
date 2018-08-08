@@ -1,6 +1,5 @@
 import ToggleNormalisationRulesCommand from '../../../lib/commands/toggle-normalisation-rules';
 import {mockMethods, mockType, verify, when} from '../../helpers';
-import {Logger} from '../../../lib/logger';
 import MessageBar from '../../../lib/message-bar';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import NormalisationRulePicker from '../../../lib/normalisation-rule-picker';
@@ -45,8 +44,7 @@ suite('ToggleNormalisationRulesCommand', () => {
         const command = new ToggleNormalisationRulesCommand(
             deps.normalisationRuleStore,
             deps.normalisationRulePicker,
-            deps.messageBar,
-            mockType<Logger>()
+            deps.messageBar
         );
         return {command, deps} as any;
     }

@@ -43,8 +43,7 @@ export default class CommandFactory {
     crateSaveText1Command() {
         return this.wrapCommand(new SaveText1Command(
             this.getSelectionInfoBuilder(),
-            this.selectionInfoRegistry,
-            this.logger
+            this.selectionInfoRegistry
         ));
     }
 
@@ -52,8 +51,7 @@ export default class CommandFactory {
         return this.wrapCommand(new CompareSelectionWithText1Command(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
-            this.selectionInfoRegistry,
-            this.logger
+            this.selectionInfoRegistry
         ));
     }
 
@@ -62,8 +60,7 @@ export default class CommandFactory {
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
-            this.getClipboard()!,
-            this.logger
+            this.getClipboard()!
         ));
     }
 
@@ -73,8 +70,7 @@ export default class CommandFactory {
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.getMessageBar(),
-            this.vscode.window,
-            this.logger
+            this.vscode.window
         ));
     }
 
@@ -82,8 +78,7 @@ export default class CommandFactory {
         return this.wrapCommand(new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
             new NormalisationRulePicker(this.vscode.window),
-            this.getMessageBar(),
-            this.logger
+            this.getMessageBar()
         ));
     }
 
