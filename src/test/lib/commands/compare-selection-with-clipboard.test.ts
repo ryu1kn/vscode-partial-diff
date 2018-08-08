@@ -1,6 +1,5 @@
 import CompareSelectionWithClipboardCommand from '../../../lib/commands/compare-selection-with-clipboard';
-import {argCaptor, mock, mockMethods, mockType, verify, when} from '../../helpers';
-import * as assert from 'assert';
+import {mock, mockMethods, mockType, verify, when, wrapVerify} from '../../helpers';
 import {Logger} from '../../../lib/logger';
 import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoBuilder from '../../../lib/selection-info-builder';
@@ -36,22 +35,24 @@ suite('CompareSelectionWithClipboardCommand', () => {
 
         await command.execute(editor);
 
-        const arg1 = argCaptor();
-        const arg2 = argCaptor();
-        verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()));
-        assert.deepEqual(arg1.values![0], 'clipboard');
-        assert.deepEqual(arg2.values![0], {
-            text: 'CLIPBOARD_TEXT',
-            fileName: 'Clipboard',
-            lineRanges: []
-        });
-        assert.deepEqual(arg1.values![1], 'reg2');
-        assert.deepEqual(arg2.values![1], {
-            text: 'SELECTED_TEXT',
-            fileName: 'FILENAME',
-            lineRanges: 'SELECTED_RANGE'
-        });
-
+        wrapVerify((c1, c2) => verify(selectionInfoRegistry.set(c1(), c2())), [
+            [
+                'clipboard',
+                {
+                    text: 'CLIPBOARD_TEXT',
+                    fileName: 'Clipboard',
+                    lineRanges: []
+                }
+            ],
+            [
+                'reg2',
+                {
+                    text: 'SELECTED_TEXT',
+                    fileName: 'FILENAME',
+                    lineRanges: 'SELECTED_RANGE'
+                }
+            ]
+        ]);
         verify(diffPresenter.takeDiff('clipboard', 'reg2'));
     });
 

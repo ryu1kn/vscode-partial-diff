@@ -1,6 +1,5 @@
 import SelectText1Command from '../../../lib/commands/save-text-1';
-import {any, argCaptor, contains, mock, mockMethods, mockType, verify, when} from '../../helpers';
-import * as assert from 'assert';
+import {any, contains, mock, mockMethods, mockType, verify, when, wrapVerify} from '../../helpers';
 import {Logger} from '../../../lib/logger';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import SelectionInfoBuilder from '../../../lib/selection-info-builder';
@@ -26,15 +25,16 @@ suite('SelectText1Command', () => {
         );
         command.execute(editor);
 
-        const arg1 = argCaptor();
-        const arg2 = argCaptor();
-        verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()));
-        assert.deepEqual(arg1.values![0], 'reg1');
-        assert.deepEqual(arg2.values![0], {
-            text: 'SELECTED_TEXT',
-            fileName: 'FILENAME',
-            lineRanges: 'SELECTED_RANGE'
-        });
+        wrapVerify((c1, c2) => verify(selectionInfoRegistry.set(c1(), c2())), [
+            [
+                'reg1',
+                {
+                    text: 'SELECTED_TEXT',
+                    fileName: 'FILENAME',
+                    lineRanges: 'SELECTED_RANGE'
+                }
+            ]
+        ]);
     });
 
     test('it prints callstack if error occurred', async () => {

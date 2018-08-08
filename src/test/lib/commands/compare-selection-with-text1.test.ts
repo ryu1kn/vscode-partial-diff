@@ -1,5 +1,4 @@
-import {any, argCaptor, mock, mockMethods, mockType, verify, when} from '../../helpers';
-import * as assert from 'assert';
+import {any, mock, mockMethods, mockType, verify, when, wrapVerify} from '../../helpers';
 import {Logger} from '../../../lib/logger';
 import CompareSelectionWithText1 from '../../../lib/commands/compare-selection-with-text1';
 import DiffPresenter from '../../../lib/diff-presenter';
@@ -32,15 +31,16 @@ suite('CompareSelectionWithText1', () => {
 
         await command.execute(editor);
 
-        const arg1 = argCaptor();
-        const arg2 = argCaptor();
-        verify(selectionInfoRegistry.set(arg1.capture(), arg2.capture()));
-        assert.deepEqual(arg1.values![0], 'reg2');
-        assert.deepEqual(arg2.values![0], {
-            text: 'SELECTED_TEXT',
-            fileName: 'FILENAME',
-            lineRanges: 'SELECTED_RANGE'
-        });
+        wrapVerify((c1, c2) => verify(selectionInfoRegistry.set(c1(), c2())), [
+            [
+                'reg2',
+                {
+                    text: 'SELECTED_TEXT',
+                    fileName: 'FILENAME',
+                    lineRanges: 'SELECTED_RANGE'
+                }
+            ]
+        ]);
         verify(diffPresenter.takeDiff('reg1', 'reg2'));
     });
 
