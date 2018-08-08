@@ -14,13 +14,13 @@ export default class BootstrapperFactory {
         const selectionInfoRegistry = new SelectionInfoRegistry();
         const textResourceUtil = this.createTextResourceUtil();
         const normalisationRuleStore = this.createNormalisationRuleStore();
-        const commandFactory = new CommandFactory({
-            normalisationRuleStore,
+        const commandFactory = new CommandFactory(
             selectionInfoRegistry,
+            normalisationRuleStore,
             textResourceUtil,
             vscode,
             logger
-        });
+        );
         const contentProvider = new ContentProvider(
             selectionInfoRegistry,
             normalisationRuleStore,

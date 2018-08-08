@@ -26,12 +26,16 @@ export default class CommandFactory {
     private messageBar?: MessageBar;
     private selectionInfoBuilder?: SelectionInfoBuilder;
 
-    constructor(params: any) {
-        this.normalisationRuleStore = params.normalisationRuleStore;
-        this.selectionInfoRegistry = params.selectionInfoRegistry;
-        this.textResourceUtil = params.textResourceUtil;
-        this.vscode = params.vscode;
-        this.logger = params.logger;
+    constructor(selectionInfoRegistry: SelectionInfoRegistry,
+                normalisationRuleStore: NormalisationRuleStore,
+                textResourceUtil: TextResourceUtil,
+                vscode: any,
+                logger: Logger) {
+        this.normalisationRuleStore = normalisationRuleStore;
+        this.selectionInfoRegistry = selectionInfoRegistry;
+        this.textResourceUtil = textResourceUtil;
+        this.vscode = vscode;
+        this.logger = logger;
     }
 
     crateSaveText1Command() {
