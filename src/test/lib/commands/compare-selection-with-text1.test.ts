@@ -1,4 +1,4 @@
-import {any, argCaptor, mock, mockMethods, mockObject, mockType, verify, when} from '../../helpers';
+import {any, argCaptor, mock, mockMethods, mockType, verify, when} from '../../helpers';
 import * as assert from 'assert';
 import {Logger} from '../../../lib/logger';
 import CompareSelectionWithText1 from '../../../lib/commands/compare-selection-with-text1';
@@ -13,15 +13,15 @@ suite('CompareSelectionWithText1', () => {
     const editor = mockType<vscode.TextEditor>();
 
     test('it saves selected text and takes a diff of 2 texts', async () => {
-        const selectionInfoBuilder = mockObject('extract') as any;
+        const selectionInfoBuilder = mock(SelectionInfoBuilder);
         when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
         });
 
-        const selectionInfoRegistry = mockObject('set') as any;
-        const diffPresenter = mockObject('takeDiff') as any;
+        const selectionInfoRegistry = mock(SelectionInfoRegistry);
+        const diffPresenter = mock(DiffPresenter);
 
         const command = new CompareSelectionWithText1(
             diffPresenter,

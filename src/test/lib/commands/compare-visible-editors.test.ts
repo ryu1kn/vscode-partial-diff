@@ -1,10 +1,11 @@
 import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-editors';
-import {mockMethods, mockObject, mockType, verify, when} from '../../helpers';
+import {mock, mockMethods, mockType, verify, when} from '../../helpers';
 import {Logger} from '../../../lib/logger';
 import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import MessageBar from '../../../lib/message-bar';
 import * as vscode from 'vscode';
+import SelectionInfoBuilder from '../../../lib/selection-info-builder';
 
 suite('CompareVisibleEditorsCommand', () => {
     const editor1 = mockType<vscode.TextEditor>({viewColumn: 1});
@@ -37,7 +38,7 @@ suite('CompareVisibleEditorsCommand', () => {
     });
 
     function createCommand(visibleTextEditors: vscode.TextEditor[]) {
-        const selectionInfoBuilder = mockObject('extract') as any;
+        const selectionInfoBuilder = mock(SelectionInfoBuilder);
         when(selectionInfoBuilder.extract(editor1)).thenReturn('TEXT_INFO1');
         when(selectionInfoBuilder.extract(editor2)).thenReturn('TEXT_INFO2');
 

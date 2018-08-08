@@ -1,5 +1,5 @@
 import SelectText1Command from '../../../lib/commands/save-text-1';
-import {any, argCaptor, contains, mock, mockObject, mockType, verify, when} from '../../helpers';
+import {any, argCaptor, contains, mock, mockMethods, mockType, verify, when} from '../../helpers';
 import * as assert from 'assert';
 import {Logger} from '../../../lib/logger';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
@@ -12,13 +12,13 @@ suite('SelectText1Command', () => {
     const editor = mockType<vscode.TextEditor>();
 
     test('it saves selected text', () => {
-        const selectionInfoBuilder = mockObject('extract') as any;
+        const selectionInfoBuilder = mock(SelectionInfoBuilder);
         when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
         });
-        const selectionInfoRegistry = mockObject('set') as any;
+        const selectionInfoRegistry = mock(SelectionInfoRegistry);
         const command = new SelectText1Command(
             selectionInfoBuilder,
             selectionInfoRegistry,
@@ -38,7 +38,7 @@ suite('SelectText1Command', () => {
     });
 
     test('it prints callstack if error occurred', async () => {
-        const logger = mockObject('error') as any;
+        const logger = mockMethods<Logger>(['error']);
         const selectionInfoBuilder = mock(SelectionInfoBuilder);
         when(selectionInfoBuilder.extract(any())).thenThrow(new Error('UNEXPECTED_ERROR'));
         const command = new SelectText1Command(
@@ -53,15 +53,15 @@ suite('SelectText1Command', () => {
     });
 
     test('it prints callstack if saving text failed', () => {
-        const logger = mockObject('error') as any;
-        const selectionInfoBuilder = mockObject('extract') as any;
+        const logger = mockMethods<Logger>(['error']);
+        const selectionInfoBuilder = mock(SelectionInfoBuilder) as any;
         when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
         });
-        const selectionInfoRegistry = mockObject('set') as any;
-        when(selectionInfoRegistry.set(), {ignoreExtraArgs: true}).thenThrow(
+        const selectionInfoRegistry = mock(SelectionInfoRegistry);
+        when(selectionInfoRegistry.set(any(), any()), {ignoreExtraArgs: true}).thenThrow(
             new Error('UNEXPECTED_ERROR')
         );
 

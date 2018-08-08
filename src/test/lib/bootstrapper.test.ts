@@ -1,8 +1,9 @@
 import Bootstrapper from '../../lib/bootstrapper';
-import {mock, mockObject, when} from '../helpers';
+import {mock, mockMethods, when} from '../helpers';
 import * as assert from 'assert';
 import CommandFactory from '../../lib/command-factory';
 import ContentProvider from '../../lib/content-provider';
+import * as vscode from 'vscode';
 
 suite('Bootstrapper', () => {
     const commandMap = {
@@ -38,7 +39,7 @@ suite('Bootstrapper', () => {
     });
 
     function fakeVSCodeCommands() {
-        const commands = mockObject([
+        const commands = mockMethods<typeof vscode.commands>([
             'registerCommand',
             'registerTextEditorCommand'
         ]);
@@ -91,7 +92,7 @@ suite('Bootstrapper', () => {
     }
 
     function fakeVSCodeWorkspace() {
-        const vsWorkspace = mockObject('registerTextDocumentContentProvider') as any;
+        const vsWorkspace = mockMethods<typeof vscode.workspace>(['registerTextDocumentContentProvider']);
         when(
             vsWorkspace.registerTextDocumentContentProvider(
                 'partialdiff',

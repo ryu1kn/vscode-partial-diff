@@ -1,5 +1,5 @@
 import CompareSelectionWithClipboardCommand from '../../../lib/commands/compare-selection-with-clipboard';
-import {argCaptor, mock, mockMethods, mockObject, mockType, verify, when} from '../../helpers';
+import {argCaptor, mock, mockMethods, mockType, verify, when} from '../../helpers';
 import * as assert from 'assert';
 import {Logger} from '../../../lib/logger';
 import DiffPresenter from '../../../lib/diff-presenter';
@@ -14,18 +14,18 @@ suite('CompareSelectionWithClipboardCommand', () => {
     const editor = mockType<vscode.TextEditor>();
 
     test('it compares selected text with clipboard text', async () => {
-        const clipboard = mockObject('read') as any;
+        const clipboard = mock(Clipboard);
         when(clipboard.read()).thenResolve('CLIPBOARD_TEXT');
 
-        const selectionInfoBuilder = mockObject('extract') as any;
+        const selectionInfoBuilder = mock(SelectionInfoBuilder);
         when(selectionInfoBuilder.extract(editor)).thenReturn({
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
             lineRanges: 'SELECTED_RANGE'
         });
 
-        const selectionInfoRegistry = mockObject('set') as any;
-        const diffPresenter = mockObject('takeDiff') as any;
+        const selectionInfoRegistry = mock(SelectionInfoRegistry);
+        const diffPresenter = mock(DiffPresenter);
         const command = new CompareSelectionWithClipboardCommand(
             diffPresenter,
             selectionInfoBuilder,

@@ -1,15 +1,17 @@
 import NormalisationRulePicker from '../../lib/normalisation-rule-picker';
 import * as assert from 'assert';
-import {mockObject, when} from '../helpers';
+import {mockMethods, when} from '../helpers';
+import * as vscode from 'vscode';
 
 suite('NormalisationRulePicker', () => {
-    const vscWindow = mockObject('showQuickPick') as any;
+    const vscWindow = mockMethods<typeof vscode.window>(['showQuickPick']);
     when(
         vscWindow.showQuickPick(
             [
                 {label: 'RULE_NAME_1', picked: true, ruleIndex: 0, description: ''},
                 {label: 'RULE_NAME_2', picked: false, ruleIndex: 1, description: ''}
             ],
+            // @ts-ignore
             {canPickMany: true}
         )
     )
@@ -20,6 +22,7 @@ suite('NormalisationRulePicker', () => {
                 {label: 'RULE_NAME_3', picked: false, ruleIndex: 0, description: ''},
                 {label: 'RULE_NAME_4', picked: true, ruleIndex: 1, description: ''}
             ],
+            // @ts-ignore
             {canPickMany: true}
         )
     )
@@ -29,6 +32,7 @@ suite('NormalisationRulePicker', () => {
             [
                 {label: '(no "name" set for this rule)', picked: true, ruleIndex: 0, description: ''}
             ],
+            // @ts-ignore
             {canPickMany: true}
         )
     )

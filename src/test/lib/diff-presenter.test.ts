@@ -1,15 +1,16 @@
 import DiffPresenter from '../../lib/diff-presenter';
-import {any, mock, mockObject, mockType, verify, when} from '../helpers';
+import {any, mock, mockMethods, mockType, verify, when} from '../helpers';
 import SelectionInfoRegistry from '../../lib/selection-info-registry';
 import NormalisationRuleStore from '../../lib/normalisation-rule-store';
 import TextTitleBuilder from '../../lib/text-title-builder';
 import TextResourceUtil from '../../lib/text-resource-util';
+import * as vscode from 'vscode';
 
 suite('DiffPresenter', () => {
     test('it passes URI of 2 texts to compare', async () => {
         const commands = fakeCommands() as any;
 
-        const textResourceUtil = mockObject('getUri') as any;
+        const textResourceUtil = mock(TextResourceUtil);
         when(textResourceUtil.getUri('TEXT1')).thenReturn('URI_INSTANCE_1');
         when(textResourceUtil.getUri('TEXT2')).thenReturn('URI_INSTANCE_2');
 
@@ -34,7 +35,7 @@ suite('DiffPresenter', () => {
     test('it builds up diff view title by using TextTitleBuilder', async () => {
         const commands = fakeCommands() as any;
 
-        const selectionInfoRegistry = mockObject('get') as any;
+        const selectionInfoRegistry = mock(SelectionInfoRegistry);
         when(selectionInfoRegistry.get('TEXT1')).thenReturn('TEXT_INFO_1');
         when(selectionInfoRegistry.get('TEXT2')).thenReturn('TEXT_INFO_2');
 
@@ -53,7 +54,7 @@ suite('DiffPresenter', () => {
 
     test('it uses \u007E if the comparison was done with text normalisation', async () => {
         const commands = fakeCommands() as any;
-        const selectionInfoRegistry = mockObject('get') as any;
+        const selectionInfoRegistry = mock(SelectionInfoRegistry);
         when(selectionInfoRegistry.get('TEXT1')).thenReturn('TEXT_INFO_1');
         when(selectionInfoRegistry.get('TEXT2')).thenReturn('TEXT_INFO_2');
 
@@ -71,6 +72,6 @@ suite('DiffPresenter', () => {
     });
 
     function fakeCommands() {
-        return mockObject('executeCommand');
+        return mockMethods<typeof vscode.commands>(['executeCommand']);
     }
 });
