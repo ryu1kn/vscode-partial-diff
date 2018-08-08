@@ -4,7 +4,8 @@
   ],
   "exclude": [
     "out",
-    "coverage"
+    "coverage",
+    "src/test"
   ],
   "all": true,
   "reporter": [
