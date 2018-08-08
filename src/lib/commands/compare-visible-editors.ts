@@ -6,8 +6,9 @@ import {TextKey} from '../const';
 import {Logger} from '../logger';
 import * as vscode from 'vscode';
 import {SelectionInfo} from '../entities/selection-info';
+import {Command} from './command';
 
-export default class CompareVisibleEditorsCommand {
+export default class CompareVisibleEditorsCommand implements Command {
     private readonly logger: Logger;
     private readonly editorWindow: typeof vscode.window;
     private readonly diffPresenter: DiffPresenter;

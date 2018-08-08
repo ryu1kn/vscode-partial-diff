@@ -4,8 +4,9 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
 import * as vscode from 'vscode';
+import {Command} from './command';
 
-export default class CompareSelectionWithText1Command {
+export default class CompareSelectionWithText1Command implements Command {
     private readonly logger: Logger;
     private readonly diffPresenter: DiffPresenter;
     private readonly selectionInfoBuilder: SelectionInfoBuilder;

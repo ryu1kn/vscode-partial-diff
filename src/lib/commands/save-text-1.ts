@@ -3,8 +3,9 @@ import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
 import * as vscode from 'vscode';
+import {Command} from './command';
 
-export default class SaveText1Command {
+export default class SaveText1Command implements Command {
     private readonly logger: Logger;
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;

@@ -14,6 +14,8 @@ import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
 import * as clipboardy from 'clipboardy';
 import {Logger} from './logger';
+import {Command} from './commands/command';
+import CommandWrapper from './command-wrapper';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
@@ -39,50 +41,54 @@ export default class CommandFactory {
     }
 
     crateSaveText1Command() {
-        return new SaveText1Command(
+        return this.wrapCommand(new SaveText1Command(
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.logger
-        );
+        ));
     }
 
     createCompareSelectionWithText1Command() {
-        return new CompareSelectionWithText1Command(
+        return this.wrapCommand(new CompareSelectionWithText1Command(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.logger
-        );
+        ));
     }
 
     createCompareSelectionWithClipboardCommand() {
-        return new CompareSelectionWithClipboardCommand(
+        return this.wrapCommand(new CompareSelectionWithClipboardCommand(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.getClipboard()!,
             this.logger
-        );
+        ));
     }
 
     createCompareVisibleEditorsCommand() {
-        return new CompareVisibleEditorsCommand(
+        return this.wrapCommand(new CompareVisibleEditorsCommand(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.getMessageBar(),
             this.vscode.window,
             this.logger
-        );
+        ));
     }
 
     createToggleNormalisationRulesCommand() {
-        return new ToggleNormalisationRulesCommand(
+        return this.wrapCommand(new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
             new NormalisationRulePicker(this.vscode.window),
             this.getMessageBar(),
             this.logger
-        );
+        ));
+    }
+
+    private wrapCommand(command: Command): CommandWrapper {
+        return new CommandWrapper(command, this.logger);
     }
 
     private getClipboard() {

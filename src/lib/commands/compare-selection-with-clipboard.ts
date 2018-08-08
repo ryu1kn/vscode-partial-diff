@@ -5,8 +5,9 @@ import Clipboard from '../clipboard';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
 import * as vscode from 'vscode';
+import {Command} from './command';
 
-export default class CompareSelectionWithClipboardCommand {
+export default class CompareSelectionWithClipboardCommand implements Command {
     private readonly diffPresenter: DiffPresenter;
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;

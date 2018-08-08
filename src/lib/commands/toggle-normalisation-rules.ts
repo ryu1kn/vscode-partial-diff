@@ -2,8 +2,9 @@ import MessageBar from '../message-bar';
 import NormalisationRulePicker from '../normalisation-rule-picker';
 import NormalisationRuleStore from '../normalisation-rule-store';
 import {Logger} from '../logger';
+import {Command} from './command';
 
-export default class ToggleNormalisationRulesCommand {
+export default class ToggleNormalisationRulesCommand implements Command {
     private readonly logger: Logger;
     private readonly messageBar: MessageBar;
     private readonly normalisationRulePicker: NormalisationRulePicker;

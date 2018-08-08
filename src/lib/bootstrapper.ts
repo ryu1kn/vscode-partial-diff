@@ -2,13 +2,14 @@ import CommandFactory from './command-factory';
 import ContentProvider from './content-provider';
 import {EXTENSION_NAMESPACE, EXTENSION_SCHEME} from './const';
 import {ExecutionContextLike} from './entities/vscode';
+import CommandWrapper from './command-wrapper';
 
 type CommandType = 'TEXT_EDITOR' | 'GENERAL';
 
-interface Command {
+interface CommandItem {
     name: string;
     type: CommandType;
-    command: any;
+    command: CommandWrapper;
 }
 
 export default class Bootstrapper {
@@ -51,7 +52,7 @@ export default class Bootstrapper {
             : this.vscode.commands.registerCommand;
     }
 
-    private get commandList(): Command[] {
+    private get commandList(): CommandItem[] {
         return [
             {
                 name: `${EXTENSION_NAMESPACE}.diffVisibleEditors`,
