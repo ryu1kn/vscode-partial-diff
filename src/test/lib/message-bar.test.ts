@@ -3,7 +3,7 @@ import {mockObject, verify} from '../helpers';
 
 suite('MessageBar', () => {
     const vscWindow = mockObject(['showInformationMessage']);
-    const messageBar = new MessageBar({vscWindow});
+    const messageBar = new MessageBar(vscWindow);
 
     test('it shows information message', async () => {
         await messageBar.showInfo('MESSAGE');

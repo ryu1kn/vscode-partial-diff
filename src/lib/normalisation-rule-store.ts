@@ -10,8 +10,8 @@ export default class NormalisationRuleStore {
     private baseRules: any;
     private rules: any;
 
-    constructor(params) {
-        this.configStore = params.configStore;
+    constructor(configStore: ConfigStore) {
+        this.configStore = configStore;
         this.setupRules(this.configStore.preComparisonTextNormalizationRules);
     }
 

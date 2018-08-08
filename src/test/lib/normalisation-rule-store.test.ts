@@ -14,7 +14,7 @@ suite('NormalisationRuleStore', () => {
                 {name: 'RULE4'}
             ]
         };
-        ruleStore = new NormalisationRuleStore({configStore});
+        ruleStore = new NormalisationRuleStore(configStore);
     });
 
     test('it gives pre-comparison text normalization rules from config', () => {

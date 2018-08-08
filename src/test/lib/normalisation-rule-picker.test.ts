@@ -40,7 +40,7 @@ suite('NormalisationRulePicker', () => {
     )
         .thenResolve([]);
 
-    const rulePicker = new NormalisationRulePicker({vscWindow});
+    const rulePicker = new NormalisationRulePicker(vscWindow);
 
     test('it returns the index of active rules that user chose', async () => {
         const activeRuleIndices = await rulePicker.show([

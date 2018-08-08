@@ -3,8 +3,8 @@ import NormalisationRuleStore from './normalisation-rule-store';
 export default class TextProcessRuleApplier {
     private readonly normalisationRuleStore: NormalisationRuleStore;
 
-    constructor(params) {
-        this.normalisationRuleStore = params.normalisationRuleStore;
+    constructor(normalisationRuleStore: NormalisationRuleStore) {
+        this.normalisationRuleStore = normalisationRuleStore;
     }
 
     applyTo(text) {

@@ -30,16 +30,14 @@ export default class BootstrapperFactory {
     }
 
     private createTextResourceUtil() {
-        return new TextResourceUtil({
-            Uri: vscode.Uri,
-            extensionScheme: EXTENSION_SCHEME,
-            getCurrentDateFn: () => new Date()
-        });
+        return new TextResourceUtil(
+            EXTENSION_SCHEME,
+            vscode.Uri,
+            () => new Date()
+        );
     }
 
     private createNormalisationRuleStore() {
-        return new NormalisationRuleStore({
-            configStore: new ConfigStore(vscode.workspace)
-        });
+        return new NormalisationRuleStore(new ConfigStore(vscode.workspace));
     }
 }

@@ -3,10 +3,10 @@ export default class TextResourceUtil {
     private readonly Uri: any;
     private readonly getCurrentDateFn: any;
 
-    constructor(params) {
-        this.extensionScheme = params.extensionScheme;
-        this.Uri = params.Uri;
-        this.getCurrentDateFn = params.getCurrentDateFn;
+    constructor(extensionScheme: any, Uri: any, getCurrentDateFn: any) {
+        this.extensionScheme = extensionScheme;
+        this.Uri = Uri;
+        this.getCurrentDateFn = getCurrentDateFn;
     }
 
     getUri(textKey) {

@@ -75,9 +75,7 @@ export default class CommandFactory {
     createToggleNormalisationRulesCommand() {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
-            new NormalisationRulePicker({
-                vscWindow: this.vscode.window
-            }),
+            new NormalisationRulePicker(this.vscode.window),
             this.getMessageBar(),
             this.logger
         );
@@ -109,18 +107,16 @@ export default class CommandFactory {
     }
 
     private createDiffPresenter() {
-        return new DiffPresenter({
-            commands: this.vscode.commands,
-            normalisationRuleStore: this.normalisationRuleStore,
-            selectionInfoRegistry: this.selectionInfoRegistry,
-            textResourceUtil: this.textResourceUtil,
-            textTitleBuilder: new TextTitleBuilder()
-        });
+        return new DiffPresenter(
+            this.vscode.commands,
+            this.selectionInfoRegistry,
+            this.normalisationRuleStore,
+            new TextTitleBuilder(),
+            this.textResourceUtil
+        );
     }
 
     private createMessageBar() {
-        return new MessageBar({
-            vscWindow: this.vscode.window
-        });
+        return new MessageBar(this.vscode.window);
     }
 }

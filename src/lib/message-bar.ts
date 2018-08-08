@@ -1,7 +1,7 @@
 export default class MessageBar {
     private vscWindow: any;
 
-    constructor({vscWindow}) {
+    constructor(vscWindow: any) {
         this.vscWindow = vscWindow;
     }
 

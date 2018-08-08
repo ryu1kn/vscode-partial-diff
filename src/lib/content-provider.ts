@@ -13,7 +13,7 @@ export default class ContentProvider {
                 textResourceUtil: TextResourceUtil) {
         this.selectionInfoRegistry = selectionInfoRegistry;
         this.textResourceUtil = textResourceUtil;
-        this.textProcessRuleApplier = new TextProcessRuleApplier({normalisationRuleStore});
+        this.textProcessRuleApplier = new TextProcessRuleApplier(normalisationRuleStore);
     }
 
     provideTextDocumentContent(uri) {

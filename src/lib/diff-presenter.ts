@@ -15,12 +15,16 @@ export default class DiffPresenter {
     private readonly textResourceUtil: TextResourceUtil;
     private readonly textTitleBuilder: TextTitleBuilder;
 
-    constructor(params) {
-        this.commands = params.commands;
-        this.normalisationRuleStore = params.normalisationRuleStore;
-        this.selectionInfoRegistry = params.selectionInfoRegistry;
-        this.textResourceUtil = params.textResourceUtil;
-        this.textTitleBuilder = params.textTitleBuilder;
+    constructor(commands: any,
+                selectionInfoRegistry: SelectionInfoRegistry,
+                normalisationRuleStore: NormalisationRuleStore,
+                textTitleBuilder: TextTitleBuilder,
+                textResourceUtil: TextResourceUtil) {
+        this.commands = commands;
+        this.normalisationRuleStore = normalisationRuleStore;
+        this.selectionInfoRegistry = selectionInfoRegistry;
+        this.textResourceUtil = textResourceUtil;
+        this.textTitleBuilder = textTitleBuilder;
     }
 
     takeDiff(textKey1, textKey2) {

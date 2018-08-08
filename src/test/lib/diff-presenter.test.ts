@@ -1,5 +1,9 @@
 import DiffPresenter from '../../lib/diff-presenter';
-import {any, mockObject, verify, when} from '../helpers';
+import {any, mock, mockObject, mockType, verify, when} from '../helpers';
+import SelectionInfoRegistry from '../../lib/selection-info-registry';
+import NormalisationRuleStore from '../../lib/normalisation-rule-store';
+import TextTitleBuilder from '../../lib/text-title-builder';
+import TextResourceUtil from '../../lib/text-resource-util';
 
 suite('DiffPresenter', () => {
     test('it passes URI of 2 texts to compare', async () => {
@@ -9,19 +13,13 @@ suite('DiffPresenter', () => {
         when(textResourceUtil.getUri('TEXT1')).thenReturn('URI_INSTANCE_1');
         when(textResourceUtil.getUri('TEXT2')).thenReturn('URI_INSTANCE_2');
 
-        const diffPresenter = new DiffPresenter({
+        const diffPresenter = new DiffPresenter(
             commands,
-            normalisationRuleStore: {},
-            textTitleBuilder: {
-                build: () => {
-                }
-            },
-            selectionInfoRegistry: {
-                get: () => {
-                }
-            },
+            mockType<SelectionInfoRegistry>({get: () => {}}),
+            mock(NormalisationRuleStore),
+            mockType<TextTitleBuilder>({build: () => {}}),
             textResourceUtil
-        });
+        );
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
 
@@ -40,16 +38,13 @@ suite('DiffPresenter', () => {
         when(selectionInfoRegistry.get('TEXT1')).thenReturn('TEXT_INFO_1');
         when(selectionInfoRegistry.get('TEXT2')).thenReturn('TEXT_INFO_2');
 
-        const diffPresenter = new DiffPresenter({
+        const diffPresenter = new DiffPresenter(
             commands,
-            normalisationRuleStore: {},
-            textTitleBuilder: {build: textKey => `TITLE_${textKey}`},
             selectionInfoRegistry,
-            textResourceUtil: {
-                getUri: () => {
-                }
-            }
-        });
+            mock(NormalisationRuleStore),
+            mockType<TextTitleBuilder>({build: textKey => `TITLE_${textKey}`}),
+            mockType<TextResourceUtil>({getUri: () => {}})
+        );
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
 
@@ -62,16 +57,13 @@ suite('DiffPresenter', () => {
         when(selectionInfoRegistry.get('TEXT1')).thenReturn('TEXT_INFO_1');
         when(selectionInfoRegistry.get('TEXT2')).thenReturn('TEXT_INFO_2');
 
-        const diffPresenter = new DiffPresenter({
+        const diffPresenter = new DiffPresenter(
             commands,
-            normalisationRuleStore: {hasActiveRules: true},
-            textTitleBuilder: {build: textKey => `TITLE_${textKey}`},
             selectionInfoRegistry,
-            textResourceUtil: {
-                getUri: () => {
-                }
-            }
-        });
+            mockType<NormalisationRuleStore>({hasActiveRules: true}),
+            mockType<TextTitleBuilder>({build: textKey => `TITLE_${textKey}`}),
+            mockType<TextResourceUtil>({getUri: () => {}})
+        );
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
 
