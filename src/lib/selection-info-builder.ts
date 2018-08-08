@@ -1,7 +1,8 @@
 import {basename} from 'path';
+import {LineRange, SelectionInfo} from './entities/selection-info';
 
 export default class SelectionInfoBuilder {
-    extract(editor) {
+    extract(editor): SelectionInfo {
         const validSelections = this.collectNonEmptySelections(editor.selections);
         const extractText = selection => editor.document.getText(selection);
 
@@ -27,7 +28,7 @@ export default class SelectionInfoBuilder {
             : selections.map(extractText).join('\n');
     }
 
-    private extractLineRanges(selections) {
+    private extractLineRanges(selections): LineRange[] {
         return selections.map(selection => ({
             start: selection.start.line,
             end: selection.end.line

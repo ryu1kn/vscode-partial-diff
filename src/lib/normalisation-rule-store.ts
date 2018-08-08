@@ -1,26 +1,26 @@
 import ConfigStore from './config-store';
-
 import * as isEqual from 'lodash.isequal';
 import * as omit from 'lodash.omit';
+import {LoadedNormalisationRule, SavedNormalisationRule} from './entities/normalisation-rule';
 
 const clone = value => JSON.parse(JSON.stringify(value));
 
 export default class NormalisationRuleStore {
     private readonly configStore: ConfigStore;
-    private baseRules: any;
-    private rules: any;
+    private baseRules: SavedNormalisationRule[];
+    private rules: LoadedNormalisationRule[];
 
     constructor(configStore: ConfigStore) {
         this.configStore = configStore;
         this.setupRules(this.configStore.preComparisonTextNormalizationRules);
     }
 
-    private setupRules(rules) {
+    private setupRules(rules: SavedNormalisationRule[]) {
         this.baseRules = clone(rules);
         this.rules = this.resetRuleStatus(this.baseRules);
     }
 
-    private resetRuleStatus(rules) {
+    private resetRuleStatus(rules): LoadedNormalisationRule[] {
         return rules.map(rule =>
             Object.assign({}, omit(rule, ['enableOnStart']), {
                 active: rule.enableOnStart !== false

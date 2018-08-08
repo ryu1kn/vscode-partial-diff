@@ -1,10 +1,14 @@
 const PLATFORM_WINDOWS = 'win32';
 
+interface Clipboardy {
+    read: () => string;
+}
+
 export default class Clipboard {
-    private readonly clipboardy: any;
+    private readonly clipboardy: Clipboardy;
     private readonly platform: string;
 
-    constructor(clipboardy: any, platform: string) {
+    constructor(clipboardy: Clipboardy, platform: string) {
         this.clipboardy = clipboardy;
         this.platform = platform;
     }

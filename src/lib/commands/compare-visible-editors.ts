@@ -4,10 +4,11 @@ import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Logger} from '../logger';
+import * as vscode from 'vscode';
 
 export default class CompareVisibleEditorsCommand {
     private readonly logger: Logger;
-    private readonly editorWindow: any;
+    private readonly editorWindow: typeof vscode.window;
     private readonly diffPresenter: DiffPresenter;
     private readonly messageBar: MessageBar;
     private readonly selectionInfoBuilder: SelectionInfoBuilder;
@@ -17,7 +18,7 @@ export default class CompareVisibleEditorsCommand {
                 selectionInfoBuilder: SelectionInfoBuilder,
                 selectionInfoRegistry: SelectionInfoRegistry,
                 messageBar: MessageBar,
-                editorWindow: any,
+                editorWindow: typeof vscode.window,
                 logger: Logger) {
         this.logger = logger;
         this.editorWindow = editorWindow;

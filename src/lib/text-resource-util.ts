@@ -1,9 +1,11 @@
-export default class TextResourceUtil {
-    private readonly extensionScheme: any;
-    private readonly Uri: any;
-    private readonly getCurrentDateFn: any;
+import * as vscode from 'vscode';
 
-    constructor(extensionScheme: any, Uri: any, getCurrentDateFn: any) {
+export default class TextResourceUtil {
+    private readonly extensionScheme: string;
+    private readonly Uri: typeof vscode.Uri;
+    private readonly getCurrentDateFn: () => Date;
+
+    constructor(extensionScheme: string, Uri: typeof vscode.Uri, getCurrentDateFn: () => Date) {
         this.extensionScheme = extensionScheme;
         this.Uri = Uri;
         this.getCurrentDateFn = getCurrentDateFn;

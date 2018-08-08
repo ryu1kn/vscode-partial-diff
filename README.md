@@ -62,7 +62,7 @@
     It doesn't mutate texts in the editors. Only texts in diff views get normalised.
     If a diff is presented with text normalised (or possibly normalised), `~` is used in the diff title instead of `↔`)
 
-    Each rule has `match`, `replaceWith` and optionally `name`.
+    Each rule has `match`, `replaceWith`. `name` or `enableOnStart` are optional.
 
     * `name`: Optional. Name of the rule to describe what the rule is for. You see this name on normalisation rule toggle menu.
     * `match`: Regular expression to find text you want to normalise. [Global search flag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions#Advanced_searching_with_flags) is automatically applied.

@@ -1,13 +1,16 @@
-export default class NormalisationRulePicker {
-    private vscWindow: any;
+import * as vscode from 'vscode';
+import {QuickPickOptions} from 'vscode';
 
-    constructor(vscWindow: any) {
+export default class NormalisationRulePicker {
+    private vscWindow: typeof vscode.window;
+
+    constructor(vscWindow: typeof vscode.window) {
         this.vscWindow = vscWindow;
     }
 
     async show(rules) {
         const items = this.convertToQuickPickItems(rules);
-        const options = {canPickMany: true};
+        const options = {canPickMany: true} as QuickPickOptions;
         const userSelection = await this.vscWindow.showQuickPick(items, options);
         const activeItems = userSelection || items.filter(item => item.picked);
         return this.convertToRules(activeItems);

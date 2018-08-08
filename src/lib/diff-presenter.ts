@@ -2,6 +2,7 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
 import TextTitleBuilder from './text-title-builder';
+import * as vscode from 'vscode';
 
 const DiffModeSymbols = {
     NORMALISED: '\u007e',
@@ -9,13 +10,13 @@ const DiffModeSymbols = {
 };
 
 export default class DiffPresenter {
-    private readonly commands: any;
+    private readonly commands: typeof vscode.commands;
     private readonly normalisationRuleStore: NormalisationRuleStore;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly textResourceUtil: TextResourceUtil;
     private readonly textTitleBuilder: TextTitleBuilder;
 
-    constructor(commands: any,
+    constructor(commands: typeof vscode.commands,
                 selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
                 textTitleBuilder: TextTitleBuilder,
