@@ -3,8 +3,9 @@ import SelectionInfoRegistry from './selection-info-registry';
 import TextResourceUtil from './text-resource-util';
 import NormalisationRuleStore from './normalisation-rule-store';
 import * as vscode from 'vscode';
+import {TextDocumentContentProvider} from 'vscode';
 
-export default class ContentProvider {
+export default class ContentProvider implements TextDocumentContentProvider {
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly textResourceUtil: TextResourceUtil;
     private readonly textProcessRuleApplier: TextProcessRuleApplier;
