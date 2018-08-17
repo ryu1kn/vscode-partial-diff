@@ -32,7 +32,6 @@ export default class BootstrapperFactory {
     private createTextResourceUtil() {
         return new TextResourceUtil(
             EXTENSION_SCHEME,
-            vscode.Uri.parse,
             () => new Date()
         );
     }

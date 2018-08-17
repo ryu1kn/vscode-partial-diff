@@ -16,6 +16,7 @@ import * as clipboardy from 'clipboardy';
 import {Logger} from './logger';
 import {Command} from './commands/command';
 import CommandWrapper from './command-wrapper';
+import CommandAdaptor from './adaptors/command';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
@@ -113,11 +114,11 @@ export default class CommandFactory {
 
     private createDiffPresenter() {
         return new DiffPresenter(
-            this.vscode.commands,
             this.selectionInfoRegistry,
             this.normalisationRuleStore,
             new TextTitleBuilder(),
-            this.textResourceUtil
+            this.textResourceUtil,
+            new CommandAdaptor(this.vscode.commands, this.vscode.Uri.parse)
         );
     }
 
