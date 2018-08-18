@@ -18,13 +18,12 @@ export default class DiffPresenter {
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
-                textTitleBuilder: TextTitleBuilder,
                 commandAdaptor: CommandAdaptor,
                 getCurrentDate: () => Date) {
         this.normalisationRuleStore = normalisationRuleStore;
         this.selectionInfoRegistry = selectionInfoRegistry;
         this.textResourceUtil = new TextResourceUtil(getCurrentDate);
-        this.textTitleBuilder = textTitleBuilder;
+        this.textTitleBuilder = new TextTitleBuilder();
         this.commandAdaptor = commandAdaptor;
     }
 

@@ -2,7 +2,6 @@ import SaveText1Command from './commands/save-text-1';
 import CompareSelectionWithText1Command from './commands/compare-selection-with-text1';
 import CompareSelectionWithClipboardCommand from './commands/compare-selection-with-clipboard';
 import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
-import TextTitleBuilder from './text-title-builder';
 import Clipboard from './clipboard';
 import DiffPresenter from './diff-presenter';
 import NormalisationRulePicker from './normalisation-rule-picker';
@@ -79,7 +78,6 @@ export default class CommandFactory {
         return new DiffPresenter(
             this.selectionInfoRegistry,
             this.normalisationRuleStore,
-            new TextTitleBuilder(),
             this.commandAdaptor,
             this.getCurrentDate
         );
