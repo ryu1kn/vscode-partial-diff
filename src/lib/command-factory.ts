@@ -11,19 +11,15 @@ import SelectionInfoBuilder from './selection-info-builder';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
-import TextResourceUtil from './text-resource-util';
 import * as clipboardy from 'clipboardy';
-import {Logger} from './logger';
-import {Command} from './commands/command';
-import CommandWrapper from './command-wrapper';
 import CommandAdaptor from './adaptors/command';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
-    private readonly textResourceUtil: TextResourceUtil;
+    private readonly commandAdaptor: CommandAdaptor;
     private readonly vscode: any;
-    private readonly logger: Logger;
+    private readonly getCurrentDate: () => Date;
     private clipboard?: Clipboard;
     private diffPresenter?: DiffPresenter;
     private messageBar?: MessageBar;
@@ -31,60 +27,56 @@ export default class CommandFactory {
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
-                textResourceUtil: TextResourceUtil,
+                commandAdaptor: CommandAdaptor,
                 vscode: any,
-                logger: Logger) {
+                getCurrentDate: () => Date) {
         this.normalisationRuleStore = normalisationRuleStore;
         this.selectionInfoRegistry = selectionInfoRegistry;
-        this.textResourceUtil = textResourceUtil;
+        this.commandAdaptor = commandAdaptor;
+        this.getCurrentDate = getCurrentDate;
         this.vscode = vscode;
-        this.logger = logger;
     }
 
     crateSaveText1Command() {
-        return this.wrapCommand(new SaveText1Command(
+        return new SaveText1Command(
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry
-        ));
+        );
     }
 
     createCompareSelectionWithText1Command() {
-        return this.wrapCommand(new CompareSelectionWithText1Command(
+        return new CompareSelectionWithText1Command(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry
-        ));
+        );
     }
 
     createCompareSelectionWithClipboardCommand() {
-        return this.wrapCommand(new CompareSelectionWithClipboardCommand(
+        return new CompareSelectionWithClipboardCommand(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.getClipboard()!
-        ));
+        );
     }
 
     createCompareVisibleEditorsCommand() {
-        return this.wrapCommand(new CompareVisibleEditorsCommand(
+        return new CompareVisibleEditorsCommand(
             this.getDiffPresenter(),
             this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.getMessageBar(),
             this.vscode.window
-        ));
+        );
     }
 
     createToggleNormalisationRulesCommand() {
-        return this.wrapCommand(new ToggleNormalisationRulesCommand(
+        return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
             new NormalisationRulePicker(this.vscode.window),
             this.getMessageBar()
-        ));
-    }
-
-    private wrapCommand(command: Command): CommandWrapper {
-        return new CommandWrapper(command, this.logger);
+        );
     }
 
     private getClipboard() {
@@ -117,8 +109,8 @@ export default class CommandFactory {
             this.selectionInfoRegistry,
             this.normalisationRuleStore,
             new TextTitleBuilder(),
-            this.textResourceUtil,
-            new CommandAdaptor(this.vscode.commands, this.vscode.Uri.parse)
+            this.commandAdaptor,
+            this.getCurrentDate
         );
     }
 

@@ -2,7 +2,7 @@ import ContentProvider from '../../lib/content-provider';
 import * as assert from 'assert';
 import {mockType} from '../helpers';
 import NormalisationRuleStore from '../../lib/normalisation-rule-store';
-import TextResourceUtil from '../../lib/text-resource-util';
+import * as vscode from 'vscode';
 
 suite('ContentProvider', () => {
     test('it extracts text key from the given uri and uses it to retrieve text', () => {
@@ -79,15 +79,13 @@ suite('ContentProvider', () => {
         const defaultSelectionInfoRegistry = {
             get: (key: string) => ({text: registeredText || `TEXT_${key}`})
         };
-        const textResourceUtil = mockType<TextResourceUtil>({
-            getTextKey: (uri: any) => uri.replace('URI_', '')
-        });
         const normalisationRuleStore = mockType<NormalisationRuleStore>({activeRules: activeRules || []});
         const contentProvider = new ContentProvider(
             selectionInfoRegistry || defaultSelectionInfoRegistry,
             normalisationRuleStore,
-            textResourceUtil
+            () => new Date()
         );
-        return contentProvider.provideTextDocumentContent('URI_1' as any);
+        const uri = mockType<vscode.Uri>({path: 'text/1'});
+        return contentProvider.provideTextDocumentContent(uri);
     }
 });

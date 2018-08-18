@@ -1,17 +1,16 @@
 import * as vscode from 'vscode';
+import {EXTENSION_SCHEME} from './const';
 
 export default class TextResourceUtil {
-    private readonly extensionScheme: string;
     private readonly getCurrentDate: () => Date;
 
-    constructor(extensionScheme: string, getCurrentDate: () => Date) {
-        this.extensionScheme = extensionScheme;
+    constructor(getCurrentDate: () => Date) {
         this.getCurrentDate = getCurrentDate;
     }
 
     getUri(textKey: string) {
         const timestamp = this.getCurrentDate().getTime();
-        return `${this.extensionScheme}:text/${textKey}?_ts=${timestamp}`; // `_ts` to avoid cache
+        return `${EXTENSION_SCHEME}:text/${textKey}?_ts=${timestamp}`; // `_ts` to avoid cache
     }
 
     getTextKey(uri: vscode.Uri): string {

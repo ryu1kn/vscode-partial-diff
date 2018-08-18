@@ -1,44 +1,44 @@
-import {mock, mockType, verify, when, wrapVerify} from '../../helpers';
-import CompareSelectionWithText1 from '../../../lib/commands/compare-selection-with-text1';
-import DiffPresenter from '../../../lib/diff-presenter';
-import SelectionInfoBuilder from '../../../lib/selection-info-builder';
+import {mock, mockType, verify} from '../../helpers';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import * as vscode from 'vscode';
+import CommandFactory from '../../../lib/command-factory';
+import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
+import CommandAdaptor from '../../../lib/adaptors/command';
 
 suite('CompareSelectionWithText1', () => {
 
-    const editor = mockType<vscode.TextEditor>();
+    const editor = mockType<vscode.TextEditor>({
+        selections: [{start: {line: 5}, end: {line: 10}}],
+        document: {
+            getText: () => 'SELECTED_TEXT',
+            fileName: 'FILE2'
+        }
+    });
+
+    const selectionInfoRegistry = new SelectionInfoRegistry();
+    selectionInfoRegistry.set('reg1', {
+        text: 'PRE-SELECTED_TEXT',
+        fileName: 'FILE1',
+        lineRanges: [{start: 20, end: 25}]
+    });
+
+    const fakeVscode = {window: mockType<typeof vscode.window>()};
+    const normalisationRuleStore = mock(NormalisationRuleStore);
 
     test('it saves selected text and takes a diff of 2 texts', async () => {
-        const selectionInfoBuilder = mock(SelectionInfoBuilder);
-        when(selectionInfoBuilder.extract(editor)).thenReturn({
-            text: 'SELECTED_TEXT',
-            fileName: 'FILENAME',
-            lineRanges: 'SELECTED_RANGE'
-        });
 
-        const selectionInfoRegistry = mock(SelectionInfoRegistry);
-        const diffPresenter = mock(DiffPresenter);
-
-        const command = new CompareSelectionWithText1(
-            diffPresenter,
-            selectionInfoBuilder,
-            selectionInfoRegistry
-        );
+        const commandAdaptor = mock(CommandAdaptor);
+        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, fakeVscode, () => new Date('2016-06-15T11:43:00Z'));
+        const command = commandFactory.createCompareSelectionWithText1Command();
 
         await command.execute(editor);
 
-        wrapVerify((c1, c2) => verify(selectionInfoRegistry.set(c1(), c2())), [
-            [
-                'reg2',
-                {
-                    text: 'SELECTED_TEXT',
-                    fileName: 'FILENAME',
-                    lineRanges: 'SELECTED_RANGE'
-                }
-            ]
-        ]);
-        verify(diffPresenter.takeDiff('reg1', 'reg2'));
+        verify(commandAdaptor.executeCommand(
+            'vscode.diff',
+            'partialdiff:text/reg1?_ts=1465990980000',
+            'partialdiff:text/reg2?_ts=1465990980000',
+            'FILE1 (ll.21-26) ↔ FILE2 (ll.6-11)'
+        ));
     });
 
 });

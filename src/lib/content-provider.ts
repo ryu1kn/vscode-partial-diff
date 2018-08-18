@@ -12,9 +12,9 @@ export default class ContentProvider implements TextDocumentContentProvider {
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
-                textResourceUtil: TextResourceUtil) {
+                getCurrentDate: () => Date) {
         this.selectionInfoRegistry = selectionInfoRegistry;
-        this.textResourceUtil = textResourceUtil;
+        this.textResourceUtil = new TextResourceUtil(getCurrentDate);
         this.textProcessRuleApplier = new TextProcessRuleApplier(normalisationRuleStore);
     }
 

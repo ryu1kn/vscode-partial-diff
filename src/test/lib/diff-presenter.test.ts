@@ -18,16 +18,16 @@ suite('DiffPresenter', () => {
             mockType<SelectionInfoRegistry>({get: () => {}}),
             mock(NormalisationRuleStore),
             mockType<TextTitleBuilder>({build: () => {}}),
-            textResourceUtil,
-            commandAdaptor
+            commandAdaptor,
+            () => new Date('2016-06-15T11:43:00Z')
         );
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
 
         verify(commandAdaptor.executeCommand(
             'vscode.diff',
-            'URI_INSTANCE_1',
-            'URI_INSTANCE_2',
+            'partialdiff:text/TEXT1?_ts=1465990980000',
+            'partialdiff:text/TEXT2?_ts=1465990980000',
             'undefined \u2194 undefined'
         ));
     });
@@ -43,8 +43,8 @@ suite('DiffPresenter', () => {
             selectionInfoRegistry,
             mock(NormalisationRuleStore),
             mockType<TextTitleBuilder>({build: (textKey: string) => `TITLE_${textKey}`}),
-            mockType<TextResourceUtil>({getUri: () => {}}),
-            commandAdaptor
+            commandAdaptor,
+            () => new Date()
         );
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');
@@ -62,8 +62,8 @@ suite('DiffPresenter', () => {
             selectionInfoRegistry,
             mockType<NormalisationRuleStore>({hasActiveRules: true}),
             mockType<TextTitleBuilder>({build: (textKey: string) => `TITLE_${textKey}`}),
-            mockType<TextResourceUtil>({getUri: () => {}}),
-            commandAdaptor
+            commandAdaptor,
+            () => new Date()
         );
 
         await diffPresenter.takeDiff('TEXT1', 'TEXT2');

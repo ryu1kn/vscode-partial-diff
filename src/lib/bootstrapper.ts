@@ -3,6 +3,8 @@ import ContentProvider from './content-provider';
 import {EXTENSION_NAMESPACE, EXTENSION_SCHEME} from './const';
 import {ExecutionContextLike} from './entities/vscode';
 import CommandWrapper from './command-wrapper';
+import {Logger} from './logger';
+import {Command} from './commands/command';
 
 type CommandType = 'TEXT_EDITOR' | 'GENERAL';
 
@@ -16,13 +18,16 @@ export default class Bootstrapper {
     private readonly commandFactory: CommandFactory;
     private readonly contentProvider: ContentProvider;
     private readonly vscode: any;
+    private readonly logger: Logger;
 
     constructor(commandFactory: CommandFactory,
                 contentProvider: ContentProvider,
-                vscode: any) {
+                vscode: any,
+                logger: Logger) {
         this.commandFactory = commandFactory;
         this.contentProvider = contentProvider;
         this.vscode = vscode;
+        this.logger = logger;
     }
 
     initiate(context: ExecutionContextLike) {
@@ -57,28 +62,32 @@ export default class Bootstrapper {
             {
                 name: `${EXTENSION_NAMESPACE}.diffVisibleEditors`,
                 type: 'GENERAL',
-                command: this.commandFactory.createCompareVisibleEditorsCommand()
+                command: this.wrapCommand(this.commandFactory.createCompareVisibleEditorsCommand())
             },
             {
                 name: `${EXTENSION_NAMESPACE}.markSection1`,
                 type: 'TEXT_EDITOR',
-                command: this.commandFactory.crateSaveText1Command()
+                command: this.wrapCommand(this.commandFactory.crateSaveText1Command())
             },
             {
                 name: `${EXTENSION_NAMESPACE}.markSection2AndTakeDiff`,
                 type: 'TEXT_EDITOR',
-                command: this.commandFactory.createCompareSelectionWithText1Command()
+                command: this.wrapCommand(this.commandFactory.createCompareSelectionWithText1Command())
             },
             {
                 name: `${EXTENSION_NAMESPACE}.diffSelectionWithClipboard`,
                 type: 'TEXT_EDITOR',
-                command: this.commandFactory.createCompareSelectionWithClipboardCommand()
+                command: this.wrapCommand(this.commandFactory.createCompareSelectionWithClipboardCommand())
             },
             {
                 name: `${EXTENSION_NAMESPACE}.togglePreComparisonTextNormalizationRules`,
                 type: 'GENERAL',
-                command: this.commandFactory.createToggleNormalisationRulesCommand()
+                command: this.wrapCommand(this.commandFactory.createToggleNormalisationRulesCommand())
             }
         ];
+    }
+
+    private wrapCommand(command: Command) {
+        return new CommandWrapper(command, this.logger);
     }
 }
