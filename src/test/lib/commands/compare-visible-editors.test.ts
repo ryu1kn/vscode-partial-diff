@@ -2,7 +2,6 @@ import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-
 import {mockMethods, mockType, verify} from '../../helpers';
 import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
-import MessageBar from '../../../lib/message-bar';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
 
@@ -58,21 +57,19 @@ suite('CompareVisibleEditorsCommand', () => {
         await command.execute();
 
         verify(
-            deps.messageBar.showInfo('Please first open 2 documents to compare.')
+            deps.windowAdaptor.showInformationMessage('Please first open 2 documents to compare.')
         );
     });
 
     function createCommand(visibleTextEditors: TextEditor[]) {
         const dependencies = {
-            windowAdaptor: mockType<WindowAdaptor>({visibleTextEditors}),
+            windowAdaptor: mockMethods<WindowAdaptor>(['showInformationMessage'], {visibleTextEditors}),
             diffPresenter: mockMethods<DiffPresenter>(['takeDiff']),
-            messageBar: mockMethods<MessageBar>(['showInfo']),
             selectionInfoRegistry: mockMethods<SelectionInfoRegistry>(['set'])
         };
         const command = new CompareVisibleEditorsCommand(
             dependencies.diffPresenter,
             dependencies.selectionInfoRegistry,
-            dependencies.messageBar,
             dependencies.windowAdaptor
         );
         return {command, deps: dependencies} as any;

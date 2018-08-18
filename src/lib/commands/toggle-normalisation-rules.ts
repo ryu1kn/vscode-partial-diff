@@ -1,17 +1,17 @@
-import MessageBar from '../message-bar';
 import NormalisationRulePicker from '../normalisation-rule-picker';
 import NormalisationRuleStore from '../normalisation-rule-store';
 import {Command} from './command';
+import WindowAdaptor from '../adaptors/window';
 
 export default class ToggleNormalisationRulesCommand implements Command {
-    private readonly messageBar: MessageBar;
+    private readonly windowAdaptor: WindowAdaptor;
     private readonly normalisationRulePicker: NormalisationRulePicker;
     private readonly normalisationRuleStore: NormalisationRuleStore;
 
     constructor(normalisationRuleStore: NormalisationRuleStore,
                 normalisationRulePicker: NormalisationRulePicker,
-                messageBar: MessageBar) {
-        this.messageBar = messageBar;
+                windowAdaptor: WindowAdaptor) {
+        this.windowAdaptor = windowAdaptor;
         this.normalisationRulePicker = normalisationRulePicker;
         this.normalisationRuleStore = normalisationRuleStore;
     }
@@ -22,7 +22,7 @@ export default class ToggleNormalisationRulesCommand implements Command {
             const newRules = await this.normalisationRulePicker.show(rules);
             this.normalisationRuleStore.specifyActiveRules(newRules);
         } else {
-            await this.messageBar.showInfo(
+            await this.windowAdaptor.showInformationMessage(
                 'Please set `partialDiff.preComparisonTextNormalizationRules` first'
             );
         }

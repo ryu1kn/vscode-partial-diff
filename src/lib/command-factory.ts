@@ -5,7 +5,6 @@ import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
 import TextTitleBuilder from './text-title-builder';
 import Clipboard from './clipboard';
 import DiffPresenter from './diff-presenter';
-import MessageBar from './message-bar';
 import NormalisationRulePicker from './normalisation-rule-picker';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';
@@ -22,7 +21,6 @@ export default class CommandFactory {
     private readonly getCurrentDate: () => Date;
     private clipboard?: Clipboard;
     private diffPresenter?: DiffPresenter;
-    private messageBar?: MessageBar;
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
@@ -59,7 +57,6 @@ export default class CommandFactory {
         return new CompareVisibleEditorsCommand(
             this.getDiffPresenter(),
             this.selectionInfoRegistry,
-            this.getMessageBar(),
             this.windowAdaptor
         );
     }
@@ -68,7 +65,7 @@ export default class CommandFactory {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
             new NormalisationRulePicker(this.windowAdaptor),
-            this.getMessageBar()
+            this.windowAdaptor
         );
     }
 
@@ -80,11 +77,6 @@ export default class CommandFactory {
     private getDiffPresenter() {
         this.diffPresenter = this.diffPresenter || this.createDiffPresenter();
         return this.diffPresenter;
-    }
-
-    private getMessageBar() {
-        this.messageBar = this.messageBar || this.createMessageBar();
-        return this.messageBar;
     }
 
     private createClipboard() {
@@ -99,9 +91,5 @@ export default class CommandFactory {
             this.commandAdaptor,
             this.getCurrentDate
         );
-    }
-
-    private createMessageBar() {
-        return new MessageBar(this.windowAdaptor);
     }
 }

@@ -1,9 +1,9 @@
 import ToggleNormalisationRulesCommand from '../../../lib/commands/toggle-normalisation-rules';
-import {mockMethods, mockType, verify, when} from '../../helpers';
-import MessageBar from '../../../lib/message-bar';
+import {mock, mockMethods, mockType, verify, when} from '../../helpers';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import NormalisationRulePicker from '../../../lib/normalisation-rule-picker';
 import {LoadedNormalisationRule} from '../../../lib/entities/normalisation-rule';
+import WindowAdaptor from '../../../lib/adaptors/window';
 
 suite('ToggleNormalisationRulesCommand', () => {
 
@@ -23,7 +23,7 @@ suite('ToggleNormalisationRulesCommand', () => {
         await command.execute();
 
         verify(
-            deps.messageBar.showInfo(
+            deps.windowAdaptor.showInformationMessage(
                 'Please set `partialDiff.preComparisonTextNormalizationRules` first'
             )
         );
@@ -37,14 +37,14 @@ suite('ToggleNormalisationRulesCommand', () => {
         when(normalisationRulePicker.show(rules)).thenResolve('ACTIVE_RULE_INDICES');
 
         const deps = {
-            messageBar: mockMethods<MessageBar>(['showInfo']),
+            windowAdaptor: mock(WindowAdaptor),
             normalisationRulePicker,
             normalisationRuleStore
         };
         const command = new ToggleNormalisationRulesCommand(
             deps.normalisationRuleStore,
             deps.normalisationRulePicker,
-            deps.messageBar
+            deps.windowAdaptor
         );
         return {command, deps} as any;
     }

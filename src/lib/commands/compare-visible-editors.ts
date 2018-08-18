@@ -1,5 +1,4 @@
 import DiffPresenter from '../diff-presenter';
-import MessageBar from '../message-bar';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {SelectionInfo} from '../entities/selection-info';
@@ -9,23 +8,20 @@ import WindowAdaptor from '../adaptors/window';
 export default class CompareVisibleEditorsCommand implements Command {
     private readonly windowAdaptor: WindowAdaptor;
     private readonly diffPresenter: DiffPresenter;
-    private readonly messageBar: MessageBar;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
     constructor(diffPresenter: DiffPresenter,
                 selectionInfoRegistry: SelectionInfoRegistry,
-                messageBar: MessageBar,
                 windowAdaptor: WindowAdaptor) {
         this.windowAdaptor = windowAdaptor;
         this.diffPresenter = diffPresenter;
-        this.messageBar = messageBar;
         this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
     async execute() {
         const editors = this.windowAdaptor.visibleTextEditors;
         if (editors.length !== 2) {
-            this.messageBar.showInfo('Please first open 2 documents to compare.');
+            this.windowAdaptor.showInformationMessage('Please first open 2 documents to compare.');
             return;
         }
 
