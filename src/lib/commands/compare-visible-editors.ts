@@ -1,41 +1,39 @@
 import DiffPresenter from '../diff-presenter';
 import MessageBar from '../message-bar';
-import SelectionInfoBuilder from '../selection-info-builder';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
-import * as vscode from 'vscode';
 import {SelectionInfo} from '../entities/selection-info';
 import {Command} from './command';
+import WindowComponent from '../adaptors/window';
 
 export default class CompareVisibleEditorsCommand implements Command {
-    private readonly editorWindow: typeof vscode.window;
+    private readonly windowComponent: WindowComponent;
     private readonly diffPresenter: DiffPresenter;
     private readonly messageBar: MessageBar;
-    private readonly selectionInfoBuilder: SelectionInfoBuilder;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
 
     constructor(diffPresenter: DiffPresenter,
-                selectionInfoBuilder: SelectionInfoBuilder,
                 selectionInfoRegistry: SelectionInfoRegistry,
                 messageBar: MessageBar,
-                editorWindow: typeof vscode.window) {
-        this.editorWindow = editorWindow;
+                windowComponent: WindowComponent) {
+        this.windowComponent = windowComponent;
         this.diffPresenter = diffPresenter;
         this.messageBar = messageBar;
-        this.selectionInfoBuilder = selectionInfoBuilder;
         this.selectionInfoRegistry = selectionInfoRegistry;
     }
 
     async execute() {
-        const editors = this.editorWindow.visibleTextEditors;
+        const editors = this.windowComponent.visibleTextEditors;
         if (editors.length !== 2) {
             this.messageBar.showInfo('Please first open 2 documents to compare.');
             return;
         }
 
-        const textInfos = editors.map(editor =>
-            this.selectionInfoBuilder.extract(editor)
-        );
+        const textInfos = editors.map(editor => ({
+            text: editor.selectedText,
+            fileName: editor.fileName,
+            lineRanges: editor.selectedLineRanges
+        }));
         this.registerTextInfo(
             textInfos,
             editors[0].viewColumn > editors[1].viewColumn

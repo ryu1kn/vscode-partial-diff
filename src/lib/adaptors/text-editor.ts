@@ -1,4 +1,4 @@
-import {Selection, TextEditor as VsTextEditor} from 'vscode';
+import {Selection, TextEditor as VsTextEditor, ViewColumn} from 'vscode';
 import {basename} from 'path';
 import {LineRange} from '../entities/selection-info';
 
@@ -11,6 +11,10 @@ export default class TextEditor {
 
     get fileName() {
         return basename(this.vsEditor.document.fileName);
+    }
+
+    get viewColumn(): ViewColumn {
+        return this.vsEditor.viewColumn;
     }
 
     get selectedText() {

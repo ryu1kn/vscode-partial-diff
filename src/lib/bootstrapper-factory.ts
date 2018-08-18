@@ -6,6 +6,7 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import * as vscode from 'vscode';
 import CommandAdaptor from './adaptors/command';
+import WindowComponent from './adaptors/window';
 
 export default class BootstrapperFactory {
     create() {
@@ -13,10 +14,12 @@ export default class BootstrapperFactory {
         const selectionInfoRegistry = new SelectionInfoRegistry();
         const normalisationRuleStore = this.createNormalisationRuleStore();
         const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse);
+        const windowComponent = new WindowComponent(vscode.window);
         const commandFactory = new CommandFactory(
             selectionInfoRegistry,
             normalisationRuleStore,
             commandAdaptor,
+            windowComponent,
             vscode,
             () => new Date()
         );
