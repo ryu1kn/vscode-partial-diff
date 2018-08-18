@@ -1,44 +1,38 @@
 import NormalisationRulePicker from '../../lib/normalisation-rule-picker';
 import * as assert from 'assert';
-import {mockMethods, when} from '../helpers';
-import * as vscode from 'vscode';
+import {mock, when} from '../helpers';
+import WindowComponent from '../../lib/adaptors/window';
 
 suite('NormalisationRulePicker', () => {
-    const vscWindow = mockMethods<typeof vscode.window>(['showQuickPick']);
+    const windowComponent = mock(WindowComponent);
     when(
-        vscWindow.showQuickPick(
+        windowComponent.showQuickPick(
             [
                 {label: 'RULE_NAME_1', picked: true, ruleIndex: 0, description: ''},
                 {label: 'RULE_NAME_2', picked: false, ruleIndex: 1, description: ''}
-            ],
-            // @ts-ignore
-            {canPickMany: true}
+            ]
         )
     )
         .thenResolve([{label: 'RULE_NAME_2', picked: true, ruleIndex: 1}]);
     when(
-        vscWindow.showQuickPick(
+        windowComponent.showQuickPick(
             [
                 {label: 'RULE_NAME_3', picked: false, ruleIndex: 0, description: ''},
                 {label: 'RULE_NAME_4', picked: true, ruleIndex: 1, description: ''}
-            ],
-            // @ts-ignore
-            {canPickMany: true}
+            ]
         )
     )
         .thenResolve();
     when(
-        vscWindow.showQuickPick(
+        windowComponent.showQuickPick(
             [
                 {label: '(no "name" set for this rule)', picked: true, ruleIndex: 0, description: ''}
-            ],
-            // @ts-ignore
-            {canPickMany: true}
+            ]
         )
     )
         .thenResolve([]);
 
-    const rulePicker = new NormalisationRulePicker(vscWindow);
+    const rulePicker = new NormalisationRulePicker(windowComponent);
 
     test('it returns the index of active rules that user chose', async () => {
         const activeRuleIndices = await rulePicker.show([

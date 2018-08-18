@@ -70,7 +70,7 @@ export default class CommandFactory {
     createToggleNormalisationRulesCommand() {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
-            new NormalisationRulePicker(this.vscode.window),
+            new NormalisationRulePicker(this.windowComponent),
             this.getMessageBar()
         );
     }
