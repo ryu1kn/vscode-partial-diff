@@ -3,7 +3,6 @@ import * as assert from 'assert';
 
 suite('TextResourceUtil', () => {
     const getCurrentDateFn = () => new Date('2016-06-15T11:43:00Z');
-
     const textResourceUtil = new TextResourceUtil(getCurrentDateFn);
 
     suite('#getUri', () => {

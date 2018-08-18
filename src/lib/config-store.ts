@@ -1,6 +1,5 @@
 import {EXTENSION_ID} from './const';
 import * as vscode from 'vscode';
-import {SavedNormalisationRule} from './entities/normalisation-rule';
 
 export default class ConfigStore {
     private readonly workspace: typeof vscode.workspace;
@@ -9,12 +8,8 @@ export default class ConfigStore {
         this.workspace = workspace;
     }
 
-    get preComparisonTextNormalizationRules() {
-        return this.get('preComparisonTextNormalizationRules') as SavedNormalisationRule[];
-    }
-
-    private get(configName: string) {
+    get<T>(configName: string): T {
         const extensionConfig = this.workspace.getConfiguration(EXTENSION_ID);
-        return extensionConfig.get(configName);
+        return extensionConfig.get(configName) as T;
     }
 }

@@ -15,6 +15,6 @@ suite('ConfigStore', () => {
         when(workspace.getConfiguration('partialDiff')).thenReturn(extensionConfig);
 
         const configStore = new ConfigStore(workspace);
-        assert.deepEqual(configStore.preComparisonTextNormalizationRules, 'RULES');
+        assert.deepEqual(configStore.get('preComparisonTextNormalizationRules'), 'RULES');
     });
 });

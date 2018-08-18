@@ -34,7 +34,8 @@ suite('ToggleNormalisationRulesCommand', () => {
     });
 
     function createCommand(rules: SavedNormalisationRule[]) {
-        const configStore = mockType<ConfigStore>({preComparisonTextNormalizationRules: rules});
+        const configStore = mock(ConfigStore);
+        when(configStore.get('preComparisonTextNormalizationRules')).thenReturn(rules);
         const normalisationRuleStore = new NormalisationRuleStore(configStore);
         const windowAdaptor = mock(WindowAdaptor);
         when(windowAdaptor.showQuickPick([

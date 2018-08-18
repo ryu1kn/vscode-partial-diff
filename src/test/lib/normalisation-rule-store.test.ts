@@ -1,21 +1,20 @@
 import NormalisationRuleStore from '../../lib/normalisation-rule-store';
 import * as assert from 'assert';
 import ConfigStore from '../../lib/config-store';
-import {mockType} from '../helpers';
+import {mock, when} from '../helpers';
 
 suite('NormalisationRuleStore', () => {
     let configStore: ConfigStore;
     let ruleStore: NormalisationRuleStore;
 
     setup(() => {
-        configStore = mockType<ConfigStore>({
-            preComparisonTextNormalizationRules: [
-                {name: 'RULE1', enableOnStart: true},
-                {name: 'RULE2', enableOnStart: true},
-                {name: 'RULE3', enableOnStart: false},
-                {name: 'RULE4'}
-            ]
-        });
+        configStore = mock(ConfigStore);
+        when(configStore.get('preComparisonTextNormalizationRules')).thenReturn([
+            {name: 'RULE1', enableOnStart: true},
+            {name: 'RULE2', enableOnStart: true},
+            {name: 'RULE3', enableOnStart: false},
+            {name: 'RULE4'}
+        ]);
         ruleStore = new NormalisationRuleStore(configStore);
     });
 
@@ -38,7 +37,7 @@ suite('NormalisationRuleStore', () => {
     test('it resets all rule states in the editor config', () => {
         const activeRuleIndices = [1];
         ruleStore.specifyActiveRules(activeRuleIndices);
-        configStore.preComparisonTextNormalizationRules.push({name: 'RULE_TMP'} as any);
+        configStore.get<any[]>('preComparisonTextNormalizationRules').push({name: 'RULE_TMP'} as any);
         assert.deepEqual(ruleStore.getAllRules(), [
             {name: 'RULE1', active: true},
             {name: 'RULE2', active: true},

@@ -3,89 +3,49 @@ import * as assert from 'assert';
 import {mockType} from '../helpers';
 import NormalisationRuleStore from '../../lib/normalisation-rule-store';
 import * as vscode from 'vscode';
+import SelectionInfoRegistry from '../../lib/selection-info-registry';
 
 suite('ContentProvider', () => {
-    test('it extracts text key from the given uri and uses it to retrieve text', () => {
-        const content = retrieveEditorContent({});
-        assert.deepEqual(content, 'TEXT_1');
+
+    const selectionInfoRegistry = new SelectionInfoRegistry();
+    selectionInfoRegistry.set('key1', {
+        text: 'TEXT_1',
+        fileName: 'FILE_1',
+        lineRanges: []
     });
 
-    test('it returns an empty string if a text is not yet selected', () => {
-        const selectionInfoRegistry = {
-            get: () => {
-            }
-        };
-        const content = retrieveEditorContent({selectionInfoRegistry});
-        assert.deepEqual(content, '');
-    });
-
-    test('it uses a user defined rule to preprocess text to compare', () => {
-        const activeRules = [{match: '_', replaceWith: ':'}];
-        const content = retrieveEditorContent({activeRules});
-        assert.deepEqual(content, 'TEXT:1');
-    });
-
-    test('it replaces all occurence of specified pattern', () => {
-        const activeRules = [{match: 'T', replaceWith: 't'}];
-        const content = retrieveEditorContent({activeRules});
-        assert.deepEqual(content, 'tEXt_1');
-    });
-
-    test('it can use part of matched text as replace text', () => {
-        const activeRules = [{match: '(TE)(XT)', replaceWith: '$2$1'}];
-        const content = retrieveEditorContent({activeRules});
-        assert.deepEqual(content, 'XTTE_1');
-    });
-
-    test('it can change matched text to lower case', () => {
-        const activeRules = [
-            {
-                match: 'TE',
-                replaceWith: {letterCase: 'lower'}
-            }
-        ];
-        const content = retrieveEditorContent({activeRules});
-        assert.deepEqual(content, 'teXT_1');
-    });
-
-    test('it can change all characters to upper case', () => {
-        const activeRules = [
-            {
-                match: 'Register',
-                replaceWith: {letterCase: 'upper'}
-            }
-        ];
-        const content = retrieveEditorContent({
-            activeRules,
-            registeredText: 'Registered Text'
+    suite('When normalisation rules are given', () => {
+        const normalisationRuleStore = mockType<NormalisationRuleStore>({
+            activeRules: [{match: '_', replaceWith: ':'}]
         });
-        assert.deepEqual(content, 'REGISTERed Text');
-    });
-
-    test('it applies all given rules to preprocess text', () => {
-        const activeRules = [
-            {match: '_', replaceWith: ':'},
-            {match: 'T', replaceWith: 't'}
-        ];
-        const content = retrieveEditorContent({activeRules});
-        assert.deepEqual(content, 'tEXt:1');
-    });
-
-    function retrieveEditorContent({
-                                       selectionInfoRegistry,
-                                       activeRules,
-                                       registeredText
-                                   }: any) {
-        const defaultSelectionInfoRegistry = {
-            get: (key: string) => ({text: registeredText || `TEXT_${key}`})
-        };
-        const normalisationRuleStore = mockType<NormalisationRuleStore>({activeRules: activeRules || []});
         const contentProvider = new ContentProvider(
-            selectionInfoRegistry || defaultSelectionInfoRegistry,
+            selectionInfoRegistry,
             normalisationRuleStore,
             () => new Date()
         );
-        const uri = mockType<vscode.Uri>({path: 'text/1'});
-        return contentProvider.provideTextDocumentContent(uri);
-    }
+
+        test('it extracts text key from the given uri and uses it to retrieve text', () => {
+            const uri = mockType<vscode.Uri>({path: 'text/key1'});
+            assert.deepEqual(contentProvider.provideTextDocumentContent(uri), 'TEXT:1');
+        });
+
+        test('it returns an empty string if a text is not yet selected', () => {
+            const uri = mockType<vscode.Uri>({path: 'text/keyNotExist'});
+            assert.deepEqual(contentProvider.provideTextDocumentContent(uri), '');
+        });
+    });
+
+    suite('When normalisation rules are NOT given', () => {
+        const normalisationRuleStore = mockType<NormalisationRuleStore>({activeRules: []});
+        const contentProvider = new ContentProvider(
+            selectionInfoRegistry,
+            normalisationRuleStore,
+            () => new Date()
+        );
+
+        test('it returns the registered text as is', () => {
+            const uri = mockType<vscode.Uri>({path: 'text/key1'});
+            assert.deepEqual(contentProvider.provideTextDocumentContent(uri), 'TEXT_1');
+        });
+    });
 });

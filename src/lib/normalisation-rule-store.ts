@@ -12,7 +12,7 @@ export default class NormalisationRuleStore {
 
     constructor(configStore: ConfigStore) {
         this.configStore = configStore;
-        this.setupRules(this.configStore.preComparisonTextNormalizationRules);
+        this.setupRules(this.configStore.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules'));
     }
 
     private setupRules(rules: SavedNormalisationRule[]) {
@@ -29,7 +29,7 @@ export default class NormalisationRuleStore {
     }
 
     getAllRules(): LoadedNormalisationRule[] {
-        const newBaseRules = this.configStore.preComparisonTextNormalizationRules;
+        const newBaseRules = this.configStore.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules');
         if (!isEqual(newBaseRules, this.baseRules)) {
             this.setupRules(newBaseRules);
         }

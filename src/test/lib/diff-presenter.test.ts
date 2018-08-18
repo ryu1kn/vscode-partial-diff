@@ -5,7 +5,6 @@ import NormalisationRuleStore from '../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../lib/adaptors/command';
 
 suite('DiffPresenter', () => {
-
     const selectionInfoRegistry = new SelectionInfoRegistry();
     selectionInfoRegistry.set('TEXT1', {text: 'SELECTED_TEXT1', fileName: 'FILE1', lineRanges: []});
     selectionInfoRegistry.set('TEXT2', {text: 'SELECTED_TEXT2', fileName: 'FILE2', lineRanges: []});
