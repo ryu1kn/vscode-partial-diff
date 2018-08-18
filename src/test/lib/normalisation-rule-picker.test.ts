@@ -1,12 +1,12 @@
 import NormalisationRulePicker from '../../lib/normalisation-rule-picker';
 import * as assert from 'assert';
 import {mock, when} from '../helpers';
-import WindowComponent from '../../lib/adaptors/window';
+import WindowAdaptor from '../../lib/adaptors/window';
 
 suite('NormalisationRulePicker', () => {
-    const windowComponent = mock(WindowComponent);
+    const windowAdaptor = mock(WindowAdaptor);
     when(
-        windowComponent.showQuickPick(
+        windowAdaptor.showQuickPick(
             [
                 {label: 'RULE_NAME_1', picked: true, ruleIndex: 0, description: ''},
                 {label: 'RULE_NAME_2', picked: false, ruleIndex: 1, description: ''}
@@ -15,7 +15,7 @@ suite('NormalisationRulePicker', () => {
     )
         .thenResolve([{label: 'RULE_NAME_2', picked: true, ruleIndex: 1}]);
     when(
-        windowComponent.showQuickPick(
+        windowAdaptor.showQuickPick(
             [
                 {label: 'RULE_NAME_3', picked: false, ruleIndex: 0, description: ''},
                 {label: 'RULE_NAME_4', picked: true, ruleIndex: 1, description: ''}
@@ -24,7 +24,7 @@ suite('NormalisationRulePicker', () => {
     )
         .thenResolve();
     when(
-        windowComponent.showQuickPick(
+        windowAdaptor.showQuickPick(
             [
                 {label: '(no "name" set for this rule)', picked: true, ruleIndex: 0, description: ''}
             ]
@@ -32,7 +32,7 @@ suite('NormalisationRulePicker', () => {
     )
         .thenResolve([]);
 
-    const rulePicker = new NormalisationRulePicker(windowComponent);
+    const rulePicker = new NormalisationRulePicker(windowAdaptor);
 
     test('it returns the index of active rules that user chose', async () => {
         const activeRuleIndices = await rulePicker.show([

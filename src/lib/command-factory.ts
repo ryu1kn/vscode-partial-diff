@@ -12,13 +12,13 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import * as clipboardy from 'clipboardy';
 import CommandAdaptor from './adaptors/command';
-import WindowComponent from './adaptors/window';
+import WindowAdaptor from './adaptors/window';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly commandAdaptor: CommandAdaptor;
-    private readonly windowComponent: WindowComponent;
+    private readonly windowAdaptor: WindowAdaptor;
     private readonly vscode: any;
     private readonly getCurrentDate: () => Date;
     private clipboard?: Clipboard;
@@ -28,13 +28,13 @@ export default class CommandFactory {
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
                 commandAdaptor: CommandAdaptor,
-                windowComponent: WindowComponent,
+                windowAdaptor: WindowAdaptor,
                 vscode: any,
                 getCurrentDate: () => Date) {
         this.normalisationRuleStore = normalisationRuleStore;
         this.selectionInfoRegistry = selectionInfoRegistry;
         this.commandAdaptor = commandAdaptor;
-        this.windowComponent = windowComponent;
+        this.windowAdaptor = windowAdaptor;
         this.getCurrentDate = getCurrentDate;
         this.vscode = vscode;
     }
@@ -63,14 +63,14 @@ export default class CommandFactory {
             this.getDiffPresenter(),
             this.selectionInfoRegistry,
             this.getMessageBar(),
-            this.windowComponent
+            this.windowAdaptor
         );
     }
 
     createToggleNormalisationRulesCommand() {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
-            new NormalisationRulePicker(this.windowComponent),
+            new NormalisationRulePicker(this.windowAdaptor),
             this.getMessageBar()
         );
     }

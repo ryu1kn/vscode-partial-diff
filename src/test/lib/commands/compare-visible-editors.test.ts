@@ -4,7 +4,7 @@ import DiffPresenter from '../../../lib/diff-presenter';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import MessageBar from '../../../lib/message-bar';
 import TextEditor from '../../../lib/adaptors/text-editor';
-import WindowComponent from '../../../lib/adaptors/window';
+import WindowAdaptor from '../../../lib/adaptors/window';
 
 suite('CompareVisibleEditorsCommand', () => {
     const editor1 = mockType<TextEditor>({
@@ -64,7 +64,7 @@ suite('CompareVisibleEditorsCommand', () => {
 
     function createCommand(visibleTextEditors: TextEditor[]) {
         const dependencies = {
-            windowComponent: mockType<WindowComponent>({visibleTextEditors}),
+            windowAdaptor: mockType<WindowAdaptor>({visibleTextEditors}),
             diffPresenter: mockMethods<DiffPresenter>(['takeDiff']),
             messageBar: mockMethods<MessageBar>(['showInfo']),
             selectionInfoRegistry: mockMethods<SelectionInfoRegistry>(['set'])
@@ -73,7 +73,7 @@ suite('CompareVisibleEditorsCommand', () => {
             dependencies.diffPresenter,
             dependencies.selectionInfoRegistry,
             dependencies.messageBar,
-            dependencies.windowComponent
+            dependencies.windowAdaptor
         );
         return {command, deps: dependencies} as any;
     }

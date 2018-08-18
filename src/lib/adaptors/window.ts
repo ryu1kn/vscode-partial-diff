@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import TextEditor from './text-editor';
 import {QuickPickItem} from 'vscode';
 
-export default class WindowComponent {
+export default class WindowAdaptor {
     private window: typeof vscode.window;
 
     constructor(window: typeof vscode.window) {

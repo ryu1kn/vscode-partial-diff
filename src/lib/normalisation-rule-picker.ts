@@ -1,6 +1,6 @@
 import {QuickPickItem} from 'vscode';
 import {LoadedNormalisationRule} from './entities/normalisation-rule';
-import WindowComponent from './adaptors/window';
+import WindowAdaptor from './adaptors/window';
 
 interface NormalisationRuleQuickPickItem extends QuickPickItem {
     picked: boolean;
@@ -8,15 +8,15 @@ interface NormalisationRuleQuickPickItem extends QuickPickItem {
 }
 
 export default class NormalisationRulePicker {
-    private windowComponent: WindowComponent;
+    private windowAdaptor: WindowAdaptor;
 
-    constructor(windowComponent: WindowComponent) {
-        this.windowComponent = windowComponent;
+    constructor(windowAdaptor: WindowAdaptor) {
+        this.windowAdaptor = windowAdaptor;
     }
 
     async show(rules: LoadedNormalisationRule[]) {
         const items = this.convertToQuickPickItems(rules);
-        const userSelection = await this.windowComponent.showQuickPick(items);
+        const userSelection = await this.windowAdaptor.showQuickPick(items);
         const activeItems = userSelection || items.filter(item => item.picked);
         return this.convertToRules(activeItems);
     }
