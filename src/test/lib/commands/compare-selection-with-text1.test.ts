@@ -4,15 +4,14 @@ import * as vscode from 'vscode';
 import CommandFactory from '../../../lib/command-factory';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
+import TextEditor from '../../../lib/adaptors/text-editor';
 
 suite('CompareSelectionWithText1', () => {
 
-    const editor = mockType<vscode.TextEditor>({
-        selections: [{start: {line: 5}, end: {line: 10}}],
-        document: {
-            getText: () => 'SELECTED_TEXT',
-            fileName: 'FILE2'
-        }
+    const editor = mockType<TextEditor>({
+        selectedText: 'SELECTED_TEXT',
+        fileName: 'FILE2',
+        selectedLineRanges: [{start: 5, end: 10}]
     });
 
     const selectionInfoRegistry = new SelectionInfoRegistry();

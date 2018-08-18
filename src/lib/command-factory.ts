@@ -38,16 +38,12 @@ export default class CommandFactory {
     }
 
     crateSaveText1Command() {
-        return new SaveText1Command(
-            this.getSelectionInfoBuilder(),
-            this.selectionInfoRegistry
-        );
+        return new SaveText1Command(this.selectionInfoRegistry);
     }
 
     createCompareSelectionWithText1Command() {
         return new CompareSelectionWithText1Command(
             this.getDiffPresenter(),
-            this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry
         );
     }
@@ -55,7 +51,6 @@ export default class CommandFactory {
     createCompareSelectionWithClipboardCommand() {
         return new CompareSelectionWithClipboardCommand(
             this.getDiffPresenter(),
-            this.getSelectionInfoBuilder(),
             this.selectionInfoRegistry,
             this.getClipboard()!
         );

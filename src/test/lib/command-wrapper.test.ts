@@ -1,20 +1,29 @@
 import {Command} from '../../lib/commands/command';
-import {contains, mockMethods, mockType, verify, when} from '../helpers';
+import {contains, mockMethods, mockType, verify} from '../helpers';
 import * as vscode from 'vscode';
 import CommandWrapper from '../../lib/command-wrapper';
 import {Logger} from '../../lib/logger';
 import * as assert from 'assert';
+import TextEditor from '../../lib/adaptors/text-editor';
 
 suite('CommandWrapper', () => {
 
-    const goodEditor = mockType<vscode.TextEditor>({name: 'good'});
-    const badSyncEditor = mockType<vscode.TextEditor>({name: 'bad - sync'});
-    const badAsyncEditor = mockType<vscode.TextEditor>({name: 'bad - async'});
+    class MockCommand implements Command {
+        async execute(editor: TextEditor) {
+            switch (editor.fileName) {
+                case 'good': return 'OK';
+                case 'bad - sync': throw new Error('Sync ERROR');
+                case 'bad - async': return Promise.reject(new Error('Async ERROR'));
+                default: return '';
+            }
+        }
+    }
 
-    const command = mockMethods<Command>(['execute']);
-    when(command.execute(goodEditor)).thenResolve('OK');
-    when(command.execute(badSyncEditor)).thenThrow(new Error('Sync ERROR'));
-    when(command.execute(badAsyncEditor)).thenReject(new Error('Async ERROR'));
+    const goodEditor = mockType<vscode.TextEditor>({document: {fileName: 'good'}});
+    const badSyncEditor = mockType<vscode.TextEditor>({document: {fileName: 'bad - sync'}});
+    const badAsyncEditor = mockType<vscode.TextEditor>({document: {fileName: 'bad - async'}});
+
+    const command = new MockCommand();
 
     let logger: Logger;
     let commandWrapper: CommandWrapper;

@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
+import TextEditor from '../adaptors/text-editor';
 
 export interface Command {
-    execute(editor?: vscode.TextEditor): Promise<void> | void;
+    execute(editor?: TextEditor): Promise<any> | any;
 }

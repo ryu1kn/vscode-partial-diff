@@ -181,7 +181,7 @@
     "compile": "tsc -p ./",
     "lint": "tslint -p .",
     "watch": "tsc -watch -p ./",
-    "prep": "yarn run lint && yarn test",
+    "prep": "yarn run compile && yarn run lint && yarn test",
     "test": "mocha --opts cli-test-mocha.opts",
     "test-mode": "mocha --opts cli-test-mocha.opts --watch",
     "vscode:prepublish": "yarn run compile",
