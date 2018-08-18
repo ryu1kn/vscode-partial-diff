@@ -25,13 +25,11 @@ export default class CompareSelectionWithClipboardCommand implements Command {
             fileName: 'Clipboard',
             lineRanges: []
         });
-
-        const textInfo = {
+        this.selectionInfoRegistry.set(TextKey.REGISTER2, {
             text: editor.selectedText,
             fileName: editor.fileName,
             lineRanges: editor.selectedLineRanges
-        };
-        this.selectionInfoRegistry.set(TextKey.REGISTER2, textInfo);
+        });
 
         await this.diffPresenter.takeDiff(TextKey.CLIPBOARD, TextKey.REGISTER2);
     }
