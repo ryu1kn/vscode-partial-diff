@@ -1,7 +1,8 @@
 import SelectText1Command from '../../../lib/commands/save-text-1';
-import {mock, mockType, verify, wrapVerify} from '../../helpers';
+import {mockType} from '../../helpers';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import TextEditor from '../../../lib/adaptors/text-editor';
+import * as assert from 'assert';
 
 suite('SelectText1Command', () => {
 
@@ -10,22 +11,16 @@ suite('SelectText1Command', () => {
         fileName: 'FILENAME',
         selectedLineRanges: 'SELECTED_RANGE'
     });
+    const selectionInfoRegistry = new SelectionInfoRegistry();
+    const command = new SelectText1Command(selectionInfoRegistry);
 
     test('it saves selected text', () => {
-        const selectionInfoRegistry = mock(SelectionInfoRegistry);
-        const command = new SelectText1Command(selectionInfoRegistry);
-
         command.execute(editor);
 
-        wrapVerify((c1, c2) => verify(selectionInfoRegistry.set(c1(), c2())), [
-            [
-                'reg1',
-                {
-                    text: 'SELECTED_TEXT',
-                    fileName: 'FILENAME',
-                    lineRanges: 'SELECTED_RANGE'
-                }
-            ]
-        ]);
+        assert.deepEqual(selectionInfoRegistry.get('reg1'), {
+            text: 'SELECTED_TEXT',
+            fileName: 'FILENAME',
+            lineRanges: 'SELECTED_RANGE'
+        });
     });
 });

@@ -1,9 +1,12 @@
-import CompareVisibleEditorsCommand from '../../../lib/commands/compare-visible-editors';
-import {mockMethods, mockType, verify} from '../../helpers';
-import DiffPresenter from '../../../lib/diff-presenter';
+import {mock, mockMethods, mockType, verify} from '../../helpers';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
+import CommandFactory from '../../../lib/command-factory';
+import CommandAdaptor from '../../../lib/adaptors/command';
+import Clipboard from '../../../lib/clipboard';
+import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
+import * as assert from 'assert';
 
 suite('CompareVisibleEditorsCommand', () => {
     const editor1 = mockType<TextEditor>({
@@ -23,55 +26,64 @@ suite('CompareVisibleEditorsCommand', () => {
         const {command, deps} = createCommand([editor1, editor2]);
         await command.execute();
 
-        verify(deps.selectionInfoRegistry.set('visible1', {
+        assert.deepEqual(deps.selectionInfoRegistry.get('visible1'), {
             text: 'SELECTED_TEXT_1',
             fileName: 'FILE1',
             lineRanges: [{start: 5, end: 10}]
-        }));
-        verify(deps.selectionInfoRegistry.set('visible2', {
+        });
+        assert.deepEqual(deps.selectionInfoRegistry.get('visible2'), {
             text: 'SELECTED_TEXT_2',
             fileName: 'FILE2',
             lineRanges: [{start: 15, end: 20}]
-        }));
-        verify(deps.diffPresenter.takeDiff('visible1', 'visible2'));
+        });
+        verify(deps.commandAdaptor.executeCommand(
+            'vscode.diff',
+            'partialdiff:text/visible1?_ts=1465990980000',
+            'partialdiff:text/visible2?_ts=1465990980000',
+            'FILE1 (ll.6-11) ↔ FILE2 (ll.16-21)'
+        ));
     });
 
     test('it keeps the visual order of the editors when presents a diff', async () => {
         const {command, deps} = createCommand([editor2, editor1]);
         await command.execute();
 
-        verify(deps.selectionInfoRegistry.set('visible1', {
+        assert.deepEqual(deps.selectionInfoRegistry.get('visible1'), {
             text: 'SELECTED_TEXT_1',
             fileName: 'FILE1',
             lineRanges: [{start: 5, end: 10}]
-        }));
-        verify(deps.selectionInfoRegistry.set('visible2', {
+        });
+        assert.deepEqual(deps.selectionInfoRegistry.get('visible2'), {
             text: 'SELECTED_TEXT_2',
             fileName: 'FILE2',
             lineRanges: [{start: 15, end: 20}]
-        }));
+        });
     });
 
     test('it tells you that it needs 2 visible editors', async () => {
         const {command, deps} = createCommand([editor1]);
         await command.execute();
 
-        verify(
-            deps.windowAdaptor.showInformationMessage('Please first open 2 documents to compare.')
-        );
+        verify(deps.windowAdaptor.showInformationMessage('Please first open 2 documents to compare.'));
     });
 
     function createCommand(visibleTextEditors: TextEditor[]) {
         const dependencies = {
             windowAdaptor: mockMethods<WindowAdaptor>(['showInformationMessage'], {visibleTextEditors}),
-            diffPresenter: mockMethods<DiffPresenter>(['takeDiff']),
-            selectionInfoRegistry: mockMethods<SelectionInfoRegistry>(['set'])
+            selectionInfoRegistry: new SelectionInfoRegistry(),
+            commandAdaptor: mock(CommandAdaptor)
         };
-        const command = new CompareVisibleEditorsCommand(
-            dependencies.diffPresenter,
+        const commandFactory = new CommandFactory(
             dependencies.selectionInfoRegistry,
-            dependencies.windowAdaptor
+            mock(NormalisationRuleStore),
+            dependencies.commandAdaptor,
+            dependencies.windowAdaptor,
+            mock(Clipboard),
+            () => new Date('2016-06-15T11:43:00Z')
         );
-        return {command, deps: dependencies} as any;
+        return {
+            command: commandFactory.createCompareVisibleEditorsCommand(),
+            deps: dependencies
+        };
     }
 });

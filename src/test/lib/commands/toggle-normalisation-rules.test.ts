@@ -13,20 +13,14 @@ suite('ToggleNormalisationRulesCommand', () => {
         const {command, deps} = createCommand({rules: [rules]});
         await command.execute();
 
-        verify(
-            deps.normalisationRuleStore.specifyActiveRules('ACTIVE_RULE_INDICES')
-        );
+        verify(deps.normalisationRuleStore.specifyActiveRules('ACTIVE_RULE_INDICES'));
     });
 
     test('it just shows message if no rules are defined', async () => {
         const {command, deps} = createCommand({rules: []});
         await command.execute();
 
-        verify(
-            deps.windowAdaptor.showInformationMessage(
-                'Please set `partialDiff.preComparisonTextNormalizationRules` first'
-            )
-        );
+        verify(deps.windowAdaptor.showInformationMessage('Please set `partialDiff.preComparisonTextNormalizationRules` first'));
     });
 
     function createCommand({rules}: {rules: LoadedNormalisationRule[]}) {
