@@ -17,4 +17,8 @@ export default class WindowAdaptor {
         // @ts-ignore
         return this.window.showQuickPick(items, {canPickMany: true});
     }
+
+    async showInformationMessage(message: string) {
+        return this.window.showInformationMessage(message);
+    }
 }

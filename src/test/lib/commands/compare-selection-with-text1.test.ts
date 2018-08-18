@@ -1,6 +1,5 @@
 import {mock, mockType, verify} from '../../helpers';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
-import * as vscode from 'vscode';
 import CommandFactory from '../../../lib/command-factory';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
@@ -22,14 +21,13 @@ suite('CompareSelectionWithText1', () => {
         lineRanges: [{start: 20, end: 25}]
     });
 
-    const fakeVscode = {window: mockType<typeof vscode.window>()};
     const windowAdaptor = mock(WindowAdaptor);
     const normalisationRuleStore = mock(NormalisationRuleStore);
 
     test('it saves selected text and takes a diff of 2 texts', async () => {
 
         const commandAdaptor = mock(CommandAdaptor);
-        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, windowAdaptor, fakeVscode, () => new Date('2016-06-15T11:43:00Z'));
+        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, windowAdaptor, () => new Date('2016-06-15T11:43:00Z'));
         const command = commandFactory.createCompareSelectionWithText1Command();
 
         await command.execute(editor);

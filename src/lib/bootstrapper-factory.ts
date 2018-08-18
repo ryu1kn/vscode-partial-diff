@@ -20,7 +20,6 @@ export default class BootstrapperFactory {
             normalisationRuleStore,
             commandAdaptor,
             windowAdaptor,
-            vscode,
             () => new Date()
         );
         const contentProvider = new ContentProvider(

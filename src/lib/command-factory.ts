@@ -19,7 +19,6 @@ export default class CommandFactory {
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly commandAdaptor: CommandAdaptor;
     private readonly windowAdaptor: WindowAdaptor;
-    private readonly vscode: any;
     private readonly getCurrentDate: () => Date;
     private clipboard?: Clipboard;
     private diffPresenter?: DiffPresenter;
@@ -29,14 +28,12 @@ export default class CommandFactory {
                 normalisationRuleStore: NormalisationRuleStore,
                 commandAdaptor: CommandAdaptor,
                 windowAdaptor: WindowAdaptor,
-                vscode: any,
                 getCurrentDate: () => Date) {
         this.normalisationRuleStore = normalisationRuleStore;
         this.selectionInfoRegistry = selectionInfoRegistry;
         this.commandAdaptor = commandAdaptor;
         this.windowAdaptor = windowAdaptor;
         this.getCurrentDate = getCurrentDate;
-        this.vscode = vscode;
     }
 
     crateSaveText1Command() {
@@ -105,6 +102,6 @@ export default class CommandFactory {
     }
 
     private createMessageBar() {
-        return new MessageBar(this.vscode.window);
+        return new MessageBar(this.windowAdaptor);
     }
 }

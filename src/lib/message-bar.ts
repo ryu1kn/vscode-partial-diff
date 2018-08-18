@@ -1,13 +1,13 @@
-import * as vscode from 'vscode';
+import WindowAdaptor from './adaptors/window';
 
 export default class MessageBar {
-    private vscWindow: typeof vscode.window;
+    private windowAdaptor: WindowAdaptor;
 
-    constructor(vscWindow: typeof vscode.window) {
-        this.vscWindow = vscWindow;
+    constructor(windowAdaptor: WindowAdaptor) {
+        this.windowAdaptor = windowAdaptor;
     }
 
     async showInfo(message: string) {
-        await this.vscWindow.showInformationMessage(message);
+        await this.windowAdaptor.showInformationMessage(message);
     }
 }
