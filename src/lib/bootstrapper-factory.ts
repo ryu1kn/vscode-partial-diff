@@ -7,19 +7,20 @@ import SelectionInfoRegistry from './selection-info-registry';
 import * as vscode from 'vscode';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
+import Clipboard from './clipboard';
+import * as clipboardy from 'clipboardy';
 
 export default class BootstrapperFactory {
     create() {
         const logger = console;
         const selectionInfoRegistry = new SelectionInfoRegistry();
         const normalisationRuleStore = this.createNormalisationRuleStore();
-        const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse);
-        const windowAdaptor = new WindowAdaptor(vscode.window);
         const commandFactory = new CommandFactory(
             selectionInfoRegistry,
             normalisationRuleStore,
-            commandAdaptor,
-            windowAdaptor,
+            new CommandAdaptor(vscode.commands, vscode.Uri.parse),
+            new WindowAdaptor(vscode.window),
+            new Clipboard(clipboardy, process.platform),
             () => new Date()
         );
         const contentProvider = new ContentProvider(

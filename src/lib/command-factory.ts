@@ -9,7 +9,6 @@ import NormalisationRulePicker from './normalisation-rule-picker';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
-import * as clipboardy from 'clipboardy';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
 
@@ -19,18 +18,20 @@ export default class CommandFactory {
     private readonly commandAdaptor: CommandAdaptor;
     private readonly windowAdaptor: WindowAdaptor;
     private readonly getCurrentDate: () => Date;
-    private clipboard?: Clipboard;
+    private readonly clipboard: Clipboard;
     private diffPresenter?: DiffPresenter;
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
                 commandAdaptor: CommandAdaptor,
                 windowAdaptor: WindowAdaptor,
+                clipboard: Clipboard,
                 getCurrentDate: () => Date) {
         this.normalisationRuleStore = normalisationRuleStore;
         this.selectionInfoRegistry = selectionInfoRegistry;
         this.commandAdaptor = commandAdaptor;
         this.windowAdaptor = windowAdaptor;
+        this.clipboard = clipboard;
         this.getCurrentDate = getCurrentDate;
     }
 
@@ -49,7 +50,7 @@ export default class CommandFactory {
         return new CompareSelectionWithClipboardCommand(
             this.getDiffPresenter(),
             this.selectionInfoRegistry,
-            this.getClipboard()!
+            this.clipboard
         );
     }
 
@@ -69,18 +70,9 @@ export default class CommandFactory {
         );
     }
 
-    private getClipboard() {
-        this.clipboard = this.clipboard || this.createClipboard();
-        return this.clipboard;
-    }
-
     private getDiffPresenter() {
         this.diffPresenter = this.diffPresenter || this.createDiffPresenter();
         return this.diffPresenter;
-    }
-
-    private createClipboard() {
-        return new Clipboard(clipboardy, process.platform);
     }
 
     private createDiffPresenter() {
