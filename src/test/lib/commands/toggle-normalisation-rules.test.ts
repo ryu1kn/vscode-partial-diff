@@ -1,45 +1,58 @@
-import ToggleNormalisationRulesCommand from '../../../lib/commands/toggle-normalisation-rules';
-import {mock, mockMethods, mockType, verify, when} from '../../helpers';
+import {mock, mockType, verify, when} from '../../helpers';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
-import NormalisationRulePicker from '../../../lib/normalisation-rule-picker';
-import {LoadedNormalisationRule} from '../../../lib/entities/normalisation-rule';
+import {SavedNormalisationRule} from '../../../lib/entities/normalisation-rule';
 import WindowAdaptor from '../../../lib/adaptors/window';
+import CommandFactory from '../../../lib/command-factory';
+import Clipboard from '../../../lib/clipboard';
+import SelectionInfoRegistry from '../../../lib/selection-info-registry';
+import ConfigStore from '../../../lib/config-store';
+import CommandAdaptor from '../../../lib/adaptors/command';
+import * as assert from 'assert';
 
 suite('ToggleNormalisationRulesCommand', () => {
 
-    const rules = mockType<LoadedNormalisationRule>();
+    suite('When there are multiple rules registered', () => {
+        const rule1 = mockType<SavedNormalisationRule>({name: 'RULE1'});
+        const rule2 = mockType<SavedNormalisationRule>({name: 'RULE2'});
+        const {command, deps} = createCommand([rule1, rule2]);
 
-    test('it updates the status of normalisation rules as user specified', async () => {
-        const {command, deps} = createCommand({rules: [rules]});
-        await command.execute();
+        test('it updates the status of normalisation rules as user specified', async () => {
+            await command.execute();
 
-        verify(deps.normalisationRuleStore.specifyActiveRules('ACTIVE_RULE_INDICES'));
+            assert.deepEqual(deps.normalisationRuleStore.activeRules, [{name: 'RULE2', active: true}]);
+        });
     });
 
-    test('it just shows message if no rules are defined', async () => {
-        const {command, deps} = createCommand({rules: []});
-        await command.execute();
+    suite('When there are no rules registered', () => {
+        const {command, deps} = createCommand([]);
 
-        verify(deps.windowAdaptor.showInformationMessage('Please set `partialDiff.preComparisonTextNormalizationRules` first'));
+        test('it just shows message if no rules are defined', async () => {
+            await command.execute();
+
+            verify(deps.windowAdaptor.showInformationMessage('Please set `partialDiff.preComparisonTextNormalizationRules` first'));
+        });
     });
 
-    function createCommand({rules}: {rules: LoadedNormalisationRule[]}) {
-        const normalisationRuleStore = mockMethods<NormalisationRuleStore>(['getAllRules', 'specifyActiveRules']);
-        when(normalisationRuleStore.getAllRules()).thenReturn(rules);
+    function createCommand(rules: SavedNormalisationRule[]) {
+        const configStore = mockType<ConfigStore>({preComparisonTextNormalizationRules: rules});
+        const normalisationRuleStore = new NormalisationRuleStore(configStore);
+        const windowAdaptor = mock(WindowAdaptor);
+        when(windowAdaptor.showQuickPick([
+            {label: 'RULE1', picked: true, ruleIndex: 0, description: ''},
+            {label: 'RULE2', picked: true, ruleIndex: 1, description: ''}
+        ])).thenResolve([{ruleIndex: 1}]);
 
-        const normalisationRulePicker = mockMethods<NormalisationRulePicker>(['show']);
-        when(normalisationRulePicker.show(rules)).thenResolve('ACTIVE_RULE_INDICES');
-
-        const deps = {
-            windowAdaptor: mock(WindowAdaptor),
-            normalisationRulePicker,
-            normalisationRuleStore
-        };
-        const command = new ToggleNormalisationRulesCommand(
-            deps.normalisationRuleStore,
-            deps.normalisationRulePicker,
-            deps.windowAdaptor
+        const commandFactory = new CommandFactory(
+            new SelectionInfoRegistry(),
+            normalisationRuleStore,
+            mock(CommandAdaptor),
+            windowAdaptor,
+            mock(Clipboard),
+            () => new Date('2016-06-15T11:43:00Z')
         );
-        return {command, deps} as any;
+        return {
+            command: commandFactory.createToggleNormalisationRulesCommand(),
+            deps: {windowAdaptor, normalisationRuleStore}
+        } as any;
     }
 });
