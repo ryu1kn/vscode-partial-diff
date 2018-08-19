@@ -1,6 +1,7 @@
 import {LineRange, SelectionInfo} from './entities/selection-info';
 
 export default class TextTitleBuilder {
+
     build(textInfo: SelectionInfo | null) {
         if (!textInfo) return 'N/A';
 
