@@ -11,10 +11,9 @@ export default class ContentProvider implements TextDocumentContentProvider {
     private readonly textProcessRuleApplier: TextProcessRuleApplier;
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
-                normalisationRuleStore: NormalisationRuleStore,
-                getCurrentDate: () => Date) {
+                normalisationRuleStore: NormalisationRuleStore) {
         this.selectionInfoRegistry = selectionInfoRegistry;
-        this.textResourceUtil = new TextResourceUtil(getCurrentDate);
+        this.textResourceUtil = new TextResourceUtil();
         this.textProcessRuleApplier = new TextProcessRuleApplier(normalisationRuleStore);
     }
 

@@ -1,13 +1,13 @@
-import TextResourceUtil from '../../lib/text-resource-util';
+import TextResourceUtil, {makeUriString} from '../../lib/text-resource-util';
 import * as assert from 'assert';
 
 suite('TextResourceUtil', () => {
-    const getCurrentDateFn = () => new Date('2016-06-15T11:43:00Z');
-    const textResourceUtil = new TextResourceUtil(getCurrentDateFn);
+    const date = new Date('2016-06-15T11:43:00Z');
+    const textResourceUtil = new TextResourceUtil();
 
-    suite('#getUri', () => {
+    suite('#makeUriString', () => {
         test('it converts a given text key into an uri', () => {
-            assert.deepEqual(textResourceUtil.getUri('reg1'), 'partialdiff:text/reg1?_ts=1465990980000');
+            assert.deepEqual(makeUriString('reg1', date), 'partialdiff:text/reg1?_ts=1465990980000');
         });
     });
 

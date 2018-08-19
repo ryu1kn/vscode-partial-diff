@@ -18,11 +18,7 @@ suite('ContentProvider', () => {
         const normalisationRuleStore = mockType<NormalisationRuleStore>({
             activeRules: [{match: '_', replaceWith: ':'}]
         });
-        const contentProvider = new ContentProvider(
-            selectionInfoRegistry,
-            normalisationRuleStore,
-            () => new Date()
-        );
+        const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
 
         test('it extracts text key from the given uri and uses it to retrieve text', () => {
             const uri = mockType<vscode.Uri>({path: 'text/key1'});
@@ -37,11 +33,7 @@ suite('ContentProvider', () => {
 
     suite('When normalisation rules are NOT given', () => {
         const normalisationRuleStore = mockType<NormalisationRuleStore>({activeRules: []});
-        const contentProvider = new ContentProvider(
-            selectionInfoRegistry,
-            normalisationRuleStore,
-            () => new Date()
-        );
+        const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
 
         test('it returns the registered text as is', () => {
             const uri = mockType<vscode.Uri>({path: 'text/key1'});

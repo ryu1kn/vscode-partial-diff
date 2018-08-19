@@ -23,11 +23,7 @@ export default class BootstrapperFactory {
             new Clipboard(clipboardy, process.platform),
             () => new Date()
         );
-        const contentProvider = new ContentProvider(
-            selectionInfoRegistry,
-            normalisationRuleStore,
-            () => new Date()
-        );
+        const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
         return new Bootstrapper(commandFactory, contentProvider, vscode, logger);
     }
 
