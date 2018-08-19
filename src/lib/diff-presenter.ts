@@ -1,6 +1,6 @@
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
-import {makeUriString} from './text-resource-util';
+import {makeUriString} from './utils/text-resource';
 import CommandAdaptor from './adaptors/command';
 import DiffTitleBuilder from './diff-title-builder';
 
