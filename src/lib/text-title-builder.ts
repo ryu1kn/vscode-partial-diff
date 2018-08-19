@@ -1,4 +1,4 @@
-import {LineRange, SelectionInfo} from './entities/selection-info';
+import {LineRange, SelectionInfo} from './types/selection-info';
 
 export default class TextTitleBuilder {
 

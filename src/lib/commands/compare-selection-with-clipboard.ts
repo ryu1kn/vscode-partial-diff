@@ -1,6 +1,6 @@
 import DiffPresenter from '../diff-presenter';
 import SelectionInfoRegistry from '../selection-info-registry';
-import Clipboard from '../clipboard';
+import Clipboard from '../adaptors/clipboard';
 import {TextKey} from '../const';
 import {Command} from './command';
 import TextEditor from '../adaptors/text-editor';

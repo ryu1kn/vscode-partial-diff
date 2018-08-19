@@ -1,13 +1,13 @@
 import Bootstrapper from './bootstrapper';
 import CommandFactory from './command-factory';
-import ConfigStore from './config-store';
+import ConfigStore from './adaptors/config-store';
 import ContentProvider from './content-provider';
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import * as vscode from 'vscode';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
-import Clipboard from './clipboard';
+import Clipboard from './adaptors/clipboard';
 import * as clipboardy from 'clipboardy';
 
 export default class BootstrapperFactory {

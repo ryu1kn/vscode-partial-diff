@@ -1,4 +1,4 @@
-import Clipboard from '../../lib/clipboard';
+import Clipboard from '../../../lib/adaptors/clipboard';
 import * as assert from 'assert';
 
 suite('Clipboard', () => {

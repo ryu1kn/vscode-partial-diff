@@ -1,7 +1,7 @@
 import TextTitleBuilder from '../../lib/text-title-builder';
 import * as assert from 'assert';
 import {mockType} from '../helpers';
-import {SelectionInfo} from '../../lib/entities/selection-info';
+import {SelectionInfo} from '../../lib/types/selection-info';
 
 suite('TextTitleBuilder', () => {
     const textTitleBuilder = new TextTitleBuilder();

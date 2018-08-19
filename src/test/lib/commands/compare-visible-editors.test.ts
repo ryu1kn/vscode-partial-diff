@@ -4,7 +4,7 @@ import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
 import CommandFactory from '../../../lib/command-factory';
 import CommandAdaptor from '../../../lib/adaptors/command';
-import Clipboard from '../../../lib/clipboard';
+import Clipboard from '../../../lib/adaptors/clipboard';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import * as assert from 'assert';
 

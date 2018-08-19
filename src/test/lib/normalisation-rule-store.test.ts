@@ -1,6 +1,6 @@
 import NormalisationRuleStore from '../../lib/normalisation-rule-store';
 import * as assert from 'assert';
-import ConfigStore from '../../lib/config-store';
+import ConfigStore from '../../lib/adaptors/config-store';
 import {mock, when} from '../helpers';
 
 suite('NormalisationRuleStore', () => {

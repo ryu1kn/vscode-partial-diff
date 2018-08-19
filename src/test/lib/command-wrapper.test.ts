@@ -2,7 +2,7 @@ import {Command} from '../../lib/commands/command';
 import {contains, mockMethods, mockType, verify} from '../helpers';
 import * as vscode from 'vscode';
 import CommandWrapper from '../../lib/command-wrapper';
-import {Logger} from '../../lib/logger';
+import {Logger} from '../../lib/types/logger';
 import * as assert from 'assert';
 import TextEditor from '../../lib/adaptors/text-editor';
 

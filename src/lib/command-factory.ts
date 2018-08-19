@@ -2,7 +2,7 @@ import SaveText1Command from './commands/save-text-1';
 import CompareSelectionWithText1Command from './commands/compare-selection-with-text1';
 import CompareSelectionWithClipboardCommand from './commands/compare-selection-with-clipboard';
 import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
-import Clipboard from './clipboard';
+import Clipboard from './adaptors/clipboard';
 import DiffPresenter from './diff-presenter';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';

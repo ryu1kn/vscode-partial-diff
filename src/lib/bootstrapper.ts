@@ -1,9 +1,9 @@
 import CommandFactory from './command-factory';
 import ContentProvider from './content-provider';
 import {EXTENSION_NAMESPACE, EXTENSION_SCHEME} from './const';
-import {ExecutionContextLike} from './entities/vscode';
+import {ExecutionContextLike} from './types/vscode';
 import CommandWrapper from './command-wrapper';
-import {Logger} from './logger';
+import {Logger} from './types/logger';
 import {Command} from './commands/command';
 
 type CommandType = 'TEXT_EDITOR' | 'GENERAL';

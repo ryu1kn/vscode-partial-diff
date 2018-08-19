@@ -1,5 +1,5 @@
-import ConfigStore from '../../lib/config-store';
-import {mockMethods, when} from '../helpers';
+import ConfigStore from '../../../lib/adaptors/config-store';
+import {mockMethods, when} from '../../helpers';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import {WorkspaceConfiguration} from 'vscode';

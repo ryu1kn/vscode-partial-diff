@@ -1,11 +1,11 @@
 import {mock, mockType, verify, when} from '../../helpers';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
-import {SavedNormalisationRule} from '../../../lib/entities/normalisation-rule';
+import {SavedNormalisationRule} from '../../../lib/types/normalisation-rule';
 import WindowAdaptor from '../../../lib/adaptors/window';
 import CommandFactory from '../../../lib/command-factory';
-import Clipboard from '../../../lib/clipboard';
+import Clipboard from '../../../lib/adaptors/clipboard';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
-import ConfigStore from '../../../lib/config-store';
+import ConfigStore from '../../../lib/adaptors/config-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import * as assert from 'assert';
 

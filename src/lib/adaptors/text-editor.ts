@@ -1,6 +1,6 @@
 import {Selection, TextEditor as VsTextEditor, ViewColumn} from 'vscode';
 import {basename} from 'path';
-import {LineRange} from '../entities/selection-info';
+import {LineRange} from '../types/selection-info';
 
 export default class TextEditor {
     private readonly vsEditor: VsTextEditor;

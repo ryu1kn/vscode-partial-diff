@@ -5,7 +5,7 @@ import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
-import Clipboard from '../../../lib/clipboard';
+import Clipboard from '../../../lib/adaptors/clipboard';
 import * as assert from 'assert';
 
 suite('CompareSelectionWithText1', () => {

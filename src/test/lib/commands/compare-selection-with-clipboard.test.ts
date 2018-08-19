@@ -1,6 +1,6 @@
 import {mock, mockType, verify, when} from '../../helpers';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
-import Clipboard from '../../../lib/clipboard';
+import Clipboard from '../../../lib/adaptors/clipboard';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import CommandFactory from '../../../lib/command-factory';
 import WindowAdaptor from '../../../lib/adaptors/window';

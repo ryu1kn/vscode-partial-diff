@@ -1,5 +1,5 @@
 import {ObjectMap} from './utils/collections';
-import {SelectionInfo} from './entities/selection-info';
+import {SelectionInfo} from './types/selection-info';
 
 export default class SelectionInfoRegistry {
     private readonly data: ObjectMap<SelectionInfo>;

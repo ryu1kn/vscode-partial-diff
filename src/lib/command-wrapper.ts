@@ -1,5 +1,5 @@
 import {Command} from './commands/command';
-import {Logger} from './logger';
+import {Logger} from './types/logger';
 import * as vscode from 'vscode';
 import TextEditor from './adaptors/text-editor';
 

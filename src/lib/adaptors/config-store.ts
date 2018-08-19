@@ -1,4 +1,4 @@
-import {EXTENSION_ID} from './const';
+import {EXTENSION_ID} from '../const';
 import * as vscode from 'vscode';
 
 export default class ConfigStore {

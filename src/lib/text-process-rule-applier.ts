@@ -1,5 +1,5 @@
 import NormalisationRuleStore from './normalisation-rule-store';
-import {LoadedNormalisationRule} from './entities/normalisation-rule';
+import {LoadedNormalisationRule} from './types/normalisation-rule';
 
 export default class TextProcessRuleApplier {
     private readonly normalisationRuleStore: NormalisationRuleStore;

@@ -1,7 +1,7 @@
 import DiffPresenter from '../diff-presenter';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
-import {SelectionInfo} from '../entities/selection-info';
+import {SelectionInfo} from '../types/selection-info';
 import {Command} from './command';
 import WindowAdaptor from '../adaptors/window';
 
