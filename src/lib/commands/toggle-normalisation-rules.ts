@@ -9,10 +9,9 @@ export default class ToggleNormalisationRulesCommand implements Command {
     private readonly normalisationRuleStore: NormalisationRuleStore;
 
     constructor(normalisationRuleStore: NormalisationRuleStore,
-                normalisationRulePicker: NormalisationRulePicker,
                 windowAdaptor: WindowAdaptor) {
         this.windowAdaptor = windowAdaptor;
-        this.normalisationRulePicker = normalisationRulePicker;
+        this.normalisationRulePicker = new NormalisationRulePicker(windowAdaptor);
         this.normalisationRuleStore = normalisationRuleStore;
     }
 

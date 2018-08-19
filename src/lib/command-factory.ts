@@ -4,7 +4,6 @@ import CompareSelectionWithClipboardCommand from './commands/compare-selection-w
 import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
 import Clipboard from './clipboard';
 import DiffPresenter from './diff-presenter';
-import NormalisationRulePicker from './normalisation-rule-picker';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
@@ -64,7 +63,6 @@ export default class CommandFactory {
     createToggleNormalisationRulesCommand() {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
-            new NormalisationRulePicker(this.windowAdaptor),
             this.windowAdaptor
         );
     }
