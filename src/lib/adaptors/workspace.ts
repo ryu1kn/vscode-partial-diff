@@ -1,7 +1,7 @@
 import {EXTENSION_ID} from '../const';
 import * as vscode from 'vscode';
 
-export default class ConfigStore {
+export default class WorkspaceAdaptor {
     private readonly workspace: typeof vscode.workspace;
 
     constructor(workspace: typeof vscode.workspace) {

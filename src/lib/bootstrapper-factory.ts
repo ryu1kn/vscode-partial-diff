@@ -1,6 +1,6 @@
 import Bootstrapper from './bootstrapper';
 import CommandFactory from './command-factory';
-import ConfigStore from './adaptors/config-store';
+import WorkspaceAdaptor from './adaptors/workspace';
 import ContentProvider from './content-provider';
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
@@ -28,6 +28,6 @@ export default class BootstrapperFactory {
     }
 
     private createNormalisationRuleStore() {
-        return new NormalisationRuleStore(new ConfigStore(vscode.workspace));
+        return new NormalisationRuleStore(new WorkspaceAdaptor(vscode.workspace));
     }
 }

@@ -1,18 +1,18 @@
-import ConfigStore from './adaptors/config-store';
+import WorkspaceAdaptor from './adaptors/workspace';
+import {LoadedNormalisationRule, SavedNormalisationRule} from './types/normalisation-rule';
 import isEqual = require('lodash.isequal');
 import omit = require('lodash.omit');
-import {LoadedNormalisationRule, SavedNormalisationRule} from './types/normalisation-rule';
 
 const clone = (value: any) => JSON.parse(JSON.stringify(value));
 
 export default class NormalisationRuleStore {
-    private readonly configStore: ConfigStore;
+    private readonly workspace: WorkspaceAdaptor;
     private baseRules?: SavedNormalisationRule[];
     private rules?: LoadedNormalisationRule[];
 
-    constructor(configStore: ConfigStore) {
-        this.configStore = configStore;
-        this.setupRules(this.configStore.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules'));
+    constructor(workspace: WorkspaceAdaptor) {
+        this.workspace = workspace;
+        this.setupRules(this.workspace.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules'));
     }
 
     private setupRules(rules: SavedNormalisationRule[]) {
@@ -29,7 +29,7 @@ export default class NormalisationRuleStore {
     }
 
     getAllRules(): LoadedNormalisationRule[] {
-        const newBaseRules = this.configStore.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules');
+        const newBaseRules = this.workspace.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules');
         if (!isEqual(newBaseRules, this.baseRules)) {
             this.setupRules(newBaseRules);
         }

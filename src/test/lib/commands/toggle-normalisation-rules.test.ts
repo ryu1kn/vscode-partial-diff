@@ -5,7 +5,7 @@ import WindowAdaptor from '../../../lib/adaptors/window';
 import CommandFactory from '../../../lib/command-factory';
 import Clipboard from '../../../lib/adaptors/clipboard';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
-import ConfigStore from '../../../lib/adaptors/config-store';
+import WorkspaceAdaptor from '../../../lib/adaptors/workspace';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import * as assert from 'assert';
 
@@ -34,9 +34,9 @@ suite('ToggleNormalisationRulesCommand', () => {
     });
 
     function createCommand(rules: SavedNormalisationRule[]) {
-        const configStore = mock(ConfigStore);
-        when(configStore.get('preComparisonTextNormalizationRules')).thenReturn(rules);
-        const normalisationRuleStore = new NormalisationRuleStore(configStore);
+        const workspace = mock(WorkspaceAdaptor);
+        when(workspace.get('preComparisonTextNormalizationRules')).thenReturn(rules);
+        const normalisationRuleStore = new NormalisationRuleStore(workspace);
         const windowAdaptor = mock(WindowAdaptor);
         when(windowAdaptor.showQuickPick([
             {label: 'RULE1', picked: true, ruleIndex: 0, description: ''},
