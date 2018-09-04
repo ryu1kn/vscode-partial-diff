@@ -5,28 +5,25 @@ import {ExecutionContextLike} from './types/vscode';
 import CommandWrapper from './command-wrapper';
 import {Logger} from './types/logger';
 import {Command} from './commands/command';
-
-type CommandType = 'TEXT_EDITOR' | 'GENERAL';
-
-interface CommandItem {
-    name: string;
-    type: CommandType;
-    command: CommandWrapper;
-}
+import WorkspaceAdaptor from './adaptors/workspace';
+import CommandAdaptor, {CommandItem} from './adaptors/command';
 
 export default class Bootstrapper {
     private readonly commandFactory: CommandFactory;
     private readonly contentProvider: ContentProvider;
-    private readonly vscode: any;
+    private readonly workspaceAdaptor: WorkspaceAdaptor;
+    private readonly commandAdaptor: CommandAdaptor;
     private readonly logger: Logger;
 
     constructor(commandFactory: CommandFactory,
                 contentProvider: ContentProvider,
-                vscode: any,
+                workspaceAdaptor: WorkspaceAdaptor,
+                commandAdaptor: CommandAdaptor,
                 logger: Logger) {
         this.commandFactory = commandFactory;
         this.contentProvider = contentProvider;
-        this.vscode = vscode;
+        this.workspaceAdaptor = workspaceAdaptor;
+        this.commandAdaptor = commandAdaptor;
         this.logger = logger;
     }
 
@@ -36,7 +33,7 @@ export default class Bootstrapper {
     }
 
     private registerProviders(context: ExecutionContextLike) {
-        const disposable = this.vscode.workspace.registerTextDocumentContentProvider(
+        const disposable = this.workspaceAdaptor.registerTextDocumentContentProvider(
             EXTENSION_SCHEME,
             this.contentProvider
         );
@@ -45,16 +42,9 @@ export default class Bootstrapper {
 
     private registerCommands(context: ExecutionContextLike) {
         this.commandList.forEach(cmd => {
-            const registerer = this.getCommandRegisterer(cmd.type);
-            const disposable = registerer(cmd.name, cmd.command.execute, cmd.command);
+            const disposable = this.commandAdaptor.registerCommand(cmd);
             context.subscriptions.push(disposable);
         });
-    }
-
-    private getCommandRegisterer(commandType: CommandType) {
-        return commandType === 'TEXT_EDITOR'
-            ? this.vscode.commands.registerTextEditorCommand
-            : this.vscode.commands.registerCommand;
     }
 
     private get commandList(): CommandItem[] {

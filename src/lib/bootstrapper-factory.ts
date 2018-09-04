@@ -14,20 +14,18 @@ export default class BootstrapperFactory {
     create() {
         const logger = console;
         const selectionInfoRegistry = new SelectionInfoRegistry();
-        const normalisationRuleStore = this.createNormalisationRuleStore();
+        const workspaceAdaptor = new WorkspaceAdaptor(vscode.workspace);
+        const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse);
+        const normalisationRuleStore = new NormalisationRuleStore(workspaceAdaptor);
         const commandFactory = new CommandFactory(
             selectionInfoRegistry,
             normalisationRuleStore,
-            new CommandAdaptor(vscode.commands, vscode.Uri.parse),
+            commandAdaptor,
             new WindowAdaptor(vscode.window),
             new Clipboard(clipboardy, process.platform),
             () => new Date()
         );
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
-        return new Bootstrapper(commandFactory, contentProvider, vscode, logger);
-    }
-
-    private createNormalisationRuleStore() {
-        return new NormalisationRuleStore(new WorkspaceAdaptor(vscode.workspace));
+        return new Bootstrapper(commandFactory, contentProvider, workspaceAdaptor, commandAdaptor, logger);
     }
 }
