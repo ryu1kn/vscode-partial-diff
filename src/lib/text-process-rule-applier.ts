@@ -8,19 +8,19 @@ export default class TextProcessRuleApplier {
         this.normalisationRuleStore = normalisationRuleStore;
     }
 
-    applyTo(text: string) {
+    applyTo(text: string): string {
         const rules = this.normalisationRuleStore.activeRules;
         return rules.length !== 0 ? this.applyRulesToText(rules, text) : text;
     }
 
-    private applyRulesToText(rules: LoadedNormalisationRule[], text: string) {
+    private applyRulesToText(rules: LoadedNormalisationRule[], text: string): string {
         return rules.reduce(
             (newText, rule) => this.applyRuleToText(rule, newText),
             text
         );
     }
 
-    private applyRuleToText(rule: LoadedNormalisationRule, text: string) {
+    private applyRuleToText(rule: LoadedNormalisationRule, text: string): string {
         const pattern = new RegExp(rule.match, 'g');
 
         if (typeof rule.replaceWith === 'string') {

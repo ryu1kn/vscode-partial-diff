@@ -9,7 +9,7 @@ export default class TextEditor {
         this.vsEditor = vsEditor;
     }
 
-    get fileName() {
+    get fileName(): string {
         return basename(this.vsEditor.document.fileName);
     }
 
@@ -17,12 +17,12 @@ export default class TextEditor {
         return this.vsEditor.viewColumn;
     }
 
-    get selectedText() {
+    get selectedText(): string {
         const validSelections = this.collectNonEmptySelections(this.vsEditor.selections);
         return this.extractText(validSelections);
     }
 
-    get selectedLineRanges() {
+    get selectedLineRanges(): LineRange[] {
         const validSelections = this.collectNonEmptySelections(this.vsEditor.selections);
         return this.extractLineRanges(validSelections);
     }
@@ -36,7 +36,7 @@ export default class TextEditor {
         });
     }
 
-    private extractText(selections: Selection[]) {
+    private extractText(selections: Selection[]): string {
         return selections.length === 0
             ? this.extractTextFromSelection()
             : selections.map(this.extractTextFromSelection).join('\n');

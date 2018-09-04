@@ -14,7 +14,7 @@ export default class NormalisationRulePicker {
         this.windowAdaptor = windowAdaptor;
     }
 
-    async show(rules: LoadedNormalisationRule[]) {
+    async show(rules: LoadedNormalisationRule[]): Promise<number[]> {
         const items = this.convertToQuickPickItems(rules);
         const userSelection = await this.windowAdaptor.showQuickPick(items);
         const activeItems = userSelection || items.filter(item => item.picked);

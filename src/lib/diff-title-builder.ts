@@ -19,7 +19,7 @@ export default class DiffTitleBuilder {
         this.textTitleBuilder = new TextTitleBuilder();
     }
 
-    build(textKey1: string, textKey2: string) {
+    build(textKey1: string, textKey2: string): string {
         const title1 = this.buildTextTitle(textKey1);
         const title2 = this.buildTextTitle(textKey2);
         const comparisonSymbol = this.normalisationRuleStore.hasActiveRules
@@ -28,7 +28,7 @@ export default class DiffTitleBuilder {
         return `${title1} ${comparisonSymbol} ${title2}`;
     }
 
-    private buildTextTitle(textKey: string) {
+    private buildTextTitle(textKey: string): string {
         const textInfo = this.selectionInfoRegistry.get(textKey);
         return this.textTitleBuilder.build(textInfo);
     }

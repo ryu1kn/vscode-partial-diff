@@ -15,7 +15,7 @@ export default class NormalisationRuleStore {
         this.setupRules(this.workspace.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules'));
     }
 
-    private setupRules(rules: SavedNormalisationRule[]) {
+    private setupRules(rules: SavedNormalisationRule[]): void {
         this.baseRules = clone(rules);
         this.rules = this.resetRuleStatus(this.baseRules!);
     }
@@ -44,7 +44,7 @@ export default class NormalisationRuleStore {
         return this.activeRules.length > 0;
     }
 
-    specifyActiveRules(ruleIndices: number[]) {
+    specifyActiveRules(ruleIndices: number[]): void {
         this.rules = this.rules!.map((rule, index) =>
             Object.assign({}, rule, {active: ruleIndices.includes(index)})
         );

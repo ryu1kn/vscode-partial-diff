@@ -9,6 +9,7 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
+import {Command} from './commands/command';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
@@ -33,18 +34,18 @@ export default class CommandFactory {
         this.getCurrentDate = getCurrentDate;
     }
 
-    crateSaveText1Command() {
+    crateSaveText1Command(): Command {
         return new SaveText1Command(this.selectionInfoRegistry);
     }
 
-    createCompareSelectionWithText1Command() {
+    createCompareSelectionWithText1Command(): Command {
         return new CompareSelectionWithText1Command(
             this.getDiffPresenter(),
             this.selectionInfoRegistry
         );
     }
 
-    createCompareSelectionWithClipboardCommand() {
+    createCompareSelectionWithClipboardCommand(): Command {
         return new CompareSelectionWithClipboardCommand(
             this.getDiffPresenter(),
             this.selectionInfoRegistry,
@@ -52,7 +53,7 @@ export default class CommandFactory {
         );
     }
 
-    createCompareVisibleEditorsCommand() {
+    createCompareVisibleEditorsCommand(): Command {
         return new CompareVisibleEditorsCommand(
             this.getDiffPresenter(),
             this.selectionInfoRegistry,
@@ -60,19 +61,19 @@ export default class CommandFactory {
         );
     }
 
-    createToggleNormalisationRulesCommand() {
+    createToggleNormalisationRulesCommand(): Command {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
             this.windowAdaptor
         );
     }
 
-    private getDiffPresenter() {
+    private getDiffPresenter(): DiffPresenter {
         this.diffPresenter = this.diffPresenter || this.createDiffPresenter();
         return this.diffPresenter;
     }
 
-    private createDiffPresenter() {
+    private createDiffPresenter(): DiffPresenter {
         return new DiffPresenter(
             this.selectionInfoRegistry,
             this.normalisationRuleStore,

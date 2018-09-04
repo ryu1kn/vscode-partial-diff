@@ -11,7 +11,7 @@ export default class CommandAdaptor {
         this.parseUri = parseUri;
     }
 
-    async executeCommand(name: string, uri1: string, uri2: string, title: string) {
+    async executeCommand(name: string, uri1: string, uri2: string, title: string): Promise<{}> {
         return this.commands.executeCommand(name, this.parseUri(uri1), this.parseUri(uri2), title);
     }
 }

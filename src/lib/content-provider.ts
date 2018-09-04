@@ -15,7 +15,7 @@ export default class ContentProvider implements TextDocumentContentProvider {
         this.textProcessRuleApplier = new TextProcessRuleApplier(normalisationRuleStore);
     }
 
-    provideTextDocumentContent(uri: vscode.Uri) {
+    provideTextDocumentContent(uri: vscode.Uri): string {
         const textKey = extractTextKey(uri);
         const registeredText = (
             this.selectionInfoRegistry.get(textKey) || {text: ''}
