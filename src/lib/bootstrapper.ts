@@ -2,9 +2,6 @@ import CommandFactory from './command-factory';
 import ContentProvider from './content-provider';
 import {EXTENSION_NAMESPACE, EXTENSION_SCHEME} from './const';
 import {ExecutionContextLike} from './types/vscode';
-import CommandWrapper from './command-wrapper';
-import {Logger} from './types/logger';
-import {Command} from './commands/command';
 import WorkspaceAdaptor from './adaptors/workspace';
 import CommandAdaptor, {CommandItem} from './adaptors/command';
 
@@ -13,18 +10,15 @@ export default class Bootstrapper {
     private readonly contentProvider: ContentProvider;
     private readonly workspaceAdaptor: WorkspaceAdaptor;
     private readonly commandAdaptor: CommandAdaptor;
-    private readonly logger: Logger;
 
     constructor(commandFactory: CommandFactory,
                 contentProvider: ContentProvider,
                 workspaceAdaptor: WorkspaceAdaptor,
-                commandAdaptor: CommandAdaptor,
-                logger: Logger) {
+                commandAdaptor: CommandAdaptor) {
         this.commandFactory = commandFactory;
         this.contentProvider = contentProvider;
         this.workspaceAdaptor = workspaceAdaptor;
         this.commandAdaptor = commandAdaptor;
-        this.logger = logger;
     }
 
     initiate(context: ExecutionContextLike) {
@@ -52,32 +46,28 @@ export default class Bootstrapper {
             {
                 name: `${EXTENSION_NAMESPACE}.diffVisibleEditors`,
                 type: 'GENERAL',
-                command: this.wrapCommand(this.commandFactory.createCompareVisibleEditorsCommand())
+                command: this.commandFactory.createCompareVisibleEditorsCommand()
             },
             {
                 name: `${EXTENSION_NAMESPACE}.markSection1`,
                 type: 'TEXT_EDITOR',
-                command: this.wrapCommand(this.commandFactory.crateSaveText1Command())
+                command: this.commandFactory.crateSaveText1Command()
             },
             {
                 name: `${EXTENSION_NAMESPACE}.markSection2AndTakeDiff`,
                 type: 'TEXT_EDITOR',
-                command: this.wrapCommand(this.commandFactory.createCompareSelectionWithText1Command())
+                command: this.commandFactory.createCompareSelectionWithText1Command()
             },
             {
                 name: `${EXTENSION_NAMESPACE}.diffSelectionWithClipboard`,
                 type: 'TEXT_EDITOR',
-                command: this.wrapCommand(this.commandFactory.createCompareSelectionWithClipboardCommand())
+                command: this.commandFactory.createCompareSelectionWithClipboardCommand()
             },
             {
                 name: `${EXTENSION_NAMESPACE}.togglePreComparisonTextNormalizationRules`,
                 type: 'GENERAL',
-                command: this.wrapCommand(this.commandFactory.createToggleNormalisationRulesCommand())
+                command: this.commandFactory.createToggleNormalisationRulesCommand()
             }
         ];
-    }
-
-    private wrapCommand(command: Command) {
-        return new CommandWrapper(command, this.logger);
     }
 }

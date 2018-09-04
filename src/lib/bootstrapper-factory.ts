@@ -15,7 +15,7 @@ export default class BootstrapperFactory {
         const logger = console;
         const selectionInfoRegistry = new SelectionInfoRegistry();
         const workspaceAdaptor = new WorkspaceAdaptor(vscode.workspace);
-        const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse);
+        const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse, logger);
         const normalisationRuleStore = new NormalisationRuleStore(workspaceAdaptor);
         const commandFactory = new CommandFactory(
             selectionInfoRegistry,
@@ -26,6 +26,6 @@ export default class BootstrapperFactory {
             () => new Date()
         );
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
-        return new Bootstrapper(commandFactory, contentProvider, workspaceAdaptor, commandAdaptor, logger);
+        return new Bootstrapper(commandFactory, contentProvider, workspaceAdaptor, commandAdaptor);
     }
 }
