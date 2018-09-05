@@ -9,13 +9,19 @@ import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
 import Clipboard from './adaptors/clipboard';
 import * as clipboardy from 'clipboardy';
+import {createTelemetryReporter, TelemetryReporter} from './telemetry-reporter';
+import VsTelemetryReporter from 'vscode-extension-telemetry';
 
 export default class BootstrapperFactory {
+    private workspaceAdaptor?: WorkspaceAdaptor;
+    private telemetryReporter?: TelemetryReporter;
+
     create() {
         const logger = console;
         const selectionInfoRegistry = new SelectionInfoRegistry();
-        const workspaceAdaptor = new WorkspaceAdaptor(vscode.workspace);
-        const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse, logger);
+        const workspaceAdaptor = this.getWorkspaceAdaptor();
+        const telemetryReporter = this.getTelemetryReporter();
+        const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse, telemetryReporter, logger);
         const normalisationRuleStore = new NormalisationRuleStore(workspaceAdaptor);
         const commandFactory = new CommandFactory(
             selectionInfoRegistry,
@@ -27,5 +33,28 @@ export default class BootstrapperFactory {
         );
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
         return new Bootstrapper(commandFactory, contentProvider, workspaceAdaptor, commandAdaptor);
+    }
+
+    private getWorkspaceAdaptor() {
+        this.workspaceAdaptor = this.workspaceAdaptor || new WorkspaceAdaptor(vscode.workspace);
+        return this.workspaceAdaptor;
+    }
+
+    getTelemetryReporter(): TelemetryReporter {
+        this.telemetryReporter = this.telemetryReporter || this.createTelemetryReporter();
+        return this.telemetryReporter;
+    }
+
+    private createTelemetryReporter(): TelemetryReporter {
+        const enableTelemetry = this.getWorkspaceAdaptor().get<boolean>('enableTelemetry');
+        const reporter = enableTelemetry ? this.createVsTelemetryReporter() : undefined;
+        return createTelemetryReporter(reporter);
+    }
+
+    private createVsTelemetryReporter(): VsTelemetryReporter {
+        const extensionId = 'ryu1kn.partial-diff';
+        const extensionVersion = '1.3.0';
+        const key = '99489808-a33c-4235-af6d-04f95a652ead';
+        return new VsTelemetryReporter(extensionId, extensionVersion, key);
     }
 }

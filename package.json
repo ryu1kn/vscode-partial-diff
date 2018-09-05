@@ -115,6 +115,11 @@
             ]
           },
           "default": []
+        },
+        "partialDiff.enableTelemetry": {
+          "description": "Enable usage data to be sent to the extension authour",
+          "type": "boolean",
+          "default": true
         }
       }
     },
@@ -178,6 +183,7 @@
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "coverage": "nyc yarn test",
+    "check": "yarn run compile && yarn run lint && yarn test",
     "compile": "tsc -p ./",
     "lint": "tslint -p .",
     "watch": "tsc -watch -p ./",
@@ -190,7 +196,8 @@
   "dependencies": {
     "clipboardy": "1.1.2",
     "lodash.isequal": "4.5.0",
-    "lodash.omit": "4.5.0"
+    "lodash.omit": "4.5.0",
+    "vscode-extension-telemetry": "0.0.18"
   },
   "devDependencies": {
     "@types/clipboardy": "^1.1.0",

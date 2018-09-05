@@ -5,6 +5,7 @@ import CommandWrapper from '../../lib/command-wrapper';
 import {Logger} from '../../lib/types/logger';
 import * as assert from 'assert';
 import TextEditor from '../../lib/adaptors/text-editor';
+import {TelemetryReporter} from '../../lib/telemetry-reporter';
 
 suite('CommandWrapper', () => {
 
@@ -27,10 +28,12 @@ suite('CommandWrapper', () => {
 
     let logger: Logger;
     let commandWrapper: CommandWrapper;
+    let telemetryReporter: TelemetryReporter;
 
     setup(() => {
         logger = mockMethods<Logger>(['error']);
-        commandWrapper = new CommandWrapper(command, logger);
+        telemetryReporter = mockMethods<TelemetryReporter>(['logCommandTrigger']);
+        commandWrapper = new CommandWrapper('COMMAND_NAME', command, telemetryReporter, logger);
     });
 
     test('it executes a command with the same editor it received', async () => {
@@ -47,4 +50,9 @@ suite('CommandWrapper', () => {
         verify(logger.error(contains('Async ERROR')));
     });
 
+    test('it reports command invocation', async () => {
+        await commandWrapper.execute(goodEditor);
+
+        verify(telemetryReporter.logCommandTrigger('COMMAND_NAME'));
+    });
 });
