@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 
 export interface TelemetryReporter extends vscode.Disposable {
     logCommandTrigger(commandName: string): void;
+    logCommandErrored(commandName: string): void;
 }
 
 export const createTelemetryReporter = (reporter?: VsTelemetryReporter) =>
@@ -19,6 +20,10 @@ class TelemetryReporterImpl implements TelemetryReporter {
         this.reporter.sendTelemetryEvent('commandTriggered', {commandName});
     }
 
+    logCommandErrored(commandName: string): void {
+        this.reporter.sendTelemetryEvent('commandErrored', {commandName});
+    }
+
     dispose(): void {
         this.reporter.dispose();
     }
@@ -26,6 +31,9 @@ class TelemetryReporterImpl implements TelemetryReporter {
 
 class NullTelemetryReporter implements TelemetryReporter {
     logCommandTrigger(_commandName: string): void {
+    }
+
+    logCommandErrored(_commandName: string): void {
     }
 
     dispose(): void {

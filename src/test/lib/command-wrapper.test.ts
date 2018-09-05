@@ -32,7 +32,7 @@ suite('CommandWrapper', () => {
 
     setup(() => {
         logger = mockMethods<Logger>(['error']);
-        telemetryReporter = mockMethods<TelemetryReporter>(['logCommandTrigger']);
+        telemetryReporter = mockMethods<TelemetryReporter>(['logCommandTrigger', 'logCommandErrored']);
         commandWrapper = new CommandWrapper('COMMAND_NAME', command, telemetryReporter, logger);
     });
 
@@ -43,11 +43,13 @@ suite('CommandWrapper', () => {
     test('it logs a synchronously thrown error', async () => {
         await commandWrapper.execute(badSyncEditor);
         verify(logger.error(contains('Sync ERROR')));
+        verify(telemetryReporter.logCommandErrored('COMMAND_NAME'));
     });
 
     test('it logs an asynchronously thrown error', async () => {
         await commandWrapper.execute(badAsyncEditor);
         verify(logger.error(contains('Async ERROR')));
+        verify(telemetryReporter.logCommandErrored('COMMAND_NAME'));
     });
 
     test('it reports command invocation', async () => {

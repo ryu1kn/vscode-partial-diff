@@ -27,6 +27,7 @@ export default class CommandWrapper {
     }
 
     private handleError(e: Error) {
+        this.telemetryReporter.logCommandErrored(this.name);
         this.logger.error(e.stack);
     }
 }
