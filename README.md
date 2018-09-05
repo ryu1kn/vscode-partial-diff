@@ -95,9 +95,16 @@
     ]
     ```
 
+* `partialDiff.enableTelemetry` (default: `true`)
+
+    Allow the extension usage data to be sent to the extension author.
+    Regardless of this flag, Partial Diff does **NOT** send usage data
+    if the editor's [`telemetry.enableTelemetry`](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting) is set to `false`.
+
 * `partialDiff.hideCommandsOnContextMenu` (default: `false`)
 
-    (DEPRECATED) Hide Partial Diff commands on the context menu. Please use `partialDiff.commandsOnContextMenu` instead.
+    (DEPRECATED) Hide Partial Diff commands on the context menu.
+    Please use `partialDiff.commandsOnContextMenu` instead.
 
 ## Keyboard Shortcuts
 
