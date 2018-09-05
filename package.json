@@ -24,6 +24,7 @@
     "vscode",
     "diff"
   ],
+  "telemetryKey": "99489808-a33c-4235-af6d-04f95a652ead",
   "activationEvents": [
     "onCommand:extension.partialDiff.markSection1",
     "onCommand:extension.partialDiff.markSection2AndTakeDiff",

@@ -10,7 +10,8 @@ import WindowAdaptor from './adaptors/window';
 import Clipboard from './adaptors/clipboard';
 import * as clipboardy from 'clipboardy';
 import {createTelemetryReporter, TelemetryReporter} from './telemetry-reporter';
-import VsTelemetryReporter from 'vscode-extension-telemetry';
+import {createTelemetryReporter as createVsTelemetryReporter} from './adaptors/telemetry-reporter';
+import {join} from 'path';
 
 export default class BootstrapperFactory {
     private workspaceAdaptor?: WorkspaceAdaptor;
@@ -47,14 +48,8 @@ export default class BootstrapperFactory {
 
     private createTelemetryReporter(): TelemetryReporter {
         const enableTelemetry = this.getWorkspaceAdaptor().get<boolean>('enableTelemetry');
-        const reporter = enableTelemetry ? this.createVsTelemetryReporter() : undefined;
+        const packageJsonPath = join(__dirname, '..', '..', 'package.json');
+        const reporter = enableTelemetry ? createVsTelemetryReporter(packageJsonPath) : undefined;
         return createTelemetryReporter(reporter);
-    }
-
-    private createVsTelemetryReporter(): VsTelemetryReporter {
-        const extensionId = 'ryu1kn.partial-diff';
-        const extensionVersion = '1.3.0';
-        const key = '99489808-a33c-4235-af6d-04f95a652ead';
-        return new VsTelemetryReporter(extensionId, extensionVersion, key);
     }
 }
