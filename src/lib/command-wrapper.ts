@@ -2,6 +2,7 @@ import {Command} from './commands/command';
 import {Logger} from './types/logger';
 import * as vscode from 'vscode';
 import TextEditor from './adaptors/text-editor';
+import {TelemetryReporterLocator} from './telemetry-reporter';
 import {TelemetryReporter} from './telemetry-reporter';
 
 export default class CommandWrapper {
@@ -10,10 +11,10 @@ export default class CommandWrapper {
     private readonly telemetryReporter: TelemetryReporter;
     private readonly logger: Logger;
 
-    constructor(name: string, command: Command, telemetryReporter: TelemetryReporter, logger: Logger) {
+    constructor(name: string, command: Command, logger: Logger) {
         this.name = name;
         this.command = command;
-        this.telemetryReporter = telemetryReporter;
+        this.telemetryReporter = TelemetryReporterLocator.getReporter();
         this.logger = logger;
     }
 

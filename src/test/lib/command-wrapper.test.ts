@@ -1,13 +1,16 @@
 import {Command} from '../../lib/commands/command';
-import {contains, mockMethods, mockType, verify} from '../helpers';
+import {contains, mock, mockMethods, mockType, verify} from '../helpers';
 import * as vscode from 'vscode';
 import CommandWrapper from '../../lib/command-wrapper';
 import {Logger} from '../../lib/types/logger';
 import * as assert from 'assert';
 import TextEditor from '../../lib/adaptors/text-editor';
-import {TelemetryReporter} from '../../lib/telemetry-reporter';
+import {NullVsTelemetryReporter, TelemetryReporterLocator, VsTelemetryReporterLike} from '../../lib/telemetry-reporter';
+import {join} from 'path';
 
 suite('CommandWrapper', () => {
+
+    const packageJsonPath = join(__dirname, '..', '..', '..', 'package.json');
 
     class MockCommand implements Command {
         async execute(editor: TextEditor) {
@@ -28,12 +31,13 @@ suite('CommandWrapper', () => {
 
     let logger: Logger;
     let commandWrapper: CommandWrapper;
-    let telemetryReporter: TelemetryReporter;
+    let telemetryReporter: VsTelemetryReporterLike;
 
     setup(() => {
         logger = mockMethods<Logger>(['error']);
-        telemetryReporter = mockMethods<TelemetryReporter>(['logCommandTrigger', 'logCommandErrored']);
-        commandWrapper = new CommandWrapper('COMMAND_NAME', command, telemetryReporter, logger);
+        telemetryReporter = mock(NullVsTelemetryReporter);
+        TelemetryReporterLocator.load(packageJsonPath, () => telemetryReporter);
+        commandWrapper = new CommandWrapper('COMMAND_NAME', command, logger);
     });
 
     test('it executes a command with the same editor it received', async () => {
@@ -43,18 +47,18 @@ suite('CommandWrapper', () => {
     test('it logs a synchronously thrown error', async () => {
         await commandWrapper.execute(badSyncEditor);
         verify(logger.error(contains('Sync ERROR')));
-        verify(telemetryReporter.logCommandErrored('COMMAND_NAME'));
+        verify(telemetryReporter.sendTelemetryEvent('commandErrored', {commandName: 'COMMAND_NAME'}));
     });
 
     test('it logs an asynchronously thrown error', async () => {
         await commandWrapper.execute(badAsyncEditor);
         verify(logger.error(contains('Async ERROR')));
-        verify(telemetryReporter.logCommandErrored('COMMAND_NAME'));
+        verify(telemetryReporter.sendTelemetryEvent('commandErrored', {commandName: 'COMMAND_NAME'}));
     });
 
     test('it reports command invocation', async () => {
         await commandWrapper.execute(goodEditor);
 
-        verify(telemetryReporter.logCommandTrigger('COMMAND_NAME'));
+        verify(telemetryReporter.sendTelemetryEvent('commandTriggered', {commandName: 'COMMAND_NAME'}));
     });
 });

@@ -1,18 +1,32 @@
-import VsTelemetryReporter from 'vscode-extension-telemetry';
-import * as vscode from 'vscode';
+import {ObjectMap} from './utils/collections';
+import * as fs from 'fs';
 
-export interface TelemetryReporter extends vscode.Disposable {
-    logCommandTrigger(commandName: string): void;
-    logCommandErrored(commandName: string): void;
+export interface VsTelemetryReporterLike {
+    sendTelemetryEvent(eventName: string, properties?: ObjectMap<string>, measurements?: ObjectMap<number>): void;
+    dispose(): Promise<any>;
 }
 
-export const createTelemetryReporter = (reporter?: VsTelemetryReporter) =>
-    reporter ? new TelemetryReporterImpl(reporter) : new NullTelemetryReporter();
+export class TelemetryReporterLocator {
+    private static telemetryReporter: TelemetryReporter;
 
-class TelemetryReporterImpl implements TelemetryReporter {
-    private readonly reporter: VsTelemetryReporter;
+    static load(packageConfPath: string, reporterCreator: VsTelemetryReporterCreator): void {
+        const packageInfo = JSON.parse(fs.readFileSync(packageConfPath, 'utf8'));
+        const extensionId = `${packageInfo.publisher}.${packageInfo.name}`;
+        const extensionVersion = packageInfo.version;
+        const key = packageInfo.telemetryKey;
+        const vsTelemetryReporter = reporterCreator(extensionId, extensionVersion, key);
+        TelemetryReporterLocator.telemetryReporter = new TelemetryReporter(vsTelemetryReporter);
+    }
 
-    constructor(reporter: VsTelemetryReporter) {
+    static getReporter(): TelemetryReporter {
+        return TelemetryReporterLocator.telemetryReporter;
+    }
+}
+
+export class TelemetryReporter {
+    private readonly reporter: VsTelemetryReporterLike;
+
+    constructor(reporter: VsTelemetryReporterLike) {
         this.reporter = reporter;
     }
 
@@ -24,18 +38,18 @@ class TelemetryReporterImpl implements TelemetryReporter {
         this.reporter.sendTelemetryEvent('commandErrored', {commandName});
     }
 
-    dispose(): void {
-        this.reporter.dispose();
+    dispose(): Promise<any> {
+        return this.reporter.dispose();
     }
 }
 
-class NullTelemetryReporter implements TelemetryReporter {
-    logCommandTrigger(_commandName: string): void {
+export type VsTelemetryReporterCreator = (extensionId: string, extensionVersion: string, telemetryKey: string) => VsTelemetryReporterLike;
+
+export class NullVsTelemetryReporter implements VsTelemetryReporterLike {
+    sendTelemetryEvent(_eventName: string, _properties?: ObjectMap<string>, _measurements?: ObjectMap<number>): void {
     }
 
-    logCommandErrored(_commandName: string): void {
-    }
-
-    dispose(): void {
+    dispose(): Promise<any> {
+        return Promise.resolve();
     }
 }
