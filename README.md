@@ -13,6 +13,15 @@
 
 ![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/public.gif)
 
+## Request Features or Report Bugs
+
+Feature requests and bug reports are very welcome: https://github.com/ryu1kn/vscode-partial-diff/issues
+
+A couple of requests from me when you raise an github issue.
+
+* **Requesting a feature:** Please try to provide the context of why you want that feature. Such as, in what situation the feature could help you and how, or how the lack of the feature is causing an inconvenience to you. I can't think of introducing it until I understand how it helps you 🙂
+* **Reporting a bug:** Please include environment information (OS name/version, the editor version). Also screenshots (or even videos) are often very very helpful!
+
 ## Commands
 
 * `Select Text for Compare` (**Command ID:** `extension.partialDiff.markSection1`)
@@ -124,10 +133,6 @@ You can quickly mark the selected text by adding the `partial-diff` commands to 
 ## Known problems
 
 * If you want to compare text in Output channels, you'll need to execute the commands via keyboard shortcuts or the context menu (i.e. right-click menu). Executing the commands through the command palette doesn't work. See [Cannot compare texts in Outputs channel if the mark text commands are executed from the command palette](https://github.com/ryu1kn/vscode-partial-diff/issues/3).
-
-## Request Features or Report Bugs
-
-* https://github.com/ryu1kn/vscode-partial-diff/issues
 
 ## Changelog
 
