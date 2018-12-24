@@ -1,6 +1,7 @@
-import {EXTENSION_ID} from '../const';
+import {EXTENSION_ID, EXTENSION_SCHEME} from '../const';
 import * as vscode from 'vscode';
 import ContentProvider from '../content-provider';
+import {FileSystemProvider} from 'vscode';
 
 export default class WorkspaceAdaptor {
     private readonly workspace: typeof vscode.workspace;
@@ -16,5 +17,9 @@ export default class WorkspaceAdaptor {
 
     registerTextDocumentContentProvider(EXTENSION_SCHEME: string, contentProvider: ContentProvider): vscode.Disposable {
         return this.workspace.registerTextDocumentContentProvider(EXTENSION_SCHEME, contentProvider);
+    }
+
+    registerFileSystemProvider(provider: FileSystemProvider): vscode.Disposable {
+        return this.workspace.registerFileSystemProvider(EXTENSION_SCHEME, provider);
     }
 }

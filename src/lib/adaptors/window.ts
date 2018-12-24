@@ -18,7 +18,7 @@ export default class WindowAdaptor {
         return this.window.showQuickPick(items, {canPickMany: true});
     }
 
-    async showInformationMessage(message: string): Promise<string> {
+    async showInformationMessage(message: string): Promise<string|undefined> {
         return this.window.showInformationMessage(message);
     }
 }

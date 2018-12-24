@@ -19,4 +19,8 @@ export default class SelectionInfoRegistry {
     get(key: string): SelectionInfo {
         return this.data[key];
     }
+
+    get keys(): string[] {
+        return Object.keys(this.data);
+    }
 }

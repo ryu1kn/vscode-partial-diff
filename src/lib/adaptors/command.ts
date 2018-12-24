@@ -3,8 +3,6 @@ import CommandWrapper from '../command-wrapper';
 import {Command} from '../commands/command';
 import {Logger} from '../types/logger';
 
-type UriParser = (uri: string) => vscode.Uri;
-
 export type CommandType = 'TEXT_EDITOR' | 'GENERAL';
 
 export interface CommandItem {
@@ -15,19 +13,16 @@ export interface CommandItem {
 
 export default class CommandAdaptor {
     private readonly commands: typeof vscode.commands;
-    private readonly parseUri: UriParser;
     private readonly logger: Logger;
 
     constructor(commands: typeof vscode.commands,
-                parseUri: UriParser,
                 logger: Logger) {
         this.commands = commands;
-        this.parseUri = parseUri;
         this.logger = logger;
     }
 
-    async executeCommand(name: string, uri1: string, uri2: string, title: string): Promise<{}> {
-        return this.commands.executeCommand(name, this.parseUri(uri1), this.parseUri(uri2), title);
+    async executeCommand(name: string, uri1: vscode.Uri, uri2: vscode.Uri, title: string): Promise<any> {
+        return this.commands.executeCommand(name, uri1, uri2, title);
     }
 
     registerCommand(cmd: CommandItem): vscode.Disposable {

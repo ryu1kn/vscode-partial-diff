@@ -14,7 +14,7 @@ export default class TextEditor {
     }
 
     get viewColumn(): ViewColumn {
-        return this.vsEditor.viewColumn;
+        return this.vsEditor.viewColumn!;
     }
 
     get selectedText(): string {

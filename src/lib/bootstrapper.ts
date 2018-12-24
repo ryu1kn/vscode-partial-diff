@@ -1,22 +1,22 @@
 import CommandFactory from './command-factory';
-import ContentProvider from './content-provider';
-import {EXTENSION_NAMESPACE, EXTENSION_SCHEME} from './const';
+import {EXTENSION_NAMESPACE} from './const';
 import {ExecutionContextLike} from './types/vscode';
 import WorkspaceAdaptor from './adaptors/workspace';
 import CommandAdaptor, {CommandItem} from './adaptors/command';
+import {PartialDiffFileSystem} from './file-system-provider';
 
 export default class Bootstrapper {
     private readonly commandFactory: CommandFactory;
-    private readonly contentProvider: ContentProvider;
+    private readonly fileSystem: PartialDiffFileSystem;
     private readonly workspaceAdaptor: WorkspaceAdaptor;
     private readonly commandAdaptor: CommandAdaptor;
 
     constructor(commandFactory: CommandFactory,
-                contentProvider: ContentProvider,
+                contentProvider: PartialDiffFileSystem,
                 workspaceAdaptor: WorkspaceAdaptor,
                 commandAdaptor: CommandAdaptor) {
         this.commandFactory = commandFactory;
-        this.contentProvider = contentProvider;
+        this.fileSystem = contentProvider;
         this.workspaceAdaptor = workspaceAdaptor;
         this.commandAdaptor = commandAdaptor;
     }
@@ -27,10 +27,7 @@ export default class Bootstrapper {
     }
 
     private registerProviders(context: ExecutionContextLike) {
-        const disposable = this.workspaceAdaptor.registerTextDocumentContentProvider(
-            EXTENSION_SCHEME,
-            this.contentProvider
-        );
+        const disposable = this.workspaceAdaptor.registerFileSystemProvider(this.fileSystem);
         context.subscriptions.push(disposable);
     }
 

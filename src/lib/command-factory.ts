@@ -10,28 +10,29 @@ import SelectionInfoRegistry from './selection-info-registry';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
 import {Command} from './commands/command';
+import {PartialDiffFileSystem} from './file-system-provider';
 
 export default class CommandFactory {
     private readonly normalisationRuleStore: NormalisationRuleStore;
     private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly commandAdaptor: CommandAdaptor;
     private readonly windowAdaptor: WindowAdaptor;
-    private readonly getCurrentDate: () => Date;
     private readonly clipboard: Clipboard;
     private diffPresenter?: DiffPresenter;
+    private readonly fileSystem: PartialDiffFileSystem;
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
+                fileSystem: PartialDiffFileSystem,
                 commandAdaptor: CommandAdaptor,
                 windowAdaptor: WindowAdaptor,
-                clipboard: Clipboard,
-                getCurrentDate: () => Date) {
+                clipboard: Clipboard) {
         this.normalisationRuleStore = normalisationRuleStore;
         this.selectionInfoRegistry = selectionInfoRegistry;
+        this.fileSystem = fileSystem;
         this.commandAdaptor = commandAdaptor;
         this.windowAdaptor = windowAdaptor;
         this.clipboard = clipboard;
-        this.getCurrentDate = getCurrentDate;
     }
 
     crateSaveText1Command(): Command {
@@ -64,7 +65,9 @@ export default class CommandFactory {
     createToggleNormalisationRulesCommand(): Command {
         return new ToggleNormalisationRulesCommand(
             this.normalisationRuleStore,
-            this.windowAdaptor
+            this.windowAdaptor,
+            this.selectionInfoRegistry,
+            this.fileSystem
         );
     }
 
@@ -77,8 +80,8 @@ export default class CommandFactory {
         return new DiffPresenter(
             this.selectionInfoRegistry,
             this.normalisationRuleStore,
-            this.commandAdaptor,
-            this.getCurrentDate
+            this.fileSystem,
+            this.commandAdaptor
         );
     }
 }

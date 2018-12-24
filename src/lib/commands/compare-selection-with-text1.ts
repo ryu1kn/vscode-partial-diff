@@ -22,7 +22,7 @@ export default class CompareSelectionWithText1Command implements Command {
         };
         this.selectionInfoRegistry.set(TextKey.REGISTER2, textInfo);
 
-        await 'HACK'; // HACK: To avoid TextEditor has been disposed error
+        await 'HACK'; // HACK: To avoid "TextEditor has been disposed" error
         await this.diffPresenter.takeDiff(TextKey.REGISTER1, TextKey.REGISTER2);
     }
 
