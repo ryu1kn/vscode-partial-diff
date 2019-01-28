@@ -26,7 +26,7 @@ export default class CommandAdaptor {
         this.logger = logger;
     }
 
-    async executeCommand(name: string, uri1: string, uri2: string, title: string): Promise<{}> {
+    async executeCommand(name: string, uri1: string, uri2: string, title: string): Promise<{} | undefined> {
         return this.commands.executeCommand(name, this.parseUri(uri1), this.parseUri(uri2), title);
     }
 
