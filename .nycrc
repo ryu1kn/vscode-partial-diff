@@ -3,9 +3,9 @@
     ".ts"
   ],
   "exclude": [
-    "out",
     "coverage",
-    "src/test"
+    "src/test",
+    "**/*.d.ts"
   ],
   "all": true,
   "reporter": [
