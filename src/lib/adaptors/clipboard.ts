@@ -1,23 +1,9 @@
-const PLATFORM_WINDOWS = 'win32';
-
-interface Clipboardy {
-    read: () => Promise<string>;
-}
+import * as vscode from 'vscode';
 
 export default class Clipboard {
-    constructor(private readonly clipboardy: Clipboardy,
-                private readonly platform: string) {}
+    constructor(private readonly vsClipboard: typeof vscode.env.clipboard) {}
 
     async read(): Promise<string> {
-        const text = await this.clipboardy.read();
-        return this.windows ? this.dropCRFromEOL(text) : text;
-    }
-
-    private get windows(): boolean {
-        return this.platform === PLATFORM_WINDOWS;
-    }
-
-    private dropCRFromEOL(text: string): string {
-        return text.split('\r\r\n').join('\r\n');
+        return this.vsClipboard.readText();
     }
 }
