@@ -3,11 +3,7 @@ import {basename} from 'path';
 import {LineRange} from '../types/selection-info';
 
 export default class TextEditor {
-    private readonly vsEditor: VsTextEditor;
-
-    constructor(vsEditor: VsTextEditor) {
-        this.vsEditor = vsEditor;
-    }
+    constructor(private readonly vsEditor: VsTextEditor) {}
 
     get fileName(): string {
         return basename(this.vsEditor.document.fileName);

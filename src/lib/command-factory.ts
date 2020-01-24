@@ -12,26 +12,14 @@ import WindowAdaptor from './adaptors/window';
 import {Command} from './commands/command';
 
 export default class CommandFactory {
-    private readonly normalisationRuleStore: NormalisationRuleStore;
-    private readonly selectionInfoRegistry: SelectionInfoRegistry;
-    private readonly commandAdaptor: CommandAdaptor;
-    private readonly windowAdaptor: WindowAdaptor;
-    private readonly getCurrentDate: () => Date;
-    private readonly clipboard: Clipboard;
     private diffPresenter?: DiffPresenter;
 
-    constructor(selectionInfoRegistry: SelectionInfoRegistry,
-                normalisationRuleStore: NormalisationRuleStore,
-                commandAdaptor: CommandAdaptor,
-                windowAdaptor: WindowAdaptor,
-                clipboard: Clipboard,
-                getCurrentDate: () => Date) {
-        this.normalisationRuleStore = normalisationRuleStore;
-        this.selectionInfoRegistry = selectionInfoRegistry;
-        this.commandAdaptor = commandAdaptor;
-        this.windowAdaptor = windowAdaptor;
-        this.clipboard = clipboard;
-        this.getCurrentDate = getCurrentDate;
+    constructor(private readonly selectionInfoRegistry: SelectionInfoRegistry,
+                private readonly normalisationRuleStore: NormalisationRuleStore,
+                private readonly commandAdaptor: CommandAdaptor,
+                private readonly windowAdaptor: WindowAdaptor,
+                private readonly clipboard: Clipboard,
+                private readonly getCurrentDate: () => Date) {
     }
 
     crateSaveText1Command(): Command {

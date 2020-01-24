@@ -3,11 +3,7 @@ import TextEditor from './text-editor';
 import {QuickPickItem, TextEditor as VsTextEditor} from 'vscode';
 
 export default class WindowAdaptor {
-    private window: typeof vscode.window;
-
-    constructor(window: typeof vscode.window) {
-        this.window = window;
-    }
+    constructor(private readonly window: typeof vscode.window) {}
 
     get visibleTextEditors(): TextEditor[] {
         return this.window.visibleTextEditors.map((editor: VsTextEditor) => new TextEditor(editor));

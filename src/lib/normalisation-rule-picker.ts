@@ -8,11 +8,7 @@ interface NormalisationRuleQuickPickItem extends QuickPickItem {
 }
 
 export default class NormalisationRulePicker {
-    private windowAdaptor: WindowAdaptor;
-
-    constructor(windowAdaptor: WindowAdaptor) {
-        this.windowAdaptor = windowAdaptor;
-    }
+    constructor(private readonly windowAdaptor: WindowAdaptor) {}
 
     async show(rules: LoadedNormalisationRule[]): Promise<number[]> {
         const items = this.convertToQuickPickItems(rules);

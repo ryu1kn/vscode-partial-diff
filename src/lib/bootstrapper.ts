@@ -6,20 +6,10 @@ import WorkspaceAdaptor from './adaptors/workspace';
 import CommandAdaptor, {CommandItem} from './adaptors/command';
 
 export default class Bootstrapper {
-    private readonly commandFactory: CommandFactory;
-    private readonly contentProvider: ContentProvider;
-    private readonly workspaceAdaptor: WorkspaceAdaptor;
-    private readonly commandAdaptor: CommandAdaptor;
-
-    constructor(commandFactory: CommandFactory,
-                contentProvider: ContentProvider,
-                workspaceAdaptor: WorkspaceAdaptor,
-                commandAdaptor: CommandAdaptor) {
-        this.commandFactory = commandFactory;
-        this.contentProvider = contentProvider;
-        this.workspaceAdaptor = workspaceAdaptor;
-        this.commandAdaptor = commandAdaptor;
-    }
+    constructor(private readonly commandFactory: CommandFactory,
+                private readonly contentProvider: ContentProvider,
+                private readonly workspaceAdaptor: WorkspaceAdaptor,
+                private readonly commandAdaptor: CommandAdaptor) {}
 
     initiate(context: ExecutionContextLike) {
         this.registerProviders(context);

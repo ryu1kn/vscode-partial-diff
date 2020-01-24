@@ -4,15 +4,11 @@ import {Command} from './command';
 import WindowAdaptor from '../adaptors/window';
 
 export default class ToggleNormalisationRulesCommand implements Command {
-    private readonly windowAdaptor: WindowAdaptor;
     private readonly normalisationRulePicker: NormalisationRulePicker;
-    private readonly normalisationRuleStore: NormalisationRuleStore;
 
-    constructor(normalisationRuleStore: NormalisationRuleStore,
-                windowAdaptor: WindowAdaptor) {
-        this.windowAdaptor = windowAdaptor;
+    constructor(private readonly normalisationRuleStore: NormalisationRuleStore,
+                private readonly windowAdaptor: WindowAdaptor) {
         this.normalisationRulePicker = new NormalisationRulePicker(windowAdaptor);
-        this.normalisationRuleStore = normalisationRuleStore;
     }
 
     async execute() {

@@ -6,10 +6,9 @@ import * as vscode from 'vscode';
 import {TextDocumentContentProvider} from 'vscode';
 
 export default class ContentProvider implements TextDocumentContentProvider {
-    private readonly selectionInfoRegistry: SelectionInfoRegistry;
     private readonly textProcessRuleApplier: TextProcessRuleApplier;
 
-    constructor(selectionInfoRegistry: SelectionInfoRegistry,
+    constructor(private readonly selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore) {
         this.selectionInfoRegistry = selectionInfoRegistry;
         this.textProcessRuleApplier = new TextProcessRuleApplier(normalisationRuleStore);

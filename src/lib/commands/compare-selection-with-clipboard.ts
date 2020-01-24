@@ -6,17 +6,9 @@ import {Command} from './command';
 import TextEditor from '../adaptors/text-editor';
 
 export default class CompareSelectionWithClipboardCommand implements Command {
-    private readonly diffPresenter: DiffPresenter;
-    private readonly selectionInfoRegistry: SelectionInfoRegistry;
-    private readonly clipboard: Clipboard;
-
-    constructor(diffPresenter: DiffPresenter,
-                selectionInfoRegistry: SelectionInfoRegistry,
-                clipboard: Clipboard) {
-        this.diffPresenter = diffPresenter;
-        this.selectionInfoRegistry = selectionInfoRegistry;
-        this.clipboard = clipboard;
-    }
+    constructor(private readonly diffPresenter: DiffPresenter,
+                private readonly selectionInfoRegistry: SelectionInfoRegistry,
+                private readonly clipboard: Clipboard) {}
 
     async execute(editor: TextEditor) {
         const text = await this.clipboard.read();

@@ -6,17 +6,9 @@ import {Command} from './command';
 import WindowAdaptor from '../adaptors/window';
 
 export default class CompareVisibleEditorsCommand implements Command {
-    private readonly windowAdaptor: WindowAdaptor;
-    private readonly diffPresenter: DiffPresenter;
-    private readonly selectionInfoRegistry: SelectionInfoRegistry;
-
-    constructor(diffPresenter: DiffPresenter,
-                selectionInfoRegistry: SelectionInfoRegistry,
-                windowAdaptor: WindowAdaptor) {
-        this.windowAdaptor = windowAdaptor;
-        this.diffPresenter = diffPresenter;
-        this.selectionInfoRegistry = selectionInfoRegistry;
-    }
+    constructor(private readonly diffPresenter: DiffPresenter,
+                private readonly selectionInfoRegistry: SelectionInfoRegistry,
+                private readonly windowAdaptor: WindowAdaptor) {}
 
     async execute() {
         const editors = this.windowAdaptor.visibleTextEditors;

@@ -5,13 +5,8 @@ interface Clipboardy {
 }
 
 export default class Clipboard {
-    private readonly clipboardy: Clipboardy;
-    private readonly platform: string;
-
-    constructor(clipboardy: Clipboardy, platform: string) {
-        this.clipboardy = clipboardy;
-        this.platform = platform;
-    }
+    constructor(private readonly clipboardy: Clipboardy,
+                private readonly platform: string) {}
 
     async read(): Promise<string> {
         const text = await this.clipboardy.read();

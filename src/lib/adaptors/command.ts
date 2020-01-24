@@ -14,17 +14,9 @@ export interface CommandItem {
 }
 
 export default class CommandAdaptor {
-    private readonly commands: typeof vscode.commands;
-    private readonly parseUri: UriParser;
-    private readonly logger: Logger;
-
-    constructor(commands: typeof vscode.commands,
-                parseUri: UriParser,
-                logger: Logger) {
-        this.commands = commands;
-        this.parseUri = parseUri;
-        this.logger = logger;
-    }
+    constructor(private readonly commands: typeof vscode.commands,
+                private readonly parseUri: UriParser,
+                private readonly logger: Logger) {}
 
     async executeCommand(name: string, uri1: string, uri2: string, title: string): Promise<{} | undefined> {
         return this.commands.executeCommand(name, this.parseUri(uri1), this.parseUri(uri2), title);

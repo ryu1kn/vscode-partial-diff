@@ -2,11 +2,7 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import {LoadedNormalisationRule} from './types/normalisation-rule';
 
 export default class TextProcessRuleApplier {
-    private readonly normalisationRuleStore: NormalisationRuleStore;
-
-    constructor(normalisationRuleStore: NormalisationRuleStore) {
-        this.normalisationRuleStore = normalisationRuleStore;
-    }
+    constructor(private readonly normalisationRuleStore: NormalisationRuleStore) {}
 
     applyTo(text: string): string {
         const rules = this.normalisationRuleStore.activeRules;

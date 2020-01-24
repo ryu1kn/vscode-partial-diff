@@ -8,14 +8,10 @@ const DiffModeSymbols = {
 };
 
 export default class DiffTitleBuilder {
-    private readonly normalisationRuleStore: NormalisationRuleStore;
-    private selectionInfoRegistry: SelectionInfoRegistry;
     private textTitleBuilder: TextTitleBuilder;
 
-    constructor(normalisationRuleStore: NormalisationRuleStore,
-                selectionInfoRegistry: SelectionInfoRegistry) {
-        this.normalisationRuleStore = normalisationRuleStore;
-        this.selectionInfoRegistry = selectionInfoRegistry;
+    constructor(private readonly normalisationRuleStore: NormalisationRuleStore,
+                private readonly selectionInfoRegistry: SelectionInfoRegistry) {
         this.textTitleBuilder = new TextTitleBuilder();
     }
 

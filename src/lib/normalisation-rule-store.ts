@@ -6,12 +6,10 @@ import omit = require('lodash.omit');
 const clone = (value: any) => JSON.parse(JSON.stringify(value));
 
 export default class NormalisationRuleStore {
-    private readonly workspace: WorkspaceAdaptor;
     private baseRules?: SavedNormalisationRule[];
     private rules?: LoadedNormalisationRule[];
 
-    constructor(workspace: WorkspaceAdaptor) {
-        this.workspace = workspace;
+    constructor(private readonly workspace: WorkspaceAdaptor) {
         this.setupRules(this.workspace.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules'));
     }
 

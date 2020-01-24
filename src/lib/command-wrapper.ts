@@ -6,12 +6,11 @@ import {TelemetryReporterLocator} from './telemetry-reporter';
 import {TelemetryReporter} from './telemetry-reporter';
 
 export default class CommandWrapper {
-    private readonly name: string;
-    private readonly command: Command;
     private readonly telemetryReporter: TelemetryReporter;
-    private readonly logger: Logger;
 
-    constructor(name: string, command: Command, logger: Logger) {
+    constructor(private readonly name: string,
+                private readonly command: Command,
+                private readonly logger: Logger) {
         this.name = name;
         this.command = command;
         this.telemetryReporter = TelemetryReporterLocator.getReporter();

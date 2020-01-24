@@ -3,11 +3,7 @@ import * as vscode from 'vscode';
 import ContentProvider from '../content-provider';
 
 export default class WorkspaceAdaptor {
-    private readonly workspace: typeof vscode.workspace;
-
-    constructor(workspace: typeof vscode.workspace) {
-        this.workspace = workspace;
-    }
+    constructor(private readonly workspace: typeof vscode.workspace) {}
 
     get<T>(configName: string): T {
         const extensionConfig = this.workspace.getConfiguration(EXTENSION_ID);

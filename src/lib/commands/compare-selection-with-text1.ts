@@ -5,14 +5,8 @@ import {Command} from './command';
 import TextEditor from '../adaptors/text-editor';
 
 export default class CompareSelectionWithText1Command implements Command {
-    private readonly diffPresenter: DiffPresenter;
-    private readonly selectionInfoRegistry: SelectionInfoRegistry;
-
-    constructor(diffPresenter: DiffPresenter,
-                selectionInfoRegistry: SelectionInfoRegistry) {
-        this.diffPresenter = diffPresenter;
-        this.selectionInfoRegistry = selectionInfoRegistry;
-    }
+    constructor(private readonly diffPresenter: DiffPresenter,
+                private readonly selectionInfoRegistry: SelectionInfoRegistry) {}
 
     async execute(editor: TextEditor) {
         const textInfo = {

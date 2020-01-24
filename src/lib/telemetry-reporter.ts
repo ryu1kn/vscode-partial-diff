@@ -24,11 +24,7 @@ export class TelemetryReporterLocator {
 }
 
 export class TelemetryReporter {
-    private readonly reporter: VsTelemetryReporterLike;
-
-    constructor(reporter: VsTelemetryReporterLike) {
-        this.reporter = reporter;
-    }
+    constructor(private readonly reporter: VsTelemetryReporterLike) {}
 
     logCommandTrigger(commandName: string): void {
         this.reporter.sendTelemetryEvent('commandTriggered', {commandName});

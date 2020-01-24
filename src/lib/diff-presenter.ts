@@ -5,14 +5,12 @@ import CommandAdaptor from './adaptors/command';
 import DiffTitleBuilder from './diff-title-builder';
 
 export default class DiffPresenter {
-    private readonly getCurrentDate: () => Date;
     private readonly diffTitleBuilder: DiffTitleBuilder;
-    private readonly commandAdaptor: CommandAdaptor;
 
     constructor(selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
-                commandAdaptor: CommandAdaptor,
-                getCurrentDate: () => Date) {
+                private readonly commandAdaptor: CommandAdaptor,
+                private readonly getCurrentDate: () => Date) {
         this.getCurrentDate = getCurrentDate;
         this.diffTitleBuilder = new DiffTitleBuilder(normalisationRuleStore, selectionInfoRegistry);
         this.commandAdaptor = commandAdaptor;
