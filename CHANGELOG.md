@@ -5,6 +5,11 @@ All notable changes to "Partial Diff" extension will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2020-01-25
+### Fixed
+- Fix the problem that **Compare Text with Clipboard** was not working in a [Remote SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) session. [#42](https://github.com/ryu1kn/vscode-partial-diff/issues/42)
+- Fix the problem that the extension compares the second text to itself on its first invocation. [#43](https://github.com/ryu1kn/vscode-partial-diff/issues/43)
+
 ## [1.4.0] - 2018-09-05
 ### Added
 - Usage data collecting capability, together with the configuration (`partialDiff.enableTelemetry`) which stops Partial Diff to collect usage data.
