@@ -19,7 +19,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
 
     test('it compares selected text with clipboard text', async () => {
         const clipboard = mock(Clipboard);
-        when(clipboard.read()).thenResolve('CLIPBOARD_TEXT');
+        when(clipboard.readText()).thenResolve('CLIPBOARD_TEXT');
 
         const commandAdaptor = mock(CommandAdaptor);
         const windowAdaptor = mock(WindowAdaptor);

@@ -11,7 +11,7 @@ export default class CompareSelectionWithClipboardCommand implements Command {
                 private readonly clipboard: Clipboard) {}
 
     async execute(editor: TextEditor) {
-        const text = await this.clipboard.read();
+        const text = await this.clipboard.readText();
         this.selectionInfoRegistry.set(TextKey.CLIPBOARD, {
             text,
             fileName: 'Clipboard',
