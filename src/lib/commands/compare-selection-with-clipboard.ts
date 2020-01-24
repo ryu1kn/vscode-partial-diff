@@ -1,6 +1,6 @@
 import DiffPresenter from '../diff-presenter';
 import SelectionInfoRegistry from '../selection-info-registry';
-import Clipboard from '../adaptors/clipboard';
+import * as vscode from 'vscode';
 import {TextKey} from '../const';
 import {Command} from './command';
 import TextEditor from '../adaptors/text-editor';
@@ -8,7 +8,7 @@ import TextEditor from '../adaptors/text-editor';
 export default class CompareSelectionWithClipboardCommand implements Command {
     constructor(private readonly diffPresenter: DiffPresenter,
                 private readonly selectionInfoRegistry: SelectionInfoRegistry,
-                private readonly clipboard: Clipboard) {}
+                private readonly clipboard: typeof vscode.env.clipboard) {}
 
     async execute(editor: TextEditor) {
         const text = await this.clipboard.readText();

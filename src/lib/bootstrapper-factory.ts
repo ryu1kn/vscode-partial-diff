@@ -7,7 +7,6 @@ import SelectionInfoRegistry from './selection-info-registry';
 import * as vscode from 'vscode';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
-import Clipboard from './adaptors/clipboard';
 import {NullVsTelemetryReporter, VsTelemetryReporterCreator} from './telemetry-reporter';
 import VsTelemetryReporter from 'vscode-extension-telemetry';
 
@@ -25,7 +24,7 @@ export default class BootstrapperFactory {
             normalisationRuleStore,
             commandAdaptor,
             new WindowAdaptor(vscode.window),
-            new Clipboard(vscode.env.clipboard),
+            vscode.env.clipboard,
             () => new Date()
         );
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);

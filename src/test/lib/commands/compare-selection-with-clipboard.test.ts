@@ -1,12 +1,12 @@
-import {mock, mockType, verify, when} from '../../helpers';
+import {mock, mockType, verify, when, mockMethods} from '../../helpers';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
-import Clipboard from '../../../lib/adaptors/clipboard';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import CommandFactory from '../../../lib/command-factory';
 import WindowAdaptor from '../../../lib/adaptors/window';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import * as assert from 'assert';
+import * as vscode from 'vscode';
 
 suite('CompareSelectionWithClipboardCommand', () => {
 
@@ -18,7 +18,7 @@ suite('CompareSelectionWithClipboardCommand', () => {
     const selectionInfoRegistry = new SelectionInfoRegistry();
 
     test('it compares selected text with clipboard text', async () => {
-        const clipboard = mock(Clipboard);
+        const clipboard = mockMethods<typeof vscode.env.clipboard>(['readText']);
         when(clipboard.readText()).thenResolve('CLIPBOARD_TEXT');
 
         const commandAdaptor = mock(CommandAdaptor);

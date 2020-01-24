@@ -2,7 +2,6 @@ import SaveText1Command from './commands/save-text-1';
 import CompareSelectionWithText1Command from './commands/compare-selection-with-text1';
 import CompareSelectionWithClipboardCommand from './commands/compare-selection-with-clipboard';
 import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
-import Clipboard from './adaptors/clipboard';
 import DiffPresenter from './diff-presenter';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';
@@ -10,6 +9,7 @@ import SelectionInfoRegistry from './selection-info-registry';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
 import {Command} from './commands/command';
+import * as vscode from 'vscode';
 
 export default class CommandFactory {
     private diffPresenter?: DiffPresenter;
@@ -18,7 +18,7 @@ export default class CommandFactory {
                 private readonly normalisationRuleStore: NormalisationRuleStore,
                 private readonly commandAdaptor: CommandAdaptor,
                 private readonly windowAdaptor: WindowAdaptor,
-                private readonly clipboard: Clipboard,
+                private readonly clipboard: typeof vscode.env.clipboard,
                 private readonly getCurrentDate: () => Date) {
     }
 

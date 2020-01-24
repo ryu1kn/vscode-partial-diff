@@ -5,8 +5,8 @@ import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
-import Clipboard from '../../../lib/adaptors/clipboard';
 import * as assert from 'assert';
+import * as vscode from 'vscode';
 
 suite('CompareSelectionWithText1', () => {
 
@@ -25,7 +25,7 @@ suite('CompareSelectionWithText1', () => {
 
     const windowAdaptor = mock(WindowAdaptor);
     const normalisationRuleStore = mock(NormalisationRuleStore);
-    const clipboard = mock(Clipboard);
+    const clipboard = mockType<typeof vscode.env.clipboard>();
 
     test('it saves selected text and takes a diff of 2 texts', async () => {
 

@@ -4,9 +4,9 @@ import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
 import CommandFactory from '../../../lib/command-factory';
 import CommandAdaptor from '../../../lib/adaptors/command';
-import Clipboard from '../../../lib/adaptors/clipboard';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import * as assert from 'assert';
+import * as vscode from 'vscode';
 
 suite('CompareVisibleEditorsCommand', () => {
     const editor1 = mockType<TextEditor>({
@@ -78,7 +78,7 @@ suite('CompareVisibleEditorsCommand', () => {
             mock(NormalisationRuleStore),
             dependencies.commandAdaptor,
             dependencies.windowAdaptor,
-            mock(Clipboard),
+            mockType<typeof vscode.env.clipboard>(),
             () => new Date('2016-06-15T11:43:00Z')
         );
         return {

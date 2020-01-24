@@ -3,11 +3,11 @@ import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import {SavedNormalisationRule} from '../../../lib/types/normalisation-rule';
 import WindowAdaptor from '../../../lib/adaptors/window';
 import CommandFactory from '../../../lib/command-factory';
-import Clipboard from '../../../lib/adaptors/clipboard';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import WorkspaceAdaptor from '../../../lib/adaptors/workspace';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import * as assert from 'assert';
+import * as vscode from 'vscode';
 
 suite('ToggleNormalisationRulesCommand', () => {
 
@@ -48,7 +48,7 @@ suite('ToggleNormalisationRulesCommand', () => {
             normalisationRuleStore,
             mock(CommandAdaptor),
             windowAdaptor,
-            mock(Clipboard),
+            mockType<typeof vscode.env.clipboard>(),
             () => new Date('2016-06-15T11:43:00Z')
         );
         return {
