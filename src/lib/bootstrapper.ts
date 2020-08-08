@@ -39,6 +39,11 @@ export default class Bootstrapper {
                 command: this.commandFactory.createCompareVisibleEditorsCommand()
             },
             {
+                name: `${EXTENSION_NAMESPACE}.diffWithBranch`,
+                type: 'GENERAL',
+                command: this.commandFactory.createCompareWithBranchCommand()
+            },
+            {
                 name: `${EXTENSION_NAMESPACE}.markSection1`,
                 type: 'TEXT_EDITOR',
                 command: this.commandFactory.crateSaveText1Command()

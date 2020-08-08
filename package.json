@@ -28,6 +28,9 @@
   "activationEvents": [
     "*"
   ],
+  "extensionDependencies": [
+    "vscode.git"
+  ],
   "main": "./out/extension",
   "contributes": {
     "configuration": {
@@ -52,6 +55,9 @@
             "diffSelectionWithClipboard": {
               "type": "boolean"
             },
+            "diffWithBranch": {
+              "type": "boolean"
+            },
             "diffVisibleEditors": {
               "type": "boolean"
             },
@@ -63,6 +69,7 @@
             "markSection1": true,
             "markSection2AndTakeDiff": true,
             "diffSelectionWithClipboard": true,
+            "diffWithBranch": true,
             "diffVisibleEditors": true,
             "togglePreComparisonTextNormalizationRules": true
           },
@@ -132,6 +139,11 @@
         "category": "PartialDiff"
       },
       {
+        "command": "extension.partialDiff.diffWithBranch",
+        "title": "Compare Open File with Branch",
+        "category": "PartialDiff"
+      },
+      {
         "command": "extension.partialDiff.diffSelectionWithClipboard",
         "title": "Compare Text with Clipboard",
         "category": "PartialDiff"
@@ -173,6 +185,11 @@
           "command": "extension.partialDiff.togglePreComparisonTextNormalizationRules",
           "group": "2_partialdiff@5",
           "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.togglePreComparisonTextNormalizationRules"
+        },
+        {
+          "command": "extension.partialDiff.diffWithBranch",
+          "group": "2_partialdiff@6",
+          "when": "editorTextFocus && !config.partialDiff.hideCommandsOnContextMenu && config.partialDiff.commandsOnContextMenu.diffWithBranch"
         }
       ]
     }

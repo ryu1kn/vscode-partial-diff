@@ -13,6 +13,10 @@ export default class TextEditor {
         return this.vsEditor.viewColumn!;
     }
 
+    get getText(): string {
+        return this.vsEditor.document.getText();
+    } 
+
     get selectedText(): string {
         const validSelections = this.collectNonEmptySelections(this.vsEditor.selections);
         return this.extractText(validSelections);

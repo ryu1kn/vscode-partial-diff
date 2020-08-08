@@ -1,6 +1,7 @@
 import SaveText1Command from './commands/save-text-1';
 import CompareSelectionWithText1Command from './commands/compare-selection-with-text1';
 import CompareSelectionWithClipboardCommand from './commands/compare-selection-with-clipboard';
+import CompareWithGitBranchCommand from './commands/compare-with-git-branch';
 import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
 import DiffPresenter from './diff-presenter';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
@@ -8,6 +9,7 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
+import GitAdaptor from './adaptors/git';
 import {Command} from './commands/command';
 import * as vscode from 'vscode';
 
@@ -18,6 +20,7 @@ export default class CommandFactory {
                 private readonly normalisationRuleStore: NormalisationRuleStore,
                 private readonly commandAdaptor: CommandAdaptor,
                 private readonly windowAdaptor: WindowAdaptor,
+                private readonly gitAdaptor: GitAdaptor,
                 private readonly clipboard: typeof vscode.env.clipboard,
                 private readonly getCurrentDate: () => Date) {
     }
@@ -31,6 +34,15 @@ export default class CommandFactory {
             this.getDiffPresenter(),
             this.selectionInfoRegistry
         );
+    }
+
+    createCompareWithBranchCommand(): Command {
+       return new CompareWithGitBranchCommand(
+           this.getDiffPresenter(),
+           this.selectionInfoRegistry,
+           this.gitAdaptor,
+           this.windowAdaptor
+       );
     }
 
     createCompareSelectionWithClipboardCommand(): Command {
