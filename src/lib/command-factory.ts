@@ -42,8 +42,7 @@ export default class CommandFactory {
        return new CompareWithGitBranchCommand(
            this.getDiffPresenter(),
            this.selectionInfoRegistry,
-           this.getBranchManager(),
-           this.windowAdaptor
+           this.getBranchManager()
        );
     }
 

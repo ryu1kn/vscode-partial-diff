@@ -9,6 +9,10 @@ export default class TextEditor {
         return basename(this.vsEditor.document.fileName);
     }
 
+    get fileUri(): string {
+        return this.vsEditor.document.fileName;
+    }
+
     get viewColumn(): ViewColumn {
         return this.vsEditor.viewColumn!;
     }

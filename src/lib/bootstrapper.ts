@@ -40,7 +40,7 @@ export default class Bootstrapper {
             },
             {
                 name: `${EXTENSION_NAMESPACE}.diffWithBranch`,
-                type: 'GENERAL',
+                type: 'TEXT_EDITOR',
                 command: this.commandFactory.createCompareWithBranchCommand()
             },
             {

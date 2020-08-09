@@ -3,51 +3,27 @@ import BranchManager from '../branch-manager';
 import SelectionInfoRegistry from '../selection-info-registry';
 import {TextKey} from '../const';
 import {Command} from './command';
-import * as path from 'path';
-import WindowAdaptor from '../adaptors/window';
-
-interface FileDetails {
-    uri: string;
-    name: string;
-    text: string;
-}
+import TextEditor from '../adaptors/text-editor';
 
 export default class CompareWithGitBranchCommand implements Command {
     constructor(private readonly diffPresenter: DiffPresenter,
                 private readonly selectionInfoRegistry: SelectionInfoRegistry,
-                private readonly branchManager: BranchManager,
-                private readonly windowAdaptor: WindowAdaptor) {}
+                private readonly branchManager: BranchManager) {}
 
-    private getActiveFileDetails(): FileDetails {
-        const document = this.windowAdaptor.activeTextEditor.document;
-        const uri = document.fileName; 
-        const text = document.getText();
-
-        const name = path.parse(uri).base;
-
-        return {
-            uri,
-            name,
-            text
-        }
-    }
-
-    async execute() {
+    async execute(editor: TextEditor) {
         const branchNames = await this.branchManager.getLocalBranchNames();
         const branchName = await this.branchManager.selectViaQuickPick(branchNames);
-        const activeFile = await this.getActiveFileDetails();
-
-        const branchText = await this.branchManager.getFileContent(branchName, activeFile.uri);
+        const branchText = await this.branchManager.getFileContent(branchName, editor.fileUri);
 
         this.selectionInfoRegistry.set(TextKey.VISIBLE_EDITOR1, {
-            text: activeFile.text, 
-            fileName: `${activeFile.name} (local)`, 
+            text: editor.getText, 
+            fileName: `${editor.fileName} (local)`, 
             lineRanges: []
         });
 
         this.selectionInfoRegistry.set(TextKey.GIT_BRANCH, {
             text: branchText, 
-            fileName: `${activeFile.name} (${branchName})`, 
+            fileName: `${editor.fileName} (${branchName})`, 
             lineRanges: []
         });
 
