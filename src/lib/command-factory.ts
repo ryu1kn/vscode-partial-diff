@@ -4,6 +4,7 @@ import CompareSelectionWithClipboardCommand from './commands/compare-selection-w
 import CompareWithGitBranchCommand from './commands/compare-with-git-branch';
 import CompareVisibleEditorsCommand from './commands/compare-visible-editors';
 import DiffPresenter from './diff-presenter';
+import BranchManager from './branch-manager';
 import ToggleNormalisationRulesCommand from './commands/toggle-normalisation-rules';
 import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
@@ -15,6 +16,7 @@ import * as vscode from 'vscode';
 
 export default class CommandFactory {
     private diffPresenter?: DiffPresenter;
+    private branchManager?: BranchManager;
 
     constructor(private readonly selectionInfoRegistry: SelectionInfoRegistry,
                 private readonly normalisationRuleStore: NormalisationRuleStore,
@@ -40,7 +42,7 @@ export default class CommandFactory {
        return new CompareWithGitBranchCommand(
            this.getDiffPresenter(),
            this.selectionInfoRegistry,
-           this.gitAdaptor,
+           this.getBranchManager(),
            this.windowAdaptor
        );
     }
@@ -71,6 +73,18 @@ export default class CommandFactory {
     private getDiffPresenter(): DiffPresenter {
         this.diffPresenter = this.diffPresenter || this.createDiffPresenter();
         return this.diffPresenter;
+    }
+
+    private getBranchManager(): BranchManager {
+        this.branchManager = this.branchManager || this.createBranchManager();
+        return this.branchManager;
+    }
+
+    private createBranchManager(): BranchManager {
+        return new BranchManager(
+            this.gitAdaptor,
+            this.windowAdaptor
+        );
     }
 
     private createDiffPresenter(): DiffPresenter {
