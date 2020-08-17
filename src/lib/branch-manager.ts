@@ -17,7 +17,12 @@ export default class BranchManager {
     }
 
     async getFileContent(branchName: string, fileUri: string): Promise<string> {
-        return await this.gitAdaptor.show(branchName, fileUri);
+        try {
+            return await this.gitAdaptor.show(branchName, fileUri);
+        } catch(e) {
+            this.windowAdaptor.showInformationMessage(`file does not exist on ${branchName} branch`);
+            return '';
+        }
     }
 
     async selectViaQuickPick(branchNames: string[]): Promise<string> {
