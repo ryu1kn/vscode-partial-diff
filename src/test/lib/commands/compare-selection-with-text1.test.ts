@@ -5,6 +5,7 @@ import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
+import GitAdapter from '../../../lib/adaptors/git';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
@@ -30,7 +31,8 @@ suite('CompareSelectionWithText1', () => {
     test('it saves selected text and takes a diff of 2 texts', async () => {
 
         const commandAdaptor = mock(CommandAdaptor);
-        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, windowAdaptor, clipboard, () => new Date('2016-06-15T11:43:00Z'));
+        const gitAdapter = mock(GitAdapter);
+        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, windowAdaptor, gitAdapter, clipboard, () => new Date('2016-06-15T11:43:00Z'));
         const command = commandFactory.createCompareSelectionWithText1Command();
 
         await command.execute(editor);

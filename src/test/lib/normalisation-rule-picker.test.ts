@@ -13,7 +13,7 @@ suite('NormalisationRulePicker', () => {
             ]
         )
     )
-        .thenResolve([{label: 'RULE_NAME_2', picked: true, ruleIndex: 1}]);
+        .thenResolve([{label: 'RULE_NAME_2', picked: false, ruleIndex: 1, description: ''}]);
     when(
         windowAdaptor.showQuickPick(
             [
@@ -22,7 +22,7 @@ suite('NormalisationRulePicker', () => {
             ]
         )
     )
-        .thenResolve();
+        .thenResolve(undefined);
     when(
         windowAdaptor.showQuickPick(
             [

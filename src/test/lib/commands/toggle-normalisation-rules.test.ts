@@ -6,6 +6,7 @@ import CommandFactory from '../../../lib/command-factory';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import WorkspaceAdaptor from '../../../lib/adaptors/workspace';
 import CommandAdaptor from '../../../lib/adaptors/command';
+import GitAdapter from '../../../lib/adaptors/git';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
@@ -35,19 +36,26 @@ suite('ToggleNormalisationRulesCommand', () => {
 
     function createCommand(rules: SavedNormalisationRule[]) {
         const workspace = mock(WorkspaceAdaptor);
-        when(workspace.get('preComparisonTextNormalizationRules')).thenReturn(rules);
+        when(workspace.get('preComparisonTextNormalizationRules') as SavedNormalisationRule[]).thenReturn(rules);
         const normalisationRuleStore = new NormalisationRuleStore(workspace);
         const windowAdaptor = mock(WindowAdaptor);
+        const gitAdapter = mock(GitAdapter);
         when(windowAdaptor.showQuickPick([
             {label: 'RULE1', picked: true, ruleIndex: 0, description: ''},
             {label: 'RULE2', picked: true, ruleIndex: 1, description: ''}
-        ])).thenResolve([{ruleIndex: 1}]);
+        ])).thenResolve([{
+            ruleIndex: 1,
+            label: 'RULE2',
+            picked: true,
+            description: ''
+        }]);
 
         const commandFactory = new CommandFactory(
             new SelectionInfoRegistry(),
             normalisationRuleStore,
             mock(CommandAdaptor),
             windowAdaptor,
+            gitAdapter,
             mockType<typeof vscode.env.clipboard>(),
             () => new Date('2016-06-15T11:43:00Z')
         );

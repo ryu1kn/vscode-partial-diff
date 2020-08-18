@@ -9,7 +9,7 @@ suite('NormalisationRuleStore', () => {
 
     setup(() => {
         workspace = mock(WorkspaceAdaptor);
-        when(workspace.get('preComparisonTextNormalizationRules')).thenReturn([
+        when(workspace.get<Object>('preComparisonTextNormalizationRules')).thenReturn([
             {name: 'RULE1', enableOnStart: true},
             {name: 'RULE2', enableOnStart: true},
             {name: 'RULE3', enableOnStart: false},

@@ -7,6 +7,7 @@ import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
+import GitAdapter from '../../../lib/adaptors/git';
 
 suite('CompareSelectionWithClipboardCommand', () => {
 
@@ -16,15 +17,24 @@ suite('CompareSelectionWithClipboardCommand', () => {
         selectedLineRanges: [{start: 5, end: 10}]
     });
     const selectionInfoRegistry = new SelectionInfoRegistry();
-
     test('it compares selected text with clipboard text', async () => {
         const clipboard = mockMethods<typeof vscode.env.clipboard>(['readText']);
-        when(clipboard.readText()).thenResolve('CLIPBOARD_TEXT');
+        const text = clipboard.readText();
+        when(text).thenResolve('CLIPBOARD_TEXT' as Partial<Thenable<string>>);
 
         const commandAdaptor = mock(CommandAdaptor);
         const windowAdaptor = mock(WindowAdaptor);
         const normalisationRuleStore = mock(NormalisationRuleStore);
-        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, windowAdaptor, clipboard, () => new Date('2016-06-15T11:43:00Z'));
+        const gitAdapter = mock(GitAdapter);
+        const commandFactory = new CommandFactory(
+            selectionInfoRegistry,
+            normalisationRuleStore,
+            commandAdaptor,
+            windowAdaptor,
+            gitAdapter,
+            clipboard,
+            () => new Date('2016-06-15T11:43:00Z')
+        );
 
         const command = commandFactory.createCompareSelectionWithClipboardCommand();
 
