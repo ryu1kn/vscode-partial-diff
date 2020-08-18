@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { Repository, Ref, Branch } from '../types/git.d'
+import { Repository, Ref, Branch } from '../types/git.d';
 
 export default class GitAdapter {
     repo: Repository;

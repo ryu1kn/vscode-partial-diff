@@ -1,5 +1,5 @@
 import WindowAdaptor from './adaptors/window';
-import { Ref } from './types/git.d'
+import { Ref } from './types/git.d';
 import GitAdaptor from './adaptors/git';
 import { QuickPickItem } from 'vscode';
 
@@ -32,7 +32,7 @@ export default class BranchManager {
 
     async getLocalBranchNames(): Promise<string[]> {
         if (!this.gitAdaptor.isGitRepo()) {
-            this.windowAdaptor.showInformationMessage("Git repo not found!");
+            this.windowAdaptor.showInformationMessage('Git repo not found!');
         }
         const branches: Ref[] = await this.gitAdaptor.allBranches();
         return branches.map((i:Ref) => i.name || '');
