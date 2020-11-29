@@ -16,7 +16,7 @@ __*/**/*
 .nyc_output/**/*
 .nycrc
 .travis.yml
-cli-test-mocha.opts
+.mocharc.json
 out/**/*.map
 out/test/**/*
 tsconfig.json
