@@ -9,9 +9,17 @@ export default class TextEditor {
         return basename(this.vsEditor.document.fileName);
     }
 
+    get fileUri(): string {
+        return this.vsEditor.document.fileName;
+    }
+
     get viewColumn(): ViewColumn {
         return this.vsEditor.viewColumn!;
     }
+
+    get getText(): string {
+        return this.vsEditor.document.getText();
+    } 
 
     get selectedText(): string {
         const validSelections = this.collectNonEmptySelections(this.vsEditor.selections);

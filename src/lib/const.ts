@@ -8,6 +8,7 @@ export const TextKey = {
     REGISTER1: 'reg1',
     REGISTER2: 'reg2',
     CLIPBOARD: 'clipboard',
+    GIT_BRANCH: 'gitbranch',
     VISIBLE_EDITOR1: 'visible1',
     VISIBLE_EDITOR2: 'visible2'
 };

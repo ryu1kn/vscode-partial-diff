@@ -7,6 +7,7 @@ import CommandAdaptor from '../../../lib/adaptors/command';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
+import GitAdapter from '../../../lib/adaptors/git';
 
 suite('CompareVisibleEditorsCommand', () => {
     const editor1 = mockType<TextEditor>({
@@ -71,13 +72,15 @@ suite('CompareVisibleEditorsCommand', () => {
         const dependencies = {
             windowAdaptor: mockMethods<WindowAdaptor>(['showInformationMessage'], {visibleTextEditors}),
             selectionInfoRegistry: new SelectionInfoRegistry(),
-            commandAdaptor: mock(CommandAdaptor)
+            commandAdaptor: mock(CommandAdaptor),
+            gitAdapter: mock(GitAdapter)
         };
         const commandFactory = new CommandFactory(
             dependencies.selectionInfoRegistry,
             mock(NormalisationRuleStore),
             dependencies.commandAdaptor,
             dependencies.windowAdaptor,
+            dependencies.gitAdapter,
             mockType<typeof vscode.env.clipboard>(),
             () => new Date('2016-06-15T11:43:00Z')
         );

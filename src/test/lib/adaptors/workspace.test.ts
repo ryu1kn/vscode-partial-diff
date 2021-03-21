@@ -7,8 +7,10 @@ import {WorkspaceConfiguration} from 'vscode';
 suite('WorkspaceAdaptor', () => {
     test('it reads text normalisation rules from vscode.workspace', () => {
         const extensionConfig = mockMethods<WorkspaceConfiguration>(['get']);
+        const Rules = <Partial<Promise<never>>> 'RULES';
+
         when(extensionConfig.get('preComparisonTextNormalizationRules')).thenReturn(
-            'RULES'
+            Rules
         );
 
         const workspace = mockMethods<typeof vscode.workspace>(['getConfiguration']);

@@ -8,10 +8,13 @@ export default class WindowAdaptor {
     get visibleTextEditors(): TextEditor[] {
         return this.window.visibleTextEditors.map((editor: VsTextEditor) => new TextEditor(editor));
     }
+    get activeTextEditor(): any {
+        return this.window.activeTextEditor;
+    } 
 
-    async showQuickPick<T extends QuickPickItem>(items: T[]): Promise<T[] | undefined> {
+    async showQuickPick<T extends QuickPickItem>(items: T[], canPickMany: boolean = true): Promise<T[] | undefined> {
         // @ts-ignore
-        return this.window.showQuickPick(items, {canPickMany: true});
+        return this.window.showQuickPick(items, {canPickMany});
     }
 
     async showInformationMessage(message: string): Promise<string | undefined> {
