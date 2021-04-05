@@ -1,3 +1,4 @@
+.github/**/*
 .vscode/**/*
 src/**/*
 coverage/**/*
@@ -17,8 +18,9 @@ __*/**/*
 .nycrc
 .travis.yml
 .mocharc.json
-out/**/*.map
-out/test/**/*
+out/**/*
+node_modules/**/*
 tsconfig.json
 tslint.json
 tag-release.sh
+webpack.config.js

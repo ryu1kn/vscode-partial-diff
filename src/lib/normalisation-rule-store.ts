@@ -1,7 +1,7 @@
 import WorkspaceAdaptor from './adaptors/workspace';
 import {LoadedNormalisationRule, SavedNormalisationRule} from './types/normalisation-rule';
-import isEqual = require('lodash.isequal');
-import omit = require('lodash.omit');
+const isEqual = require('lodash.isequal');
+const omit = require('lodash.omit');
 
 const clone = (value: any) => JSON.parse(JSON.stringify(value));
 
