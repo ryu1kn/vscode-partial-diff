@@ -192,7 +192,7 @@
   "dependencies": {
     "lodash.isequal": "4.5.0",
     "lodash.omit": "4.5.0",
-    "vscode-extension-telemetry": "0.0.18"
+    "vscode-extension-telemetry": "^0.1.7"
   },
   "devDependencies": {
     "@types/lodash.isequal": "^4.5.5",
