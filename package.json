@@ -181,6 +181,7 @@
     "coverage": "nyc mocha",
     "compile:dev": "webpack --mode development",
     "compile:prod": "rm -rf dist && webpack --mode production",
+    "compile:test:it": "tsc -p ./",
     "lint": "tslint -p .",
     "watch": "yarn run compile:dev -- --watch",
     "prep": "yarn run compile:prod && yarn run lint && yarn test",
