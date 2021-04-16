@@ -97,7 +97,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 * Added the extension icon (thanks to @tauri_34 !)
 
-### [0.0.2] - 2016-06-11
+## [0.0.2] - 2016-06-11
 ### Fixed
 * Fix the problem that the gif animation is not shown
 
