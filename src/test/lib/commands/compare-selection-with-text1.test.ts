@@ -42,8 +42,8 @@ suite('CompareSelectionWithText1', () => {
         });
         verify(commandAdaptor.executeCommand(
             'vscode.diff',
-            'partialdiff:text/reg1?_ts=1465990980000',
-            'partialdiff:text/reg2?_ts=1465990980000',
+            'partialdiff:text/FILE1?key=reg1&_ts=1465990980000',
+            'partialdiff:text/FILE2?key=reg2&_ts=1465990980000',
             'FILE1 (ll.21-26) ↔ FILE2 (ll.6-11)'
         ));
     });
