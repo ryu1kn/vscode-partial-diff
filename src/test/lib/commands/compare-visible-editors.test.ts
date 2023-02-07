@@ -38,8 +38,8 @@ suite('CompareVisibleEditorsCommand', () => {
         });
         verify(deps.commandAdaptor.executeCommand(
             'vscode.diff',
-            'partialdiff:text/visible1?_ts=1465990980000',
-            'partialdiff:text/visible2?_ts=1465990980000',
+            'partialdiff:text/FILE1?key=visible1&_ts=1465990980000',
+            'partialdiff:text/FILE2?key=visible2&_ts=1465990980000',
             'FILE1 (ll.6-11) ↔ FILE2 (ll.16-21)'
         ));
     });

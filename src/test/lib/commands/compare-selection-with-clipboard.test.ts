@@ -42,8 +42,8 @@ suite('CompareSelectionWithClipboardCommand', () => {
         });
         verify(commandAdaptor.executeCommand(
             'vscode.diff',
-            'partialdiff:text/clipboard?_ts=1465990980000',
-            'partialdiff:text/reg2?_ts=1465990980000',
+            'partialdiff:text/Clipboard?key=clipboard&_ts=1465990980000',
+            'partialdiff:text/FILE2?key=reg2&_ts=1465990980000',
             'Clipboard ↔ FILE2 (ll.6-11)'
         ));
     });

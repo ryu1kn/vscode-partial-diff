@@ -21,12 +21,12 @@ suite('ContentProvider', () => {
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
 
         test('it extracts text key from the given uri and uses it to retrieve text', () => {
-            const uri = mockType<vscode.Uri>({path: 'text/key1'});
+            const uri = mockType<vscode.Uri>({path: 'text/file.txt', query: 'key=key1'});
             assert.deepEqual(contentProvider.provideTextDocumentContent(uri), 'TEXT:1');
         });
 
         test('it returns an empty string if a text is not yet selected', () => {
-            const uri = mockType<vscode.Uri>({path: 'text/keyNotExist'});
+            const uri = mockType<vscode.Uri>({path: 'text/file.txt', query: 'key=keyNotExist'});
             assert.deepEqual(contentProvider.provideTextDocumentContent(uri), '');
         });
     });
@@ -36,7 +36,7 @@ suite('ContentProvider', () => {
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
 
         test('it returns the registered text as is', () => {
-            const uri = mockType<vscode.Uri>({path: 'text/key1'});
+            const uri = mockType<vscode.Uri>({path: 'text/file.txt', query: 'key=key1'});
             assert.deepEqual(contentProvider.provideTextDocumentContent(uri), 'TEXT_1');
         });
     });
