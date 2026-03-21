@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx tslint --project . --format stylish 2>&1 | head -20"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -qE '\"file_path\".*(/yarn\\.lock|/dist/)'; then echo 'BLOCK: Do not edit yarn.lock or dist/ directly'; exit 2; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
