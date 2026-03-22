@@ -22,5 +22,14 @@
         ]
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "WebFetch(domain:www.jsdocs.io)",
+      "WebFetch(domain:snyk.io)"
+    ]
   }
 }

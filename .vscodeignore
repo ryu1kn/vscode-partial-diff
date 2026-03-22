@@ -1,5 +1,7 @@
+.claude/**/*
 .github/**/*
 .vscode/**/*
+CLAUDE*.md
 src/**/*
 coverage/**/*
 images/public.gif

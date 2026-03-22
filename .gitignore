@@ -1,6 +1,8 @@
 /node_modules
 /coverage
 /dist
+/.claude/**/*.local.*
+/CLAUDE.local.md
 /.nyc_output
 /out
 /partial-diff-*.vsix
