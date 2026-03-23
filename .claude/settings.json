@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_ENV_FILE": ".claude/.env"
+  },
   "hooks": {
     "PostToolUse": [
       {
@@ -25,11 +28,31 @@
   },
   "permissions": {
     "allow": [
-      "WebSearch",
-      "WebFetch(domain:www.npmjs.com)",
+      "Bash(corepack --version)",
+      "Bash(find:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh release view:*)",
+      "Bash(gh search:*)",
+      "Bash(git checkout:*)",
+      "Bash(grep:*)",
+      "Bash(mise current:*)",
+      "Bash(mise install:*)",
+      "Bash(mise ls:*)",
+      "Bash(mise where:*)",
+      "Bash(yarn --version)",
+      "Bash(yarn install:*)",
+      "Bash(yarn run compile:*)",
+      "Bash(yarn run lint:*)",
+      "Bash(yarn run prep:*)",
+      "Bash(yarn test:*)",
       "WebFetch(domain:code.visualstudio.com)",
+      "WebFetch(domain:snyk.io)",
       "WebFetch(domain:www.jsdocs.io)",
-      "WebFetch(domain:snyk.io)"
+      "WebFetch(domain:www.npmjs.com)",
+      "WebSearch"
     ]
   }
 }
