@@ -8,14 +8,14 @@ A VS Code extension ("Partial Diff") that lets users compare text selections wit
 
 ## Commands
 
-- `yarn test` — run all tests (mocha, TDD style)
-- `yarn test --grep "pattern"` — run a single test by name
-- `yarn run lint` — tslint
-- `yarn run compile:dev` — webpack dev build
-- `yarn run compile:prod` — clean + webpack prod build (output: `dist/extension.js`)
-- `yarn run watch` — webpack dev build in watch mode
-- `yarn run prep` — full pre-PR check (compile:prod + lint + test)
-- `yarn run coverage` — nyc coverage report
+- `npm test` — run all tests (mocha, TDD style)
+- `npm test -- --grep "pattern"` — run a single test by name
+- `npm run lint` — tslint
+- `npm run compile:dev` — webpack dev build
+- `npm run compile:prod` — clean + webpack prod build (output: `dist/extension.js`)
+- `npm run watch` — webpack dev build in watch mode
+- `npm run prep` — full pre-PR check (compile:prod + lint + test)
+- `npm run coverage` — nyc coverage report
 
 ## Architecture
 

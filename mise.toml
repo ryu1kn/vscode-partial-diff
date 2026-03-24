@@ -1,3 +1,2 @@
 [tools]
-yarn = "1.22.22"
-node = "12"
+node = "22"

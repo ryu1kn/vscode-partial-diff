@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if echo \"$TOOL_INPUT\" | grep -qE '\"file_path\".*(/yarn\\.lock|/dist/)'; then echo 'BLOCK: Do not edit yarn.lock or dist/ directly'; exit 2; fi"
+            "command": "if echo \"$TOOL_INPUT\" | grep -qE '\"file_path\".*(/package-lock\\.json|/dist/)'; then echo 'BLOCK: Do not edit package-lock.json or dist/ directly'; exit 2; fi"
           }
         ]
       }
@@ -42,12 +42,13 @@
       "Bash(mise install:*)",
       "Bash(mise ls:*)",
       "Bash(mise where:*)",
-      "Bash(yarn --version)",
-      "Bash(yarn install:*)",
-      "Bash(yarn run compile:*)",
-      "Bash(yarn run lint:*)",
-      "Bash(yarn run prep:*)",
-      "Bash(yarn test:*)",
+      "Bash(npm --version)",
+      "Bash(npm ci:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run compile:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run prep:*)",
+      "Bash(npm test:*)",
       "WebFetch(domain:code.visualstudio.com)",
       "WebFetch(domain:snyk.io)",
       "WebFetch(domain:www.jsdocs.io)",

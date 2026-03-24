@@ -183,11 +183,11 @@
     "compile:prod": "rm -rf dist && webpack --mode production",
     "compile:test:it": "tsc -p ./",
     "lint": "tslint -p .",
-    "watch": "yarn run compile:dev -- --watch",
-    "prep": "yarn run compile:prod && yarn run lint && yarn test",
+    "watch": "npm run compile:dev -- --watch",
+    "prep": "npm run compile:prod && npm run lint && npm test",
     "test": "mocha",
     "test-mode": "mocha --watch",
-    "vscode:prepublish": "yarn run compile:prod",
+    "vscode:prepublish": "npm run compile:prod",
     "vscode:postpublish": "./tag-release.sh"
   },
   "dependencies": {
@@ -199,7 +199,7 @@
     "@types/lodash.isequal": "^4.5.5",
     "@types/lodash.omit": "^4.5.6",
     "@types/mocha": "^8.0.4",
-    "@types/node": "^12.14.1",
+    "@types/node": "^22.0.0",
     "@types/vscode": "^1.51.0",
     "codeclimate-test-reporter": "^0.5.1",
     "mocha": "^8.2.1",
@@ -211,8 +211,5 @@
     "typescript": "^4.1.2",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0"
-  },
-  "resolutions": {
-    "**/json5/**/minimist": "^1.2.5"
   }
 }

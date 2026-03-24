@@ -6,6 +6,6 @@ disable-model-invocation: true
 
 Run tests for this project.
 
-- If an argument is given, use it as the --grep pattern: `yarn test --grep "<argument>"`
-- If no argument, run all tests: `yarn test`
+- If an argument is given, use it as the --grep pattern: `npm test -- --grep "<argument>"`
+- If no argument, run all tests: `npm test`
 - On failure, analyze the output and suggest fixes

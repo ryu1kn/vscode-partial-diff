@@ -6,8 +6,7 @@ src/**/*
 coverage/**/*
 images/public.gif
 npm-debug.log
-yarn.lock
-yarn-error.log
+package-lock.json
 __*
 __*/**/*
 .codeclimate.yml
