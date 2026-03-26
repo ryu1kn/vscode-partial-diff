@@ -7,7 +7,7 @@ import DiffTitleBuilder from './diff-title-builder';
 export default class DiffPresenter {
     private readonly diffTitleBuilder: DiffTitleBuilder;
 
-    constructor(selectionInfoRegistry: SelectionInfoRegistry,
+    constructor(private readonly selectionInfoRegistry: SelectionInfoRegistry,
                 normalisationRuleStore: NormalisationRuleStore,
                 private readonly commandAdaptor: CommandAdaptor,
                 private readonly getCurrentDate: () => Date) {
@@ -17,7 +17,8 @@ export default class DiffPresenter {
     }
 
     takeDiff(textKey1: string, textKey2: string): Promise<{} | undefined> {
-        const getUri = (textKey: string) => makeUriString(textKey, this.getCurrentDate());
+        const getFileName = (textKey: string) => this.selectionInfoRegistry.get(textKey).fileName;
+        const getUri = (textKey: string) => makeUriString(textKey, getFileName(textKey), this.getCurrentDate());
         const title = this.diffTitleBuilder.build(textKey1, textKey2);
         return this.commandAdaptor.executeCommand('vscode.diff', getUri(textKey1), getUri(textKey2), title);
     }

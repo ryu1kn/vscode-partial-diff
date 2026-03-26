@@ -23,8 +23,8 @@ suite('DiffPresenter', () => {
 
         verify(commandAdaptor.executeCommand(
             'vscode.diff',
-            'partialdiff:text/TEXT1?_ts=1465990980000',
-            'partialdiff:text/TEXT2?_ts=1465990980000',
+            'partialdiff:text/FILE1?key=TEXT1&_ts=1465990980000',
+            'partialdiff:text/FILE2?key=TEXT2&_ts=1465990980000',
             'FILE1 \u2194 FILE2'
         ));
     });
