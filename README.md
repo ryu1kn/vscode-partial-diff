@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ryu1kn/vscode-partial-diff.svg?branch=master)](https://travis-ci.org/ryu1kn/vscode-partial-diff)
+[![CI](https://img.shields.io/github/actions/workflow/status/ryu1kn/vscode-partial-diff/ci.yml?branch=main&label=CI)](https://github.com/ryu1kn/vscode-partial-diff/actions/workflows/ci.yml)
 [![Code Climate](https://codeclimate.com/github/ryu1kn/vscode-partial-diff/badges/gpa.svg)](https://codeclimate.com/github/ryu1kn/vscode-partial-diff)
 
 # Partial Diff

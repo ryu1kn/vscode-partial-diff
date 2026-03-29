@@ -17,7 +17,6 @@ __*/**/*
 .nvmrc
 .nyc_output/**/*
 .nycrc
-.travis.yml
 .mocharc.json
 out/**/*
 node_modules/**/*

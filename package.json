@@ -201,7 +201,6 @@
     "@types/mocha": "^8.0.4",
     "@types/node": "^22.0.0",
     "@types/vscode": "^1.51.0",
-    "codeclimate-test-reporter": "^0.5.1",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "testdouble": "^3.13.1",
