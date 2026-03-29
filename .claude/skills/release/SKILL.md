@@ -58,7 +58,10 @@ Guide the user through cutting a release of the Partial Diff extension. The argu
 
 ### 8. Publish
 
-- Remind the user they need a Personal Access Token for the VS Code Marketplace if they haven't set one up.
-- Run `npx @vscode/vsce publish` — this triggers `vscode:prepublish` (production build) and uploads to the VS Code Marketplace.
+- Remind the user they need Personal Access Tokens for both the VS Code Marketplace and Open VSX if they haven't set them up.
+- **VS Code Marketplace:**
+  - Run `npx @vscode/vsce publish` — this triggers `vscode:prepublish` (production build) and uploads to the VS Code Marketplace.
 - Run `npm run vscode:postpublish` to create and push the git tag. Note: `vsce publish` does NOT run `postpublish` automatically.
+- **Open VSX:**
+  - Run `npx ovsx publish partial-diff-<version>.vsix` — reuses the .vsix already built by `vsce publish`.
 - Push the release commit: `git push origin main`
