@@ -5,6 +5,10 @@ All notable changes to "Partial Diff" extension will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.4] - 2026-03-29
+### Changed
+- Updated Webpack to restore extension packaging and publishing.
+
 ## [1.4.3] - 2021-04-15
 ### Changed
 - Improved the extension startup time by bundling js files into one. 10 times average has improved from 154ms to 7.8ms (95% reduced). [#46](https://github.com/ryu1kn/vscode-partial-diff/issues/46)
