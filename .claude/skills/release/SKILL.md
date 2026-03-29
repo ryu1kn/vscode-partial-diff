@@ -3,7 +3,7 @@ name: release
 description: Cut a new release of the Partial Diff VS Code extension - guides through version bump, changelog, validation, and publish
 ---
 
-Guide the user through cutting a release of the Partial Diff extension. The argument, if given, is the new version number (e.g. `1.4.4`). If omitted, ask the user.
+Guide the user through cutting a release of the Partial Diff extension. The argument, if given, is the bump level (`major`, `minor`, or `patch`). If omitted, ask the user.
 
 ## Execution rules
 
@@ -16,11 +16,11 @@ Guide the user through cutting a release of the Partial Diff extension. The argu
 
 - Run `git log v<current-version>..HEAD --oneline` to list commits since the last release.
 - Summarise the user-facing changes (skip purely internal/CI/tooling commits unless they affect the shipped package).
-- Confirm the new version number with the user.
+- Confirm the bump level (major/minor/patch) with the user.
 
 ### 2. Bump version
 
-- Update `version` in `package.json` and `package-lock.json`.
+- Run `npm version <major|minor|patch> --no-git-tag-version`. This updates both `package.json` and `package-lock.json`.
 
 ### 3. Update CHANGELOG.md
 
@@ -53,14 +53,12 @@ Guide the user through cutting a release of the Partial Diff extension. The argu
 
 ### 7. Commit
 
-- Stage `package.json` and `CHANGELOG.md`.
-- Commit with message: `Release v<version>`
+- Stage `package.json`, `package-lock.json`, and `CHANGELOG.md`.
+- Commit with message: `Bump up version to v<version>`
 
 ### 8. Publish
 
 - Remind the user they need a Personal Access Token for the VS Code Marketplace if they haven't set one up.
-- Run `npx @vscode/vsce publish` — this triggers:
-  - `vscode:prepublish` (production build)
-  - Upload to VS Code Marketplace
-  - `vscode:postpublish` → `tag-release.sh` (creates and pushes git tag `v<version>`)
-- After publish completes, push the release commit: `git push origin main`
+- Run `npx @vscode/vsce publish` — this triggers `vscode:prepublish` (production build) and uploads to the VS Code Marketplace.
+- Run `npm run vscode:postpublish` to create and push the git tag. Note: `vsce publish` does NOT run `postpublish` automatically.
+- Push the release commit: `git push origin main`
