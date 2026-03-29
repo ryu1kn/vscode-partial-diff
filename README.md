@@ -1,5 +1,3 @@
-[![CI](https://img.shields.io/github/actions/workflow/status/ryu1kn/vscode-partial-diff/ci.yml?branch=main&label=CI)](https://github.com/ryu1kn/vscode-partial-diff/actions/workflows/ci.yml)
-
 # Partial Diff
 
 ## Features
@@ -53,7 +51,7 @@ A couple of requests from me when you raise an github issue.
 * `partialDiff.commandsOnContextMenu` (default: `{"markSection1": true, ...}`, all commands visible)
 
     Commands appear on the context menu. Unlisted commands will still appear.
-   
+
     For example, if you don't want to see *Compare Text in Visible Editors* command (Command ID: `extension.partialDiff.diffVisibleEditors`)
     on the context menu, you can set this setting as follows:
 
@@ -106,7 +104,7 @@ A couple of requests from me when you raise an github issue.
 * `partialDiff.enableTelemetry` (default: `true`)
 
     Allow the extension usage data to be sent to the extension author.
-    
+
     Partial Diff sends usage data only when **both** `partialDiff.enableTelemetry` and
     [`telemetry.enableTelemetry`](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting)
     are set to `true`.
