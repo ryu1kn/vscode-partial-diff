@@ -9,7 +9,6 @@ npm-debug.log
 package-lock.json
 __*
 __*/**/*
-.codeclimate.yml
 .editorconfig
 .gitattributes
 .gitignore
