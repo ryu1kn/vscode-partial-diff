@@ -187,6 +187,8 @@
     "prep": "npm run compile:prod && npm run lint && npm test",
     "test": "mocha",
     "test-mode": "mocha --watch",
+    "test:e2e:vscode": "npx @vscode/vsce package && code --install-extension partial-diff-$(jq -r .version package.json).vsix",
+    "test:e2e:cursor": "npx @vscode/vsce package && cursor --install-extension partial-diff-$(jq -r .version package.json).vsix",
     "vscode:prepublish": "npm run compile:prod",
     "vscode:postpublish": "./tag-release.sh"
   },
