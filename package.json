@@ -195,13 +195,19 @@
     "lodash.omit": "4.5.0",
     "vscode-extension-telemetry": "^0.1.7"
   },
+  "overrides": {
+    "mocha": {
+      "diff": "8.0.4",
+      "serialize-javascript": "7.0.5"
+    }
+  },
   "devDependencies": {
     "@types/lodash.isequal": "^4.5.5",
     "@types/lodash.omit": "^4.5.6",
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^22.0.0",
     "@types/vscode": "^1.51.0",
-    "mocha": "^8.2.1",
+    "mocha": "^11.7.5",
     "nyc": "^15.1.0",
     "testdouble": "^3.13.1",
     "ts-loader": "^8.1.0",
