@@ -9,7 +9,7 @@
   "bugs": {
     "url": "https://github.com/ryu1kn/vscode-partial-diff/issues"
   },
-  "homepage": "https://github.com/ryu1kn/vscode-partial-diff/blob/master/README.md",
+  "homepage": "https://github.com/ryu1kn/vscode-partial-diff/blob/main/README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/ryu1kn/vscode-partial-diff.git"

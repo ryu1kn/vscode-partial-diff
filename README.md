@@ -8,7 +8,7 @@
 * User defined text normalization rules can be toggled off without removing them from the configuration.
 * Compare text in 2 visible editors (i.e. tabs) with one action.
 
-![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/master/images/public.gif)
+![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/main/images/public.gif)
 
 ## Request Features or Report Bugs
 
@@ -133,7 +133,7 @@ You can quickly mark the selected text by adding the `partial-diff` commands to 
 
 ## Changelog
 
-* https://github.com/ryu1kn/vscode-partial-diff/blob/master/CHANGELOG.md
+* https://github.com/ryu1kn/vscode-partial-diff/blob/main/CHANGELOG.md
 
 ## How to Contribute
 
