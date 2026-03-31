@@ -5,6 +5,10 @@ All notable changes to "Partial Diff" extension will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.5] - 2026-04-01
+### Fixed
+- Fixed broken GitHub links that still referenced the old `master` branch instead of `main`. (thanks to @shlomiassaf [#103](https://github.com/ryu1kn/vscode-partial-diff/issues/103))
+
 ## [1.4.4] - 2026-03-29
 ### Changed
 - Updated Webpack to restore extension packaging and publishing.
