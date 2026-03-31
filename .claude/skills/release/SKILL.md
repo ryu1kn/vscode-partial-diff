@@ -10,7 +10,7 @@ Guide the user through cutting a release of the Partial Diff extension. The argu
 1. Before starting, create a task for each step below using TaskCreate.
 2. Work through the tasks strictly in order. Mark each task `in_progress` when starting and `completed` when done.
 3. Do NOT skip, reorder, or combine steps.
-4. At each step, confirm with the user before moving to the next.
+4. At each step, confirm with the user before moving to the next. Use the format `Ready to <next step>? (y/N)` so the user can reply with a single character.
 
 ### 1. Determine scope
 
@@ -26,6 +26,7 @@ Guide the user through cutting a release of the Partial Diff extension. The argu
 
 - Add a new entry at the top following the existing Keep a Changelog format.
 - Only include changes relevant to users. Infrastructure-only changes can be omitted or summarised briefly.
+- Reference related issues/PRs with links. If the change was reported or contributed by an external user, use the `(thanks to @user [#N](url))` format (see existing entries for examples).
 - Use today's date.
 
 ### 4. Run pre-publish checks
