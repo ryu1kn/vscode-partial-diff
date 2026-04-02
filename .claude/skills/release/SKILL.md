@@ -24,7 +24,7 @@ Guide the user through cutting a release of the Partial Diff extension. The argu
 
 ### 3. Update CHANGELOG.md
 
-- Add a new entry at the top following the existing Keep a Changelog format.
+- Add a new entry at the top following the existing Keep a Changelog format. Valid change types are: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`. Do NOT invent other types.
 - Only include changes relevant to users. Infrastructure-only changes can be omitted or summarised briefly.
 - Reference related issues/PRs with links. If the change was reported or contributed by an external user, use the `(thanks to @user [#N](url))` format (see existing entries for examples).
 - Use today's date.
