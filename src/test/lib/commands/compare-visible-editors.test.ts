@@ -60,11 +60,28 @@ suite('CompareVisibleEditorsCommand', () => {
         });
     });
 
-    test('it tells you that it needs 2 visible editors', async () => {
+    test('it tells you that it needs 2 visible editors when fewer are open', async () => {
         const {command, deps} = createCommand([editor1]);
         await command.execute();
 
-        verify(deps.windowAdaptor.showInformationMessage('Please first open 2 documents to compare.'));
+        verify(deps.windowAdaptor.showInformationMessage(
+            'This command requires exactly 2 visible editors, but 1 is/are currently open. Please split your editor to show 2 files (either horizontally or vertically) and try again.'
+        ));
+    });
+
+    test('it tells you that it needs 2 visible editors when more than 2 are open', async () => {
+        const editor3 = mockType<TextEditor>({
+            viewColumn: 3,
+            selectedText: 'SELECTED_TEXT_3',
+            fileName: 'FILE3',
+            selectedLineRanges: [{start: 25, end: 30}]
+        });
+        const {command, deps} = createCommand([editor1, editor2, editor3]);
+        await command.execute();
+
+        verify(deps.windowAdaptor.showInformationMessage(
+            'This command requires exactly 2 visible editors, but 3 is/are currently open. Please split your editor to show 2 files (either horizontally or vertically) and try again.'
+        ));
     });
 
     function createCommand(visibleTextEditors: TextEditor[]) {

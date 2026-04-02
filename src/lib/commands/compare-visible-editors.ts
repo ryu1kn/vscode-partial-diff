@@ -13,7 +13,9 @@ export default class CompareVisibleEditorsCommand implements Command {
     async execute() {
         const editors = this.windowAdaptor.visibleTextEditors;
         if (editors.length !== 2) {
-            this.windowAdaptor.showInformationMessage('Please first open 2 documents to compare.');
+            this.windowAdaptor.showInformationMessage(
+                `This command requires exactly 2 visible editors, but ${editors.length} is/are currently open. Please split your editor to show 2 files (either horizontally or vertically) and try again.`
+            );
             return;
         }
 

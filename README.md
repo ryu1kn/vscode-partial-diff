@@ -6,7 +6,7 @@
 * Multi cursor text selection.
 * User defined text normalization rules to reduce the noise in the diff (e.g. replace tab characters to spaces).
 * User defined text normalization rules can be toggled off without removing them from the configuration.
-* Compare text in 2 visible editors (i.e. tabs) with one action.
+* Compare text in 2 visible editors in a split view with one action.
 
 ![Compare two text selections](https://raw.githubusercontent.com/ryu1kn/vscode-partial-diff/main/images/public.gif)
 
@@ -35,7 +35,7 @@ A couple of requests from me when you raise an github issue.
 
 * `Compare Text in Visible Editors` (**Command ID:** `extension.partialDiff.diffVisibleEditors`)
 
-    Compares text in 2 visible editors.
+    Compares text in 2 visible editors. Split your editor to show exactly 2 files before running this command.
 
 * `Toggle Pre-Comparison Text Normalization Rules` (**Command ID:** `extension.partialDiff.togglePreComparisonTextNormalizationRules`)
 
