@@ -2,6 +2,7 @@
 /coverage
 /dist
 /.claude/**/*.local.*
+/.git-worktrees/**/*
 /CLAUDE.local.md
 /.nyc_output
 /out

@@ -1,6 +1,7 @@
 .agents/**/*
 .codex/**/*
 .claude/**/*
+.git-worktrees/**/*
 .github/**/*
 .vscode/**/*
 AGENTS*.md

@@ -17,6 +17,11 @@ A VS Code extension ("Partial Diff") that lets users compare text selections wit
 - `npm run prep` — full pre-PR check (compile:prod + lint + test)
 - `npm run coverage` — nyc coverage report
 
+## Git Worktrees
+
+- Store git worktrees under `.git-worktrees/<branch_name>` relative to the repository root.
+- `<branch_name>` must not contain `/`. Use a slash-free branch name when creating worktrees.
+
 ## Architecture
 
 **Entry flow:** `src/extension.ts` → `BootstrapperFactory` → `Bootstrapper` → registers commands and content provider with VS Code.
