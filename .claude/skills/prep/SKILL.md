@@ -1,7 +1,6 @@
 ---
 name: prep
 description: Run full pre-PR validation (compile, lint, test) and report any issues
-disable-model-invocation: true
 ---
 
 Run the full pre-PR check: `npm run prep`

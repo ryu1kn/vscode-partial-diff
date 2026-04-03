@@ -26,5 +26,4 @@ node_modules/**/*
 tools/**/*
 tsconfig.json
 tslint.json
-tag-release.sh
 webpack.config.js
