@@ -1,6 +1,9 @@
+.agents/**/*
+.codex/**/*
 .claude/**/*
 .github/**/*
 .vscode/**/*
+AGENTS*.md
 CLAUDE*.md
 src/**/*
 coverage/**/*
@@ -20,6 +23,7 @@ __*/**/*
 out/**/*
 mise.toml
 node_modules/**/*
+tools/**/*
 tsconfig.json
 tslint.json
 tag-release.sh
