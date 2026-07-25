@@ -210,7 +210,7 @@
     "@types/node": "^22.0.0",
     "@types/vscode": "^1.51.0",
     "mocha": "^11.7.5",
-    "nyc": "^15.1.0",
+    "nyc": "^18.0.0",
     "testdouble": "^3.13.1",
     "ts-loader": "^8.1.0",
     "ts-node": "^9.0.0",
