@@ -4,6 +4,8 @@ export const EXTENSION_NAMESPACE = 'extension.partialDiff';
 
 export const EXTENSION_SCHEME = 'partialdiff';
 
+export const EDITABLE_DIFF_SCHEME = 'partialdiff-editable';
+
 export const TextKey = {
     REGISTER1: 'reg1',
     REGISTER2: 'reg2',

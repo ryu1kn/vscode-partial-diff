@@ -8,6 +8,8 @@ import NormalisationRuleStore from './normalisation-rule-store';
 import SelectionInfoRegistry from './selection-info-registry';
 import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
+import WorkspaceAdaptor from './adaptors/workspace';
+import EditableDiffSessionManager from './editable-diff-session-manager';
 import {Command} from './commands/command';
 import * as vscode from 'vscode';
 
@@ -16,8 +18,10 @@ export default class CommandFactory {
 
     constructor(private readonly selectionInfoRegistry: SelectionInfoRegistry,
                 private readonly normalisationRuleStore: NormalisationRuleStore,
+                private readonly workspaceAdaptor: WorkspaceAdaptor,
                 private readonly commandAdaptor: CommandAdaptor,
                 private readonly windowAdaptor: WindowAdaptor,
+                private readonly editableDiffSessionManager: EditableDiffSessionManager,
                 private readonly clipboard: typeof vscode.env.clipboard,
                 private readonly getCurrentDate: () => Date) {
     }
@@ -65,7 +69,10 @@ export default class CommandFactory {
         return new DiffPresenter(
             this.selectionInfoRegistry,
             this.normalisationRuleStore,
+            this.workspaceAdaptor,
             this.commandAdaptor,
+            this.windowAdaptor,
+            this.editableDiffSessionManager,
             this.getCurrentDate
         );
     }

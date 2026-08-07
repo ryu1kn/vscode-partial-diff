@@ -9,6 +9,9 @@ import CommandAdaptor from './adaptors/command';
 import WindowAdaptor from './adaptors/window';
 import {NullVsTelemetryReporter, VsTelemetryReporterCreator} from './telemetry-reporter';
 import VsTelemetryReporter from 'vscode-extension-telemetry';
+import EditableDiffSessionManager from './editable-diff-session-manager';
+import ApplyBackService from './apply-back-service';
+import EditableDiffFileSystemProvider from './editable-diff-file-system-provider';
 
 export default class BootstrapperFactory {
     private workspaceAdaptor?: WorkspaceAdaptor;
@@ -19,16 +22,34 @@ export default class BootstrapperFactory {
         const workspaceAdaptor = this.getWorkspaceAdaptor();
         const commandAdaptor = new CommandAdaptor(vscode.commands, vscode.Uri.parse, logger);
         const normalisationRuleStore = new NormalisationRuleStore(workspaceAdaptor);
+        const windowAdaptor = new WindowAdaptor(vscode.window);
+        const applyBackService = new ApplyBackService(workspaceAdaptor, windowAdaptor, 400);
+        const editableDiffSessionManager = new EditableDiffSessionManager(
+            selectionInfoRegistry,
+            workspaceAdaptor,
+            commandAdaptor,
+            applyBackService
+        );
+        const editableDiffFileSystemProvider = new EditableDiffFileSystemProvider();
         const commandFactory = new CommandFactory(
             selectionInfoRegistry,
             normalisationRuleStore,
+            workspaceAdaptor,
             commandAdaptor,
-            new WindowAdaptor(vscode.window),
+            windowAdaptor,
+            editableDiffSessionManager,
             vscode.env.clipboard,
             () => new Date()
         );
         const contentProvider = new ContentProvider(selectionInfoRegistry, normalisationRuleStore);
-        return new Bootstrapper(commandFactory, contentProvider, workspaceAdaptor, commandAdaptor);
+        return new Bootstrapper(
+            commandFactory,
+            contentProvider,
+            editableDiffFileSystemProvider,
+            workspaceAdaptor,
+            commandAdaptor,
+            editableDiffSessionManager
+        );
     }
 
     private getWorkspaceAdaptor() {

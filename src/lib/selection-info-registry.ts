@@ -9,11 +9,21 @@ export default class SelectionInfoRegistry {
     }
 
     set(key: string, textInfo: SelectionInfo): void {
-        this.data[key] = {
+        const normalised: SelectionInfo = {
             text: textInfo.text,
             fileName: textInfo.fileName,
             lineRanges: textInfo.lineRanges || []
         };
+        if (textInfo.sourceUri) {
+            normalised.sourceUri = textInfo.sourceUri;
+        }
+        if (textInfo.targetKind) {
+            normalised.targetKind = textInfo.targetKind;
+        }
+        if (textInfo.selectionRange) {
+            normalised.selectionRange = textInfo.selectionRange;
+        }
+        this.data[key] = normalised;
     }
 
     get(key: string): SelectionInfo {

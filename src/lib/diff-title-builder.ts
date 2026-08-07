@@ -15,10 +15,10 @@ export default class DiffTitleBuilder {
         this.textTitleBuilder = new TextTitleBuilder();
     }
 
-    build(textKey1: string, textKey2: string): string {
+    build(textKey1: string, textKey2: string, useNormalisedSymbol = true): string {
         const title1 = this.buildTextTitle(textKey1);
         const title2 = this.buildTextTitle(textKey2);
-        const comparisonSymbol = this.normalisationRuleStore.hasActiveRules
+        const comparisonSymbol = useNormalisedSymbol && this.normalisationRuleStore.hasActiveRules
             ? DiffModeSymbols.NORMALISED
             : DiffModeSymbols.AS_IS;
         return `${title1} ${comparisonSymbol} ${title2}`;

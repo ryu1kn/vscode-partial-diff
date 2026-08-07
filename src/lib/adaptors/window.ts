@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import TextEditor from './text-editor';
 import {QuickPickItem, TextEditor as VsTextEditor} from 'vscode';
+import {SelectionRange} from '../types/selection-info';
 
 export default class WindowAdaptor {
     constructor(private readonly window: typeof vscode.window) {}
@@ -16,5 +17,22 @@ export default class WindowAdaptor {
 
     async showInformationMessage(message: string): Promise<string | undefined> {
         return this.window.showInformationMessage(message);
+    }
+
+    async showWarningMessage(message: string, ...actions: string[]): Promise<string | undefined> {
+        return this.window.showWarningMessage(message, ...actions);
+    }
+
+    setSelectionInVisibleEditor(uri: vscode.Uri, selectionRange: SelectionRange): void {
+        const editor = this.window.visibleTextEditors
+            .find(visibleEditor => visibleEditor.document.uri.toString() === uri.toString());
+        if (!editor) {
+            return;
+        }
+        const selection = new vscode.Selection(
+            new vscode.Position(selectionRange.startLine, selectionRange.startChar),
+            new vscode.Position(selectionRange.endLine, selectionRange.endChar)
+        );
+        editor.selections = [selection];
     }
 }

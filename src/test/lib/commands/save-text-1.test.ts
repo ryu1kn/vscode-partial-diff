@@ -20,7 +20,8 @@ suite('SelectText1Command', () => {
         assert.deepEqual(selectionInfoRegistry.get('reg1'), {
             text: 'SELECTED_TEXT',
             fileName: 'FILENAME',
-            lineRanges: 'SELECTED_RANGE'
+            lineRanges: 'SELECTED_RANGE',
+            targetKind: 'selection'
         });
     });
 });

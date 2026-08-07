@@ -5,6 +5,8 @@ import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import TextEditor from '../../../lib/adaptors/text-editor';
 import WindowAdaptor from '../../../lib/adaptors/window';
+import WorkspaceAdaptor from '../../../lib/adaptors/workspace';
+import EditableDiffSessionManager from '../../../lib/editable-diff-session-manager';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
@@ -13,7 +15,9 @@ suite('CompareSelectionWithText1', () => {
     const editor = mockType<TextEditor>({
         selectedText: 'SELECTED_TEXT',
         fileName: 'FILE2',
-        selectedLineRanges: [{start: 5, end: 10}]
+        uri: 'file:///2',
+        selectedLineRanges: [{start: 5, end: 10}],
+        singleSelectionRange: {startLine: 5, startChar: 0, endLine: 10, endChar: 1}
     });
 
     const selectionInfoRegistry = new SelectionInfoRegistry();
@@ -30,7 +34,16 @@ suite('CompareSelectionWithText1', () => {
     test('it saves selected text and takes a diff of 2 texts', async () => {
 
         const commandAdaptor = mock(CommandAdaptor);
-        const commandFactory = new CommandFactory(selectionInfoRegistry, normalisationRuleStore, commandAdaptor, windowAdaptor, clipboard, () => new Date('2016-06-15T11:43:00Z'));
+        const commandFactory = new CommandFactory(
+            selectionInfoRegistry,
+            normalisationRuleStore,
+            mock(WorkspaceAdaptor),
+            commandAdaptor,
+            windowAdaptor,
+            mock(EditableDiffSessionManager),
+            clipboard,
+            () => new Date('2016-06-15T11:43:00Z')
+        );
         const command = commandFactory.createCompareSelectionWithText1Command();
 
         await command.execute(editor);
@@ -38,7 +51,10 @@ suite('CompareSelectionWithText1', () => {
         assert.deepEqual(selectionInfoRegistry.get('reg2'), {
             fileName: 'FILE2',
             lineRanges: [{'start': 5, 'end': 10}],
-            text: 'SELECTED_TEXT'
+            text: 'SELECTED_TEXT',
+            sourceUri: 'file:///2',
+            targetKind: 'selection',
+            selectionRange: {startLine: 5, startChar: 0, endLine: 10, endChar: 1}
         });
         verify(commandAdaptor.executeCommand(
             'vscode.diff',

@@ -6,6 +6,7 @@ import CommandFactory from '../../../lib/command-factory';
 import SelectionInfoRegistry from '../../../lib/selection-info-registry';
 import WorkspaceAdaptor from '../../../lib/adaptors/workspace';
 import CommandAdaptor from '../../../lib/adaptors/command';
+import EditableDiffSessionManager from '../../../lib/editable-diff-session-manager';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
@@ -46,8 +47,10 @@ suite('ToggleNormalisationRulesCommand', () => {
         const commandFactory = new CommandFactory(
             new SelectionInfoRegistry(),
             normalisationRuleStore,
+            workspace,
             mock(CommandAdaptor),
             windowAdaptor,
+            mock(EditableDiffSessionManager),
             mockType<typeof vscode.env.clipboard>(),
             () => new Date('2016-06-15T11:43:00Z')
         );
