@@ -15,12 +15,16 @@ export default class CompareSelectionWithClipboardCommand implements Command {
         this.selectionInfoRegistry.set(TextKey.CLIPBOARD, {
             text,
             fileName: 'Clipboard',
-            lineRanges: []
+            lineRanges: [],
+            targetKind: 'clipboard'
         });
         this.selectionInfoRegistry.set(TextKey.REGISTER2, {
             text: editor.selectedText,
             fileName: editor.fileName,
-            lineRanges: editor.selectedLineRanges
+            lineRanges: editor.selectedLineRanges,
+            sourceUri: editor.uri,
+            targetKind: editor.selectedLineRanges.length === 0 ? 'document' : 'selection',
+            selectionRange: editor.singleSelectionRange
         });
 
         await this.diffPresenter.takeDiff(TextKey.CLIPBOARD, TextKey.REGISTER2);

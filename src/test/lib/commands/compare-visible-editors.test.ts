@@ -5,6 +5,8 @@ import WindowAdaptor from '../../../lib/adaptors/window';
 import CommandFactory from '../../../lib/command-factory';
 import CommandAdaptor from '../../../lib/adaptors/command';
 import NormalisationRuleStore from '../../../lib/normalisation-rule-store';
+import WorkspaceAdaptor from '../../../lib/adaptors/workspace';
+import EditableDiffSessionManager from '../../../lib/editable-diff-session-manager';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
@@ -13,13 +15,17 @@ suite('CompareVisibleEditorsCommand', () => {
         viewColumn: 1,
         selectedText: 'SELECTED_TEXT_1',
         fileName: 'FILE1',
-        selectedLineRanges: [{start: 5, end: 10}]
+        uri: 'file:///1',
+        selectedLineRanges: [{start: 5, end: 10}],
+        singleSelectionRange: {startLine: 5, startChar: 0, endLine: 10, endChar: 1}
     });
     const editor2 = mockType<TextEditor>({
         viewColumn: 2,
         selectedText: 'SELECTED_TEXT_2',
         fileName: 'FILE2',
-        selectedLineRanges: [{start: 15, end: 20}]
+        uri: 'file:///2',
+        selectedLineRanges: [{start: 15, end: 20}],
+        singleSelectionRange: {startLine: 15, startChar: 0, endLine: 20, endChar: 1}
     });
 
     test('it compares 2 visible editors', async () => {
@@ -29,12 +35,18 @@ suite('CompareVisibleEditorsCommand', () => {
         assert.deepEqual(deps.selectionInfoRegistry.get('visible1'), {
             text: 'SELECTED_TEXT_1',
             fileName: 'FILE1',
-            lineRanges: [{start: 5, end: 10}]
+            lineRanges: [{start: 5, end: 10}],
+            sourceUri: 'file:///1',
+            targetKind: 'selection',
+            selectionRange: {startLine: 5, startChar: 0, endLine: 10, endChar: 1}
         });
         assert.deepEqual(deps.selectionInfoRegistry.get('visible2'), {
             text: 'SELECTED_TEXT_2',
             fileName: 'FILE2',
-            lineRanges: [{start: 15, end: 20}]
+            lineRanges: [{start: 15, end: 20}],
+            sourceUri: 'file:///2',
+            targetKind: 'selection',
+            selectionRange: {startLine: 15, startChar: 0, endLine: 20, endChar: 1}
         });
         verify(deps.commandAdaptor.executeCommand(
             'vscode.diff',
@@ -51,12 +63,18 @@ suite('CompareVisibleEditorsCommand', () => {
         assert.deepEqual(deps.selectionInfoRegistry.get('visible1'), {
             text: 'SELECTED_TEXT_1',
             fileName: 'FILE1',
-            lineRanges: [{start: 5, end: 10}]
+            lineRanges: [{start: 5, end: 10}],
+            sourceUri: 'file:///1',
+            targetKind: 'selection',
+            selectionRange: {startLine: 5, startChar: 0, endLine: 10, endChar: 1}
         });
         assert.deepEqual(deps.selectionInfoRegistry.get('visible2'), {
             text: 'SELECTED_TEXT_2',
             fileName: 'FILE2',
-            lineRanges: [{start: 15, end: 20}]
+            lineRanges: [{start: 15, end: 20}],
+            sourceUri: 'file:///2',
+            targetKind: 'selection',
+            selectionRange: {startLine: 15, startChar: 0, endLine: 20, endChar: 1}
         });
     });
 
@@ -74,7 +92,9 @@ suite('CompareVisibleEditorsCommand', () => {
             viewColumn: 3,
             selectedText: 'SELECTED_TEXT_3',
             fileName: 'FILE3',
-            selectedLineRanges: [{start: 25, end: 30}]
+            uri: 'file:///3',
+            selectedLineRanges: [{start: 25, end: 30}],
+            singleSelectionRange: {startLine: 25, startChar: 0, endLine: 30, endChar: 1}
         });
         const {command, deps} = createCommand([editor1, editor2, editor3]);
         await command.execute();
@@ -93,8 +113,10 @@ suite('CompareVisibleEditorsCommand', () => {
         const commandFactory = new CommandFactory(
             dependencies.selectionInfoRegistry,
             mock(NormalisationRuleStore),
+            mock(WorkspaceAdaptor),
             dependencies.commandAdaptor,
             dependencies.windowAdaptor,
+            mock(EditableDiffSessionManager),
             mockType<typeof vscode.env.clipboard>(),
             () => new Date('2016-06-15T11:43:00Z')
         );
