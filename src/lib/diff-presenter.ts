@@ -31,8 +31,14 @@ export default class DiffPresenter {
                 );
             } else {
                 const title = this.diffTitleBuilder.build(textKey1, textKey2, false);
-                await this.editableDiffSessionManager.openDiff(textKey1, textKey2, title);
-                return;
+                try {
+                    await this.editableDiffSessionManager.openDiff(textKey1, textKey2, title);
+                    return;
+                } catch (error) {
+                    // The editable diff relies on an internal workbench command; if it
+                    // changes or disappears, degrade to the read-only diff silently.
+                    console.warn('Failed to open an editable diff. Falling back to read-only diff.', error);
+                }
             }
         }
         const getUri = (textKey: string) => makeUriString(textKey, this.getCurrentDate());

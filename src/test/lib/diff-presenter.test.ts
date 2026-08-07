@@ -58,6 +58,34 @@ suite('DiffPresenter', () => {
         verify(editableDiffSessionManager.openDiff('TEXT1', 'TEXT2', 'FILE1 ↔ FILE2'));
     });
 
+    test('it falls back to read-only diff when the editable diff fails to open', async () => {
+        const commandAdaptor = mock(CommandAdaptor);
+        const workspaceAdaptor = mock(WorkspaceAdaptor);
+        when(workspaceAdaptor.get('enableEditableDiffs')).thenReturn(true);
+        const editableDiffSessionManager = mock(EditableDiffSessionManager);
+        when(editableDiffSessionManager.openDiff('TEXT1', 'TEXT2', 'FILE1 ↔ FILE2'))
+            .thenReject(new Error('_workbench.diff not found'));
+
+        const diffPresenter = new DiffPresenter(
+            selectionInfoRegistry,
+            mock(NormalisationRuleStore),
+            workspaceAdaptor,
+            commandAdaptor,
+            mock(WindowAdaptor),
+            editableDiffSessionManager,
+            () => new Date('2016-06-15T11:43:00Z')
+        );
+
+        await diffPresenter.takeDiff('TEXT1', 'TEXT2');
+
+        verify(commandAdaptor.executeCommand(
+            'vscode.diff',
+            'partialdiff:text/TEXT1?_ts=1465990980000',
+            'partialdiff:text/TEXT2?_ts=1465990980000',
+            'FILE1 ↔ FILE2'
+        ));
+    });
+
     test('it falls back to read-only diff for multi-selection compare', async () => {
         const multiSelectionRegistry = new SelectionInfoRegistry();
         multiSelectionRegistry.set('TEXT1', {
