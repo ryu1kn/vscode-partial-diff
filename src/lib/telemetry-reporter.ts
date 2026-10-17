@@ -11,10 +11,8 @@ export class TelemetryReporterLocator {
 
     static load(packageConfPath: string, reporterCreator: VsTelemetryReporterCreator): void {
         const packageInfo = JSON.parse(fs.readFileSync(packageConfPath, 'utf8'));
-        const extensionId = `${packageInfo.publisher}.${packageInfo.name}`;
-        const extensionVersion = packageInfo.version;
         const key = packageInfo.telemetryKey;
-        const vsTelemetryReporter = reporterCreator(extensionId, extensionVersion, key);
+        const vsTelemetryReporter = reporterCreator(key);
         TelemetryReporterLocator.telemetryReporter = new TelemetryReporter(vsTelemetryReporter);
     }
 
@@ -39,7 +37,7 @@ export class TelemetryReporter {
     }
 }
 
-export type VsTelemetryReporterCreator = (extensionId: string, extensionVersion: string, telemetryKey: string) => VsTelemetryReporterLike;
+export type VsTelemetryReporterCreator = (telemetryKey: string) => VsTelemetryReporterLike;
 
 export class NullVsTelemetryReporter implements VsTelemetryReporterLike {
     sendTelemetryEvent(_eventName: string, _properties?: ObjectMap<string>, _measurements?: ObjectMap<number>): void {
