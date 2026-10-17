@@ -1,7 +1,6 @@
 import WorkspaceAdaptor from './adaptors/workspace';
 import {LoadedNormalisationRule, SavedNormalisationRule} from './types/normalisation-rule';
 const isEqual = require('lodash.isequal');
-const omit = require('lodash.omit');
 
 const clone = (value: any) => JSON.parse(JSON.stringify(value));
 
@@ -19,10 +18,8 @@ export default class NormalisationRuleStore {
     }
 
     private resetRuleStatus(rules: SavedNormalisationRule[]): LoadedNormalisationRule[] {
-        return rules.map(rule =>
-            Object.assign({}, omit(rule, ['enableOnStart']), {
-                active: rule.enableOnStart !== false
-            })
+        return rules.map(({enableOnStart, ...rule}) =>
+            Object.assign({}, rule, {active: enableOnStart !== false})
         );
     }
 
