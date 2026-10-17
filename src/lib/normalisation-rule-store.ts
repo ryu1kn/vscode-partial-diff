@@ -1,6 +1,6 @@
 import WorkspaceAdaptor from './adaptors/workspace';
 import {LoadedNormalisationRule, SavedNormalisationRule} from './types/normalisation-rule';
-const isEqual = require('lodash.isequal');
+import {isDeepStrictEqual} from 'util';
 const omit = require('lodash.omit');
 
 const clone = (value: any) => JSON.parse(JSON.stringify(value));
@@ -28,7 +28,7 @@ export default class NormalisationRuleStore {
 
     getAllRules(): LoadedNormalisationRule[] {
         const newBaseRules = this.workspace.get<SavedNormalisationRule[]>('preComparisonTextNormalizationRules');
-        if (!isEqual(newBaseRules, this.baseRules)) {
+        if (!isDeepStrictEqual(clone(newBaseRules), this.baseRules)) {
             this.setupRules(newBaseRules);
         }
         return this.rules!;
